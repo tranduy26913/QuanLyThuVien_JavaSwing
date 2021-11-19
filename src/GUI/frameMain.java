@@ -63,6 +63,12 @@ public class frameMain extends JFrame {
 		btnTabSach.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JButton btnTabDocGia = new JButton("\u0110\u1ED9c gi\u1EA3");
+		btnTabDocGia.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				
+			}
+		});
 		btnTabDocGia.setIcon(new ImageIcon(frameMain.class.getResource("/icon/10207-man-student-light-skin-tone-icon-64.png")));
 		btnTabDocGia.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnTabDocGia.setHorizontalTextPosition(SwingConstants.CENTER);

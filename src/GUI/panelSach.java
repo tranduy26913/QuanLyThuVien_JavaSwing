@@ -22,6 +22,8 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import java.awt.BorderLayout;
+import javax.swing.JSeparator;
+import java.awt.Color;
 
 public class panelSach extends JPanel {
 	private JTextField textField;
@@ -34,6 +36,8 @@ public class panelSach extends JPanel {
 	private JTable tableDauSach;
 	private JTextField textField_4;
 	private JTextField textField_5;
+	private JTextField textField_6;
+	private JTextField textField_7;
 
 	/**
 	 * Create the panel.
@@ -45,60 +49,6 @@ public class panelSach extends JPanel {
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		add(tabbedPane);
-
-		JPanel panel_tabSach = new JPanel();
-		panel_tabSach.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		tabbedPane.addTab("S\u00E1ch", null, panel_tabSach, null);
-		panel_tabSach.setLayout(null);
-		
-		textField_4 = new JTextField();
-		textField_4.setColumns(10);
-		textField_4.setBounds(930, 11, 205, 25);
-		panel_tabSach.add(textField_4);
-		
-		JLabel lblMSch = new JLabel("M\u00E3 S\u00E1ch");
-		lblMSch.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblMSch.setBounds(830, 11, 102, 25);
-		panel_tabSach.add(lblMSch);
-		
-		JLabel lblTaSch_1 = new JLabel("T\u1EF1a s\u00E1ch");
-		lblTaSch_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblTaSch_1.setBounds(830, 47, 92, 25);
-		panel_tabSach.add(lblTaSch_1);
-		
-		textField_5 = new JTextField();
-		textField_5.setColumns(10);
-		textField_5.setBounds(930, 47, 205, 25);
-		panel_tabSach.add(textField_5);
-		
-		JLabel lblNhXutBn_1 = new JLabel("Nh\u00E0 xu\u1EA5t b\u1EA3n");
-		lblNhXutBn_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNhXutBn_1.setBounds(830, 83, 117, 25);
-		panel_tabSach.add(lblNhXutBn_1);
-		
-		JButton btnThemNXB_1_1 = new JButton("Th\u00EAm");
-		btnThemNXB_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnThemNXB_1_1.setBounds(878, 143, 110, 40);
-		panel_tabSach.add(btnThemNXB_1_1);
-		
-		JButton btnSuaNXB_1_1 = new JButton("S\u1EEDa");
-		btnSuaNXB_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnSuaNXB_1_1.setBounds(998, 143, 110, 40);
-		panel_tabSach.add(btnSuaNXB_1_1);
-		
-		JButton btnXoaNXB_1_1 = new JButton("Xo\u00E1");
-		btnXoaNXB_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnXoaNXB_1_1.setBounds(878, 194, 110, 40);
-		panel_tabSach.add(btnXoaNXB_1_1);
-		
-		JButton btnTimNXB_1_1 = new JButton("T\u00ECm");
-		btnTimNXB_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnTimNXB_1_1.setBounds(998, 194, 110, 40);
-		panel_tabSach.add(btnTimNXB_1_1);
-		
-		JComboBox cBNXB_1 = new JComboBox();
-		cBNXB_1.setBounds(930, 83, 205, 25);
-		panel_tabSach.add(cBNXB_1);
 		
 				JPanel panel_tabDauSach = new JPanel();
 				panel_tabDauSach.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -158,6 +108,27 @@ public class panelSach extends JPanel {
 																								tableDauSach = new JTable();
 																								tableDauSach.setBounds(10, 11, 810, 477);
 																								panel_tabDauSach.add(tableDauSach);
+																								
+																								JSeparator separator = new JSeparator();
+																								separator.setBackground(Color.WHITE);
+																								separator.setForeground(Color.LIGHT_GRAY);
+																								separator.setBounds(819, 329, 326, 10);
+																								panel_tabDauSach.add(separator);
+																								
+																								textField_7 = new JTextField();
+																								textField_7.setColumns(10);
+																								textField_7.setBounds(930, 385, 128, 25);
+																								panel_tabDauSach.add(textField_7);
+																								
+																								JLabel lblTaSch_2 = new JLabel("S\u1ED1 l\u01B0\u1EE3ng");
+																								lblTaSch_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
+																								lblTaSch_2.setBounds(830, 385, 97, 25);
+																								panel_tabDauSach.add(lblTaSch_2);
+																								
+																								JButton btnThemNXB_1_1 = new JButton("Th\u00EAm S\u00E1ch");
+																								btnThemNXB_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+																								btnThemNXB_1_1.setBounds(940, 415, 110, 40);
+																								panel_tabDauSach.add(btnThemNXB_1_1);
 		
 		
 		JPanel panel_tabNXB = new JPanel();
@@ -231,6 +202,46 @@ public class panelSach extends JPanel {
 		btnTimNXB.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnTimNXB.setBounds(972, 278, 110, 40);
 		panel_tabNXB.add(btnTimNXB);
+		
+				JPanel panel_tabSach = new JPanel();
+				panel_tabSach.setFont(new Font("Tahoma", Font.PLAIN, 14));
+				tabbedPane.addTab("S\u00E1ch", null, panel_tabSach, null);
+				panel_tabSach.setLayout(null);
+				
+				textField_4 = new JTextField();
+				textField_4.setColumns(10);
+				textField_4.setBounds(930, 11, 102, 25);
+				panel_tabSach.add(textField_4);
+				
+				JLabel lblMSch = new JLabel("M\u00E3 S\u00E1ch");
+				lblMSch.setFont(new Font("Tahoma", Font.PLAIN, 14));
+				lblMSch.setBounds(830, 11, 102, 25);
+				panel_tabSach.add(lblMSch);
+				
+				JLabel lblTaSch_1 = new JLabel("T\u1EF1a s\u00E1ch");
+				lblTaSch_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+				lblTaSch_1.setBounds(830, 47, 92, 25);
+				panel_tabSach.add(lblTaSch_1);
+				
+				textField_5 = new JTextField();
+				textField_5.setColumns(10);
+				textField_5.setBounds(930, 47, 205, 25);
+				panel_tabSach.add(textField_5);
+				
+				JLabel lblNhXutBn_1 = new JLabel("Nh\u00E0 xu\u1EA5t b\u1EA3n");
+				lblNhXutBn_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+				lblNhXutBn_1.setBounds(830, 83, 117, 25);
+				panel_tabSach.add(lblNhXutBn_1);
+				
+				JButton btnTimNXB_1_1 = new JButton("T\u00ECm");
+				btnTimNXB_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+				btnTimNXB_1_1.setBounds(1042, 12, 93, 24);
+				panel_tabSach.add(btnTimNXB_1_1);
+				
+				textField_6 = new JTextField();
+				textField_6.setColumns(10);
+				textField_6.setBounds(930, 83, 205, 25);
+				panel_tabSach.add(textField_6);
 
 	}
 	
