@@ -11,6 +11,11 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
+import javax.swing.ImageIcon;
+import javax.swing.SwingConstants;
+import java.awt.Component;
+import java.awt.Color;
+import javax.swing.JSeparator;
 
 public class frameMain extends JFrame {
 
@@ -38,54 +43,47 @@ public class frameMain extends JFrame {
 	public frameMain() {
 		setTitle("Main");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 423, 189);
+		setBounds(100, 100, 1200, 700);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JButton btnLaptop = new JButton("Laptop");
-		btnLaptop.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnLaptop.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				try {
-					new frameLaptop();
-				} catch (ClassNotFoundException | SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			}
-		});
-		btnLaptop.setBounds(10, 44, 110, 30);
-		contentPane.add(btnLaptop);
+		JPanel panel = new JPanel();
+		panel.setBounds(10, 0, 1164, 135);
+		contentPane.add(panel);
+		panel.setLayout(null);
 		
-		JButton btnKhachHng = new JButton("Kh\u00E1ch h\u00E0ng");
-		btnKhachHng.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnKhachHng.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				try {
-					new frameKhachHang();
-				} catch (Exception e2) {
-					// TODO: handle exception
-				}
-			}
-		});
-		btnKhachHng.setBounds(138, 44, 110, 30);
-		contentPane.add(btnKhachHng);
+		JButton btnTabSach = new JButton("S\u00E1ch");
+		btnTabSach.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnTabSach.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnTabSach.setBounds(10, 35, 100, 100);
+		panel.add(btnTabSach);
+		btnTabSach.setIcon(new ImageIcon(frameMain.class.getResource("/icon/Actions-document-edit-icon-48.png")));
+		btnTabSach.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
-		JButton btnDonHang = new JButton("\u0110\u01A1n h\u00E0ng");
-		btnDonHang.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnDonHang.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				try {
-					new frameDonHang();
-				} catch (Exception e2) {
-					// TODO: handle exception
-				}
-			}
-		});
-		btnDonHang.setBounds(258, 44, 110, 30);
-		contentPane.add(btnDonHang);
+		JButton btnTabDocGia = new JButton("\u0110\u1ED9c gi\u1EA3");
+		btnTabDocGia.setIcon(new ImageIcon(frameMain.class.getResource("/icon/10207-man-student-light-skin-tone-icon-64.png")));
+		btnTabDocGia.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnTabDocGia.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnTabDocGia.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnTabDocGia.setBounds(120, 35, 100, 100);
+		panel.add(btnTabDocGia);
+		
+		JSeparator separator = new JSeparator();
+		separator.setBounds(120, 35, -11, 100);
+		panel.add(separator);
+		
+		JPanel panelMain = new JPanel();
+		panelMain.setBackground(new Color(0, 255, 127));
+		panelMain.setBounds(10, 140, 1164, 501);
+		contentPane.add(panelMain);
+		
+		panelSach panel_Sach=new panelSach();
+		panel_Sach.setVisible(true);
+		panelMain.setLayout(new BorderLayout(0, 0));
+		panelMain.add(panel_Sach);
+		
+		
 	}
-
 }
