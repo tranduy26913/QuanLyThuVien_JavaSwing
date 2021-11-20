@@ -1,5 +1,5 @@
 eclipse.preferences.version=1
 encoding//src/GUI/Program.java=UTF-8
 encoding//src/GUI/frameKhachHang.java=UTF-8
-encoding//src/GUI/frameLaptop.java=UTF-8
-encoding//src/Model/Laptop.java=UTF-8
+encoding//src/GUI/panelSach.java=UTF-8
+encoding//src/Model/DauSach.java=UTF-8

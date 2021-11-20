@@ -18,8 +18,6 @@ import javax.swing.table.DefaultTableModel;
 
 import Model.KhachHang;
 import Model.KhachHangDAO;
-import Model.Laptop;
-import Model.LaptopDAO;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
