@@ -3,8 +3,8 @@ package Model;
 public class NXB {
 	private String maNXB;
 	private String tenNXB;
-	private String diaChi;
-	private String soDT;
+	private String diaChi="";
+	private String soDT="";
 	public String getMaNXB() {
 		return maNXB;
 	}
