@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import DAO.DBConnection;
 
 public class NXBDAO {
-	public void Insert(NXB nxb) throws ClassNotFoundException, SQLException {
+	public boolean Insert(NXB nxb) throws ClassNotFoundException, SQLException {
 		Connection con=DBConnection.getConnection();
 		String sql = "INSERT INTO NXB VALUES(?, ?, ?,?)";
 		PreparedStatement pstm = con.prepareStatement(sql);
@@ -17,22 +17,34 @@ public class NXBDAO {
 		pstm.setString(2, nxb.getTenNXB());
 		pstm.setString(3, nxb.getDiaChi());
 		pstm.setString(4, nxb.getSoDT());
-		pstm.execute();
-		System.out.println("Thành công");
+		return pstm.execute();
 		
 	}
 	
-	public void Update(DauSach sp) throws ClassNotFoundException, SQLException {
+	public boolean Update(NXB nxb) throws ClassNotFoundException, SQLException {
 		Connection con=DBConnection.getConnection();
-		String sql = "UPDATE DauSach SET Tua=?, MaNXB=? where maSach=?";
+		String sql = "UPDATE NXB SET TenNXB=?, DiaChi=?, SoDT=? where MaNXB=?";
 		PreparedStatement pstm = con.prepareStatement(sql);
 		
-		pstm.setString(1, sp.getTua());
-		pstm.setString(2, sp.getTua());
-		pstm.setString(3, sp.getMaSach());
-		pstm.executeUpdate();
-		System.out.println("Thành công");
+		pstm.setString(1, nxb.getTenNXB());
+		pstm.setString(2, nxb.getDiaChi());
+		pstm.setString(3, nxb.getSoDT());
+		pstm.setString(4, nxb.getMaNXB());
+		if( pstm.executeUpdate()>0)
+			return true;
+		return false;
 		
+	}
+	
+	public boolean Delete(NXB nxb) throws ClassNotFoundException, SQLException {
+		Connection con=DBConnection.getConnection();
+		String sql = "Delete from NXB where MaNXB=?";
+		PreparedStatement pstm = con.prepareStatement(sql);
+		
+		pstm.setString(1, nxb.getMaNXB());
+		if( pstm.executeUpdate()>0)
+			return true;
+		return false;
 	}
 	
 	public NXB GetNXBFromMaNXB(String manxb) throws ClassNotFoundException, SQLException {

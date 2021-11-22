@@ -30,6 +30,12 @@ public class NXB {
 		this.soDT = soDT;
 	}
 	
+	public NXB(String tenNXB,String diaChi,String sdt) {
+		this.tenNXB=tenNXB;
+		this.diaChi=diaChi;
+		this.soDT=sdt;
+	}
+	
 	public NXB(String maNXB,String tenNXB,String diaChi,String sdt) {
 		this.maNXB=maNXB;
 		this.tenNXB=tenNXB;

@@ -36,8 +36,11 @@ public class frameLogin extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					frameLogin frame = new frameLogin();
-					frame.setVisible(true);
+					//frameLogin frame = new frameLogin();
+					//frame.setVisible(true);
+					frameMain frameMain=new frameMain();
+					frameMain.setVisible(true);
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -120,9 +123,7 @@ public class frameLogin extends JFrame {
 			if(dao.Login(acc)) {
 				if(typeUser.equals("TT")) {
 					frameMain f=new frameMain();
-					
 					f.setVisible(true);
-					
 				}
 				else {
 					//

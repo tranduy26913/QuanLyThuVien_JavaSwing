@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.StringJoiner;
 import java.awt.Font;
 import java.awt.List;
 
@@ -18,9 +17,9 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import Model.DauSachDAO;
-import Model.KhachHang;
 import Model.NXB;
 import Model.NXBDAO;
+import Model.*;
 
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -39,6 +38,7 @@ import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.nio.channels.CompletionHandler;
 
 public class panelSach extends JPanel {
 	private JTextField txtMaNXB;
@@ -129,6 +129,8 @@ public class panelSach extends JPanel {
 		panel_tabDauSach.add(scrollPane);
 
 		tableDauSach = new JTable();
+		tableDauSach.setFillsViewportHeight(true);
+		tableDauSach.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tableDauSach.addMouseListener(new ClickCellTableDauSach());//sự kiện click chọn row
 		scrollPane.setViewportView(tableDauSach);
 		InitTableDauSach();
@@ -232,16 +234,31 @@ public class panelSach extends JPanel {
 		InitTableNXB();// Khởi tạo bảng NXB
 
 		JButton btnThemNXB = new JButton("Th\u00EAm");
+		btnThemNXB.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ThemNXB();
+			}
+		});
 		btnThemNXB.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnThemNXB.setBounds(877, 227, 110, 40);
 		panel_tabNXB.add(btnThemNXB);
 
 		JButton btnSuaNXB = new JButton("S\u1EEDa");
+		btnSuaNXB.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				SuaNXB();
+			}
+		});
 		btnSuaNXB.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnSuaNXB.setBounds(997, 227, 110, 40);
 		panel_tabNXB.add(btnSuaNXB);
 
 		JButton btnXoaNXB = new JButton("Xo\u00E1");
+		btnXoaNXB.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				XoaNXB();
+			}
+		});
 		btnXoaNXB.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnXoaNXB.setBounds(877, 278, 110, 40);
 		panel_tabNXB.add(btnXoaNXB);
@@ -390,7 +407,85 @@ public class panelSach extends JPanel {
 
 	}
 	
+	private void ThemNXB() {
+		try {
+			if(txtMaNXB.getText().isEmpty()||txtTenNXB.getText().isEmpty()||txtDCNXB.getText().isEmpty()||txtSDTNXB.getText().isEmpty()) {
+				Alert.ShowMessageWarn("Vui lòng điền dầy đủ thông tin", "Nhà xuất bản");
+				return;
+			}
+			NXB nxb=new NXB(txtMaNXB.getText(),txtTenNXB.getText(),txtDCNXB.getText(),txtSDTNXB.getText());
+			NXBDAO dao=new NXBDAO();
+			if(dao.Insert(nxb))
+				Alert.ShowMessageInfo("Thêm nhà xuất bản thành công", "Nhà xuất bản");
+			else {
+				Alert.ShowMessageWarn("Thêm nhà xuất bản không thành công. Vui lòng kiểm tra lại", "Nhà xuất bản");
+			}
+			
+		} catch (Exception e) {
+			Alert.ShowMessageError("Lỗi thêm nhà xuất bản", "Nhà xuất bản");
+			
+		}
+	}
 	
+	private void SuaNXB() {
+		try {
+			if(txtMaNXB.getText().isEmpty()||txtTenNXB.getText().isEmpty()||txtDCNXB.getText().isEmpty()||txtSDTNXB.getText().isEmpty()) {
+				Alert.ShowMessageWarn("Vui lòng điền dầy đủ thông tin", "Nhà xuất bản");
+				return;
+			}
+			NXB nxb=new NXB(txtMaNXB.getText(),txtTenNXB.getText(),txtDCNXB.getText(),txtSDTNXB.getText());
+			NXBDAO dao=new NXBDAO();
+			if(dao.Update(nxb))
+				Alert.ShowMessageInfo("Cập nhật nhà xuất bản thành công", "Nhà xuất bản");
+			else {
+				Alert.ShowMessageWarn("Cập nhật nhà xuất bản không thành công. Vui lòng kiểm tra lại", "Nhà xuất bản");
+			}
+			
+		} catch (Exception e) {
+			Alert.ShowMessageError("Lỗi cập nhật nhà xuất bản", "Nhà xuất bản");
+			
+		}
+	}
+	
+	private void XoaNXB() {
+		try {
+			if(txtMaNXB.getText().isEmpty()) {
+				Alert.ShowMessageWarn("Vui lòng điền mã nhà xuất bản cần xoá", "Nhà xuất bản");
+				return;
+			}
+			NXB nxb=new NXB(txtMaNXB.getText(),txtTenNXB.getText(),txtDCNXB.getText(),txtSDTNXB.getText());
+			NXBDAO dao=new NXBDAO();
+			if(dao.Update(nxb))
+				Alert.ShowMessageInfo("Xoá nhà xuất bản thành công", "Nhà xuất bản");
+			else {
+				Alert.ShowMessageWarn("Xoá nhà xuất bản không thành công. Vui lòng kiểm tra lại", "Nhà xuất bản");
+			}
+			
+		} catch (Exception e) {
+			Alert.ShowMessageError("Lỗi xoá nhà xuất bản", "Nhà xuất bản");
+		}
+	}
+	
+	private void ThemDauSach() {
+		try {
+			String maNXB=((DauSach)cBNXB.getSelectedItem()).getMaNXB();
+			if(txtMaDauSach.getText().isEmpty()||txtTuaSach.getText().isEmpty()||maNXB.isEmpty()) {
+				Alert.ShowMessageWarn("Vui lòng điền dầy đủ thông tin", "Nhà xuất bản");
+				return;
+			}
+			NXB nxb=new NXB(txtMaNXB.getText(),txtTenNXB.getText(),txtDCNXB.getText(),txtSDTNXB.getText());
+			NXBDAO dao=new NXBDAO();
+			if(dao.Insert(nxb))
+				Alert.ShowMessageInfo("Thêm nhà xuất bản thành công", "Nhà xuất bản");
+			else {
+				Alert.ShowMessageWarn("Thêm nhà xuất bản không thành công. Vui lòng kiểm tra lại", "Nhà xuất bản");
+			}
+			
+		} catch (Exception e) {
+			Alert.ShowMessageError("Lỗi thêm nhà xuất bản", "Nhà xuất bản");
+			
+		}
+	}
 	
 	//Region Event
 	
@@ -426,4 +521,6 @@ public class panelSach extends JPanel {
 			}
 		}
 	}
+	
+	
 }
