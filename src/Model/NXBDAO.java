@@ -17,7 +17,9 @@ public class NXBDAO {
 		pstm.setString(2, nxb.getTenNXB());
 		pstm.setString(3, nxb.getDiaChi());
 		pstm.setString(4, nxb.getSoDT());
-		return pstm.execute();
+		if(pstm.executeUpdate()>0)
+			return true;
+		return false;
 		
 	}
 	
@@ -36,12 +38,12 @@ public class NXBDAO {
 		
 	}
 	
-	public boolean Delete(NXB nxb) throws ClassNotFoundException, SQLException {
+	public boolean Delete(String maNXB) throws ClassNotFoundException, SQLException {
 		Connection con=DBConnection.getConnection();
 		String sql = "Delete from NXB where MaNXB=?";
 		PreparedStatement pstm = con.prepareStatement(sql);
 		
-		pstm.setString(1, nxb.getMaNXB());
+		pstm.setString(1, maNXB);
 		if( pstm.executeUpdate()>0)
 			return true;
 		return false;

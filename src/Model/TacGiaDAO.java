@@ -8,7 +8,8 @@ import javax.swing.table.TableModel;
 
 import DAO.DBConnection;
 
-public class TacGiaIDO {
+public class TacGiaDAO {
+	
 	public boolean Insert(TacGia tacgia) throws ClassNotFoundException, SQLException {
 		Connection con=DBConnection.getConnection();
 		String sql = "INSERT INTO TacGia VALUES(?, ?)";
@@ -19,27 +20,13 @@ public class TacGiaIDO {
 		
 	}
 	
-	public boolean Update(NXB nxb) throws ClassNotFoundException, SQLException {
-		Connection con=DBConnection.getConnection();
-		String sql = "UPDATE NXB SET TenNXB=?, DiaChi=?, SoDT=? where MaNXB=?";
-		PreparedStatement pstm = con.prepareStatement(sql);
-		
-		pstm.setString(1, nxb.getTenNXB());
-		pstm.setString(2, nxb.getDiaChi());
-		pstm.setString(3, nxb.getSoDT());
-		pstm.setString(4, nxb.getMaNXB());
-		if( pstm.executeUpdate()>0)
-			return true;
-		return false;
-		
-	}
 	
-	public boolean Delete(NXB nxb) throws ClassNotFoundException, SQLException {
+	public boolean DeleteTacGiaFromMaSach(String maSach) throws ClassNotFoundException, SQLException {
 		Connection con=DBConnection.getConnection();
-		String sql = "Delete from NXB where MaNXB=?";
+		String sql = "Delete from TacGia where MaSach=?";
 		PreparedStatement pstm = con.prepareStatement(sql);
 		
-		pstm.setString(1, nxb.getMaNXB());
+		pstm.setString(1, maSach);
 		if( pstm.executeUpdate()>0)
 			return true;
 		return false;

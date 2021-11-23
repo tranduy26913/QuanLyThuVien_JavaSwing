@@ -53,7 +53,7 @@ public class panelSach extends JPanel {
 	private JTextField txtMaCuonSach;
 	private JTextField txtTuaCuonSach;
 	private JTextField txtNXBCuonSach;
-	private JTextField textField_7;
+	private JTextField txtSoCuonSach;
 	private JTextArea txtTacGia;
 	private JTable tableCuonSach;
 
@@ -99,16 +99,32 @@ public class panelSach extends JPanel {
 		panel_tabDauSach.add(lblNhXutBn);
 
 		JButton btnThemDauSach = new JButton("Th\u00EAm");
+		btnThemDauSach.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ThemDauSach();
+			}
+		});
+
 		btnThemDauSach.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnThemDauSach.setBounds(881, 210, 110, 40);
 		panel_tabDauSach.add(btnThemDauSach);
 
 		JButton btnSuaDauSach = new JButton("S\u1EEDa");
+		btnSuaDauSach.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				SuaDauSach();
+			}
+		});
 		btnSuaDauSach.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnSuaDauSach.setBounds(1001, 210, 110, 40);
 		panel_tabDauSach.add(btnSuaDauSach);
 
 		JButton btnXoaDauSach = new JButton("Xo\u00E1");
+		btnXoaDauSach.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				XoaDauSach();
+			}
+		});
 		btnXoaDauSach.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnXoaDauSach.setBounds(881, 261, 110, 40);
 		panel_tabDauSach.add(btnXoaDauSach);
@@ -131,7 +147,7 @@ public class panelSach extends JPanel {
 		tableDauSach = new JTable();
 		tableDauSach.setFillsViewportHeight(true);
 		tableDauSach.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		tableDauSach.addMouseListener(new ClickCellTableDauSach());//sự kiện click chọn row
+		tableDauSach.addMouseListener(new ClickCellTableDauSach());// sự kiện click chọn row
 		scrollPane.setViewportView(tableDauSach);
 		InitTableDauSach();
 
@@ -141,10 +157,10 @@ public class panelSach extends JPanel {
 		separator.setBounds(819, 329, 326, 10);
 		panel_tabDauSach.add(separator);
 
-		textField_7 = new JTextField();
-		textField_7.setColumns(10);
-		textField_7.setBounds(930, 385, 128, 25);
-		panel_tabDauSach.add(textField_7);
+		txtSoCuonSach = new JTextField();
+		txtSoCuonSach.setColumns(10);
+		txtSoCuonSach.setBounds(930, 385, 128, 25);
+		panel_tabDauSach.add(txtSoCuonSach);
 
 		JLabel lblTaSch_2 = new JLabel("S\u1ED1 l\u01B0\u1EE3ng");
 		lblTaSch_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -152,10 +168,15 @@ public class panelSach extends JPanel {
 		panel_tabDauSach.add(lblTaSch_2);
 
 		JButton btnThemSach = new JButton("Th\u00EAm S\u00E1ch");
+		btnThemSach.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ThemCuonSach();
+			}
+		});
 		btnThemSach.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnThemSach.setBounds(940, 415, 110, 40);
 		panel_tabDauSach.add(btnThemSach);
-		
+
 		JScrollPane scrollPane_1 = new JScrollPane();
 		scrollPane_1.setBounds(930, 119, 205, 60);
 		panel_tabDauSach.add(scrollPane_1);
@@ -202,7 +223,7 @@ public class panelSach extends JPanel {
 		lblaChNxb.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblaChNxb.setBounds(852, 83, 100, 25);
 		panel_tabNXB.add(lblaChNxb);
-		
+
 		JScrollPane scrollPane_DCNXB = new JScrollPane();
 		scrollPane_DCNXB.setBounds(955, 83, 180, 69);
 		panel_tabNXB.add(scrollPane_DCNXB);
@@ -307,7 +328,7 @@ public class panelSach extends JPanel {
 		txtNXBCuonSach.setColumns(10);
 		txtNXBCuonSach.setBounds(930, 83, 205, 62);
 		panel_tabSach.add(txtNXBCuonSach);
-		
+
 		tableCuonSach = new JTable();
 		tableCuonSach.setBounds(10, 11, 800, 477);
 		panel_tabSach.add(tableCuonSach);
@@ -328,7 +349,7 @@ public class panelSach extends JPanel {
 
 		return model;
 	}
-	
+
 	private void InitTableDauSach() {
 		DefaultTableModel model = new DefaultTableModel();
 		model.addColumn("Mã Sách");
@@ -337,9 +358,7 @@ public class panelSach extends JPanel {
 		model.addColumn("Nhà xuất bản");
 		tableDauSach.setModel(model);
 		try {
-			DauSachDAO dauSachDAO = new DauSachDAO();
-			ResultSet rs = dauSachDAO.GetAllDauSach();
-			LoadDataDauSach(rs);
+			LoadDataDauSach(null);
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
@@ -347,7 +366,10 @@ public class panelSach extends JPanel {
 
 	private void LoadDataDauSach(ResultSet rs) {
 		try {
-			
+			if (rs == null) {
+				DauSachDAO dauSachDAO = new DauSachDAO();
+				rs = dauSachDAO.GetAllDauSach();
+			}
 			DefaultTableModel model = (DefaultTableModel) tableDauSach.getModel();
 			model.setRowCount(0);
 
@@ -387,140 +409,224 @@ public class panelSach extends JPanel {
 		model.addColumn("Địa chỉ");
 		model.addColumn("Số điện thoại");
 		tableNXB.setModel(model);
+		LoadDataTableNXB(null);
+
+	}
+
+	private void LoadDataTableNXB(ArrayList<NXB> list)// load dữ liệu cho bảng NXB
+	{
 		try {
-			NXBDAO nxbDAO = new NXBDAO();
-			ArrayList<NXB> rs = nxbDAO.GetAllNXB();
-			LoadDataTableNXB(rs);
+			if (list == null) {
+				NXBDAO nxbDAO = new NXBDAO();
+				list = nxbDAO.GetAllNXB();
+			}
+			DefaultTableModel model = (DefaultTableModel) tableNXB.getModel();
+			model.setRowCount(0);
+
+			for (NXB nxb : list) {
+				model.addRow(new String[] { nxb.getMaNXB(), nxb.getTenNXB(), nxb.getDiaChi(), nxb.getSoDT() });
+			}
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
 
 	}
 
-	private void LoadDataTableNXB(ArrayList<NXB> list)// load dữ liệu cho bảng NXB
-	{
-		DefaultTableModel model = (DefaultTableModel) tableNXB.getModel();
-		model.setRowCount(0);
-		for (NXB nxb : list) {
-			model.addRow(new String[] { nxb.getMaNXB(), nxb.getTenNXB(), nxb.getDiaChi(), nxb.getSoDT() });
-		}
-
-	}
-	
 	private void ThemNXB() {
 		try {
-			if(txtMaNXB.getText().isEmpty()||txtTenNXB.getText().isEmpty()||txtDCNXB.getText().isEmpty()||txtSDTNXB.getText().isEmpty()) {
+			if (txtMaNXB.getText().isEmpty() || txtTenNXB.getText().isEmpty() || txtDCNXB.getText().isEmpty()
+					|| txtSDTNXB.getText().isEmpty()) {
 				Alert.ShowMessageWarn("Vui lòng điền dầy đủ thông tin", "Nhà xuất bản");
 				return;
 			}
-			NXB nxb=new NXB(txtMaNXB.getText(),txtTenNXB.getText(),txtDCNXB.getText(),txtSDTNXB.getText());
-			NXBDAO dao=new NXBDAO();
-			if(dao.Insert(nxb))
+			NXB nxb = new NXB(txtMaNXB.getText(), txtTenNXB.getText(), txtDCNXB.getText(), txtSDTNXB.getText());
+			NXBDAO dao = new NXBDAO();
+			if (dao.Insert(nxb)) {
 				Alert.ShowMessageInfo("Thêm nhà xuất bản thành công", "Nhà xuất bản");
+				LoadDataTableNXB(null);
+			}
 			else {
 				Alert.ShowMessageWarn("Thêm nhà xuất bản không thành công. Vui lòng kiểm tra lại", "Nhà xuất bản");
 			}
-			
+
 		} catch (Exception e) {
 			Alert.ShowMessageError("Lỗi thêm nhà xuất bản", "Nhà xuất bản");
-			
+
 		}
 	}
-	
+
 	private void SuaNXB() {
 		try {
-			if(txtMaNXB.getText().isEmpty()||txtTenNXB.getText().isEmpty()||txtDCNXB.getText().isEmpty()||txtSDTNXB.getText().isEmpty()) {
+			if (txtMaNXB.getText().isEmpty() || txtTenNXB.getText().isEmpty() || txtDCNXB.getText().isEmpty()
+					|| txtSDTNXB.getText().isEmpty()) {
 				Alert.ShowMessageWarn("Vui lòng điền dầy đủ thông tin", "Nhà xuất bản");
 				return;
 			}
-			NXB nxb=new NXB(txtMaNXB.getText(),txtTenNXB.getText(),txtDCNXB.getText(),txtSDTNXB.getText());
-			NXBDAO dao=new NXBDAO();
-			if(dao.Update(nxb))
+			NXB nxb = new NXB(txtMaNXB.getText(), txtTenNXB.getText(), txtDCNXB.getText(), txtSDTNXB.getText());
+			NXBDAO dao = new NXBDAO();
+			if (dao.Update(nxb)) {
 				Alert.ShowMessageInfo("Cập nhật nhà xuất bản thành công", "Nhà xuất bản");
+				LoadDataTableNXB(null);
+			}
+			
 			else {
 				Alert.ShowMessageWarn("Cập nhật nhà xuất bản không thành công. Vui lòng kiểm tra lại", "Nhà xuất bản");
 			}
-			
+
 		} catch (Exception e) {
 			Alert.ShowMessageError("Lỗi cập nhật nhà xuất bản", "Nhà xuất bản");
-			
+
 		}
 	}
-	
+
 	private void XoaNXB() {
 		try {
-			if(txtMaNXB.getText().isEmpty()) {
+			if (txtMaNXB.getText().isEmpty()) {
 				Alert.ShowMessageWarn("Vui lòng điền mã nhà xuất bản cần xoá", "Nhà xuất bản");
 				return;
 			}
-			NXB nxb=new NXB(txtMaNXB.getText(),txtTenNXB.getText(),txtDCNXB.getText(),txtSDTNXB.getText());
-			NXBDAO dao=new NXBDAO();
-			if(dao.Update(nxb))
+			NXBDAO dao = new NXBDAO();
+			if (dao.Delete(txtMaNXB.getText())) {
 				Alert.ShowMessageInfo("Xoá nhà xuất bản thành công", "Nhà xuất bản");
+				LoadDataTableNXB(null);
+			}
 			else {
 				Alert.ShowMessageWarn("Xoá nhà xuất bản không thành công. Vui lòng kiểm tra lại", "Nhà xuất bản");
 			}
-			
+
 		} catch (Exception e) {
 			Alert.ShowMessageError("Lỗi xoá nhà xuất bản", "Nhà xuất bản");
 		}
 	}
-	
+
 	private void ThemDauSach() {
 		try {
-			String maNXB=((DauSach)cBNXB.getSelectedItem()).getMaNXB();
-			if(txtMaDauSach.getText().isEmpty()||txtTuaSach.getText().isEmpty()||maNXB.isEmpty()) {
-				Alert.ShowMessageWarn("Vui lòng điền dầy đủ thông tin", "Nhà xuất bản");
+			String maNXB = ((DauSach) cBNXB.getSelectedItem()).getMaNXB();
+			if (txtMaDauSach.getText().isEmpty() || txtTuaSach.getText().isEmpty() || maNXB.isEmpty()) {
+				Alert.ShowMessageWarn("Vui lòng điền dầy đủ thông tin", "Đầu sách");
 				return;
 			}
-			NXB nxb=new NXB(txtMaNXB.getText(),txtTenNXB.getText(),txtDCNXB.getText(),txtSDTNXB.getText());
-			NXBDAO dao=new NXBDAO();
-			if(dao.Insert(nxb))
-				Alert.ShowMessageInfo("Thêm nhà xuất bản thành công", "Nhà xuất bản");
-			else {
-				Alert.ShowMessageWarn("Thêm nhà xuất bản không thành công. Vui lòng kiểm tra lại", "Nhà xuất bản");
+			DauSach ds = new DauSach(txtMaDauSach.getText(), txtTuaSach.getText(), maNXB, txtTacGia.getText());
+			DauSachDAO dsDAO = new DauSachDAO();
+			if (dsDAO.Insert(ds)) {
+				Alert.ShowMessageInfo("Thêm đầu sách thành công", "Đầu Sách");
+				LoadDataDauSach(null);
+			} else {
+				Alert.ShowMessageWarn("Thêm đầu sách không thành công. Vui lòng kiểm tra lại", "Đầu sách");
 			}
-			
+
 		} catch (Exception e) {
-			Alert.ShowMessageError("Lỗi thêm nhà xuất bản", "Nhà xuất bản");
-			
+			Alert.ShowMessageError("Lỗi thêm đầu sách", "Đầu sách");
+			e.printStackTrace();
 		}
 	}
-	
-	//Region Event
-	
+
+	private void SuaDauSach() {
+		try {
+			String maNXB = ((NXB) cBNXB.getSelectedItem()).getMaNXB();
+			if (txtMaDauSach.getText().isEmpty() || txtTuaSach.getText().isEmpty() || maNXB.isEmpty()) {
+				Alert.ShowMessageWarn("Vui lòng điền dầy đủ thông tin", "Đầu sách");
+				return;
+			}
+			DauSach ds = new DauSach(txtMaDauSach.getText(), txtTuaSach.getText(), maNXB, txtTacGia.getText());
+			DauSachDAO dsDAO = new DauSachDAO();
+			if (dsDAO.Update(ds)) {
+				Alert.ShowMessageInfo("Sửa đầu sách thành công", "Đầu Sách");
+				LoadDataDauSach(null);
+			}
+			else {
+				Alert.ShowMessageWarn("Sửa đầu sách không thành công. Vui lòng kiểm tra lại", "Đầu sách");
+			}
+
+		} catch (Exception e) {
+			Alert.ShowMessageError("Lỗi sửa đầu sách", "Đầu sách");
+			e.printStackTrace();
+		}
+	}
+
+	private void XoaDauSach() {
+		try {
+
+			if (txtMaDauSach.getText().isEmpty()) {
+				Alert.ShowMessageWarn("Vui lòng điền điền mã sách", "Đầu sách");
+				return;
+			}
+
+			DauSachDAO dsDAO = new DauSachDAO();
+			if (dsDAO.Delete(txtMaDauSach.getText())) {
+				Alert.ShowMessageInfo("Xoá đầu sách thành công", "Đầu Sách");
+				LoadDataDauSach(null);
+			}
+			else {
+				Alert.ShowMessageWarn("Xoá đầu sách không thành công. Vui lòng kiểm tra lại", "Đầu sách");
+			}
+
+		} catch (Exception e) {
+			Alert.ShowMessageError("Lỗi xoá đầu sách", "Đầu sách");
+			e.printStackTrace();
+		}
+	}
+
+	private void ThemCuonSach() {
+		try {
+			int sl = 0;
+			try {
+				sl = Integer.parseInt(txtSoCuonSach.getText());
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+			if (sl == 0) {
+				Alert.ShowMessageWarn("Vui lòng điền số lượng cuốn sách cần thêm", "Thêm sách");
+				return;
+			}
+
+			CuonSachDAO csDAO = new CuonSachDAO();
+			for (int i = 0; i < sl; i++) {
+				CuonSach cs = new CuonSach(txtMaDauSach.getText());
+				csDAO.Insert(cs);
+			}
+			Alert.ShowMessageInfo("Thêm sách thành công", "Thêm cuốn sách");
+
+		} catch (Exception e) {
+			Alert.ShowMessageError("Lỗi xoá đầu sách", "Thêm cuốn sách");
+			e.printStackTrace();
+		}
+	}
+
+	// Region Event
+
 	private class ClickCellTableDauSach extends MouseAdapter {
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			int index= tableDauSach.getSelectedRow();
-			if(index!=-1) {
+			int index = tableDauSach.getSelectedRow();
+			if (index != -1) {
 				txtMaDauSach.setText(tableDauSach.getValueAt(index, 0).toString());
 				txtTuaSach.setText(tableDauSach.getValueAt(index, 1).toString());
-				String[] tgString=tableDauSach.getValueAt(index, 2).toString().split("-");
+				String[] tgString = tableDauSach.getValueAt(index, 2).toString().split("-");
 				txtTacGia.setText(String.join("\n", tgString));
-				
-				for (int i=0;i<cBNXB.getItemCount();i++) {
-					if(((NXB)cBNXB.getItemAt(i)).getTenNXB().equals(tableDauSach.getValueAt(index, 3).toString())) {
-						cBNXB.setSelectedIndex(index);
+
+				for (int i = 0; i < cBNXB.getItemCount(); i++) {
+					if (((NXB) cBNXB.getItemAt(i)).getTenNXB().equals(tableDauSach.getValueAt(index, 3).toString())) {
+						cBNXB.setSelectedIndex(i);
 						break;
 					}
 				}
 			}
-		}	
+		}
 	}
+
 	private class ClickCellTableNXB extends MouseAdapter {
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			int index= tableNXB.getSelectedRow();
-			if(index!=-1) {
+			int index = tableNXB.getSelectedRow();
+			if (index != -1) {
 				txtMaNXB.setText(tableNXB.getValueAt(index, 0).toString());
 				txtTenNXB.setText(tableNXB.getValueAt(index, 1).toString());
 				txtDCNXB.setText(tableNXB.getValueAt(index, 2).toString());
 				txtSDTNXB.setText(tableNXB.getValueAt(index, 3).toString());
-				
+
 			}
 		}
 	}
-	
-	
+
 }
