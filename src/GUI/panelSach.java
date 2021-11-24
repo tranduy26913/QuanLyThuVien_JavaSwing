@@ -14,6 +14,10 @@ import java.awt.Font;
 import java.awt.List;
 
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 import Model.DauSachDAO;
@@ -147,7 +151,7 @@ public class panelSach extends JPanel {
 		tableDauSach = new JTable();
 		tableDauSach.setFillsViewportHeight(true);
 		tableDauSach.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		tableDauSach.addMouseListener(new ClickCellTableDauSach());// sự kiện click chọn row
+		//tableDauSach.addMouseListener(new ClickCellTableDauSach());// sự kiện click chọn row
 		scrollPane.setViewportView(tableDauSach);
 		InitTableDauSach();
 
@@ -250,7 +254,7 @@ public class panelSach extends JPanel {
 		panel_tabNXB.add(scrollPaneNXB);
 
 		tableNXB = new JTable();
-		tableNXB.addMouseListener(new ClickCellTableNXB());
+		tableNXB.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		scrollPaneNXB.setViewportView(tableNXB);
 		InitTableNXB();// Khởi tạo bảng NXB
 
@@ -316,7 +320,7 @@ public class panelSach extends JPanel {
 
 		JLabel lblNhXutBn_1 = new JLabel("Nh\u00E0 xu\u1EA5t b\u1EA3n");
 		lblNhXutBn_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNhXutBn_1.setBounds(830, 83, 117, 25);
+		lblNhXutBn_1.setBounds(830, 83, 92, 25);
 		panel_tabSach.add(lblNhXutBn_1);
 
 		JButton btnTimSach = new JButton("T\u00ECm");
@@ -326,7 +330,7 @@ public class panelSach extends JPanel {
 
 		txtNXBCuonSach = new JTextField();
 		txtNXBCuonSach.setColumns(10);
-		txtNXBCuonSach.setBounds(930, 83, 205, 62);
+		txtNXBCuonSach.setBounds(930, 83, 205, 25);
 		panel_tabSach.add(txtNXBCuonSach);
 
 		tableCuonSach = new JTable();
@@ -350,6 +354,7 @@ public class panelSach extends JPanel {
 		return model;
 	}
 
+	
 	private void InitTableDauSach() {
 		DefaultTableModel model = new DefaultTableModel();
 		model.addColumn("Mã Sách");
@@ -357,11 +362,29 @@ public class panelSach extends JPanel {
 		model.addColumn("Tác giả");
 		model.addColumn("Nhà xuất bản");
 		tableDauSach.setModel(model);
-		try {
+		
+		ListSelectionModel model2=tableDauSach.getSelectionModel();
+		model2.addListSelectionListener(new ListSelectionListener() {
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				if(!model2.isSelectionEmpty()) {
+					int index=model2.getMinSelectionIndex();
+					txtMaDauSach.setText(tableDauSach.getValueAt(index, 0).toString());
+					txtTuaSach.setText(tableDauSach.getValueAt(index, 1).toString());
+					String[] tgString = tableDauSach.getValueAt(index, 2).toString().split("-");
+					txtTacGia.setText(String.join("\n", tgString));
+
+					for (int i = 0; i < cBNXB.getItemCount(); i++) {
+						if (((NXB) cBNXB.getItemAt(i)).getTenNXB().equals(tableDauSach.getValueAt(index, 3).toString())) {
+							cBNXB.setSelectedIndex(i);
+							break;
+						}
+					}
+				}
+				
+			}
+		});
 			LoadDataDauSach(null);
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
 	}
 
 	private void LoadDataDauSach(ResultSet rs) {
@@ -409,6 +432,20 @@ public class panelSach extends JPanel {
 		model.addColumn("Địa chỉ");
 		model.addColumn("Số điện thoại");
 		tableNXB.setModel(model);
+		ListSelectionModel model2=tableNXB.getSelectionModel();
+		model2.addListSelectionListener(new ListSelectionListener() {
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				if(!model2.isSelectionEmpty()) {
+					int index=model2.getMinSelectionIndex();
+					txtMaNXB.setText(tableNXB.getValueAt(index, 0).toString());
+					txtTenNXB.setText(tableNXB.getValueAt(index, 1).toString());
+					txtDCNXB.setText(tableNXB.getValueAt(index, 2).toString());
+					txtSDTNXB.setText(tableNXB.getValueAt(index, 3).toString());
+				}
+				
+			}
+		});
 		LoadDataTableNXB(null);
 
 	}
@@ -501,7 +538,7 @@ public class panelSach extends JPanel {
 
 	private void ThemDauSach() {
 		try {
-			String maNXB = ((DauSach) cBNXB.getSelectedItem()).getMaNXB();
+			String maNXB = ((NXB) cBNXB.getSelectedItem()).getMaNXB();
 			if (txtMaDauSach.getText().isEmpty() || txtTuaSach.getText().isEmpty() || maNXB.isEmpty()) {
 				Alert.ShowMessageWarn("Vui lòng điền dầy đủ thông tin", "Đầu sách");
 				return;
@@ -594,6 +631,9 @@ public class panelSach extends JPanel {
 	}
 
 	// Region Event
+	
+	
+	 
 
 	private class ClickCellTableDauSach extends MouseAdapter {
 		@Override
@@ -624,7 +664,6 @@ public class panelSach extends JPanel {
 				txtTenNXB.setText(tableNXB.getValueAt(index, 1).toString());
 				txtDCNXB.setText(tableNXB.getValueAt(index, 2).toString());
 				txtSDTNXB.setText(tableNXB.getValueAt(index, 3).toString());
-
 			}
 		}
 	}

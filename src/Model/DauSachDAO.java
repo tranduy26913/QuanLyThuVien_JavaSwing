@@ -15,7 +15,8 @@ public class DauSachDAO {
 			pstm.setString(1, sp.getMaSach());
 			pstm.setString(2, sp.getTua());
 			pstm.setString(3, sp.getMaNXB());
-			if (pstm.execute()) {
+			
+			if (pstm.executeUpdate()>0) {
 				pstm = con.prepareStatement("INSERT INTO TacGia VALUES(?, ?)");
 				String ds[] = sp.getTacGia().split("\n");
 				for (int i = 0; i < ds.length; i++) {
