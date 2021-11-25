@@ -21,6 +21,8 @@ import Model.MuonDAO;
 
 import javax.swing.JLabel;
 import java.awt.Font;
+
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
@@ -31,8 +33,11 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.border.EtchedBorder;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JSeparator;
+import javax.swing.JRadioButton;
 
 public class panelMuon extends JPanel {
 	private JTextField txtMaDG;
@@ -58,44 +63,44 @@ public class panelMuon extends JPanel {
 		panel.setLayout(null);
 		
 		txtMaDG = new JTextField();
-		txtMaDG.setBounds(931, 22, 205, 25);
+		txtMaDG.setBounds(931, 11, 205, 25);
 		panel.add(txtMaDG);
 		txtMaDG.setColumns(10);
 		
 		JLabel lblMuSch = new JLabel("Mã độc giả");
-		lblMuSch.setBounds(831, 22, 90, 25);
+		lblMuSch.setBounds(831, 11, 90, 25);
 		panel.add(lblMuSch);
 		lblMuSch.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JLabel lblTaSch = new JLabel("T\u00EAn \u0111\u1ED9c gi\u1EA3");
-		lblTaSch.setBounds(831, 58, 90, 25);
+		lblTaSch.setBounds(831, 47, 90, 25);
 		panel.add(lblTaSch);
 		lblTaSch.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		txtTenDG = new JTextField();
-		txtTenDG.setBounds(931, 58, 205, 25);
+		txtTenDG.setBounds(931, 47, 205, 25);
 		panel.add(txtTenDG);
 		txtTenDG.setColumns(10);
 		
 		JLabel lblNhXutBn = new JLabel("\u0110\u1ECBa ch\u1EC9");
-		lblNhXutBn.setBounds(831, 94, 90, 25);
+		lblNhXutBn.setBounds(831, 83, 90, 25);
 		panel.add(lblNhXutBn);
 		lblNhXutBn.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JButton btnXoaDG = new JButton("Xo\u00E1");
-		btnXoaDG.setBounds(845, 221, 110, 40);
+		btnXoaDG.setBounds(857, 221, 110, 40);
 		btnXoaDG.addActionListener(new XoaDG());
 		panel.add(btnXoaDG);
 		btnXoaDG.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JButton btnTimDG = new JButton("T\u00ECm");
 		btnTimDG.addActionListener(new TimDG());
-		btnTimDG.setBounds(983, 221, 110, 40);
+		btnTimDG.setBounds(999, 221, 110, 40);
 		panel.add(btnTimDG);
 		btnTimDG.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(931, 94, 205, 59);
+		scrollPane_1.setBounds(931, 83, 205, 59);
 		panel.add(scrollPane_1);
 		
 		txtDC = new JTextArea();
@@ -106,12 +111,12 @@ public class panelMuon extends JPanel {
 		txtDC.setColumns(10);
 		
 		JLabel lblSinThoi = new JLabel("S\u1ED1 \u0111i\u1EC7n tho\u1EA1i");
-		lblSinThoi.setBounds(831, 164, 90, 25);
+		lblSinThoi.setBounds(831, 153, 90, 25);
 		panel.add(lblSinThoi);
 		lblSinThoi.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		txtSDT = new JTextField();
-		txtSDT.setBounds(931, 164, 205, 25);
+		txtSDT.setBounds(931, 153, 205, 25);
 		panel.add(txtSDT);
 		txtSDT.setColumns(10);
 		
@@ -130,7 +135,7 @@ public class panelMuon extends JPanel {
 		scrollPane2.setViewportView(tableSach);
 		
 		JSeparator separator = new JSeparator();
-		separator.setBounds(10, 280, 1140, 2);
+		separator.setBounds(0, 280, 1160, 2);
 		panel.add(separator);
 		
 		JLabel lblMSch = new JLabel("Mã sách");
@@ -162,7 +167,46 @@ public class panelMuon extends JPanel {
 		btnMuon.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnMuon.setBounds(857, 429, 110, 40);
 		panel.add(btnMuon);
+		
+		JButton btnTra = new JButton("Trả");
+		btnTra.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnTra.setBounds(977, 429, 110, 40);
+		panel.add(btnTra);
+		
+		JRadioButton rbTatCa = new JRadioButton("Tất cả");
+		rbTatCa.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		rbTatCa.setBounds(997, 185, 90, 23);
+		panel.add(rbTatCa);
+		rbTatCa.addItemListener(new ItemListener() {
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				if(!txtMaDG.getText().isEmpty()) {
+					MuonDAO dao=new MuonDAO();
+					LoadDataTableDG(dao.GetDanhSachMuonFromMaDG(txtMaDG.getText()));
+				}
+				
+			}
+		});
+		
+		JRadioButton rbMuon = new JRadioButton("Đang mượn");
+		rbMuon.setSelected(true);
+		rbMuon.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		rbMuon.setBounds(864, 185, 103, 23);
+		panel.add(rbMuon);
+		rbMuon.addItemListener(new ItemListener() {
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				if(!txtMaDG.getText().isEmpty()) {
+					MuonDAO muonDAO=new MuonDAO();
+					LoadDataTableDG(muonDAO.GetDanhSachDangMuonFromMaDG(txtMaDG.getText()));
+				}
+			}
+		});
 		tableDG.addMouseListener(new ClickCellTableDG());
+		
+		ButtonGroup group=new ButtonGroup();
+		group.add(rbMuon);
+		group.add(rbTatCa);
 		
 		InitTableDG();
 		InitTableSach();

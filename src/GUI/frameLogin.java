@@ -14,6 +14,7 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
+import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
@@ -95,7 +96,9 @@ public class frameLogin extends JFrame {
 		btnThoat.setBounds(227, 216, 110, 40);
 		contentPane.add(btnThoat);
 		
+		
 		rbQuanLy = new JRadioButton("Qu\u1EA3n l\u00FD");
+		rbQuanLy.setSelected(true);
 		rbQuanLy.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		rbQuanLy.setBounds(117, 175, 95, 23);
 		contentPane.add(rbQuanLy);
@@ -104,6 +107,9 @@ public class frameLogin extends JFrame {
 		rbTT.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		rbTT.setBounds(231, 175, 95, 23);
 		contentPane.add(rbTT);
+		ButtonGroup group = new ButtonGroup();
+		group.add(rbQuanLy);
+		group.add(rbTT);
 	}
 	
 	private class Login implements ActionListener{

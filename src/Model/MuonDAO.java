@@ -30,10 +30,23 @@ public class MuonDAO {
 			pstm.setString(1, maDG);
 			return pstm.executeQuery();
 		} catch (Exception e) {
-
 			e.printStackTrace();
 			return null;
 		}
-
+	}
+	
+	public ResultSet GetDanhSachDangMuonFromMaDG(String maDG) {
+		try {
+			Connection con = DBConnection.getConnection();
+			String sql = "select m.macuon MaCuon, ds.tuasach TuaSach, m.ngaymuon,m.ngaytra from "
+					+ "muon m inner join cuonsach cs on m.macuon=cs.macuon "
+					+ "inner join dausach ds on ds.masach=cs.masach " + "where m.madg=? and ngaytra is null";
+			PreparedStatement pstm = con.prepareStatement(sql);
+			pstm.setString(1, maDG);
+			return pstm.executeQuery();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 }
