@@ -48,6 +48,8 @@ public class panelMuon extends JPanel {
 	private JTable tableSach;
 	private JTextField txtMaCuonSach;
 	private JTextField txtTuaSach;
+	private JRadioButton rbMuon;
+	private JRadioButton rbTatCa;
 
 	/**
 	 * Create the panel.
@@ -125,6 +127,7 @@ public class panelMuon extends JPanel {
 		panel.add(scrollPane);
 		
 		tableDG = new JTable();
+		tableDG.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		scrollPane.setViewportView(tableDG);
 		
 		JScrollPane scrollPane2 = new JScrollPane();
@@ -132,6 +135,7 @@ public class panelMuon extends JPanel {
 		panel.add(scrollPane2);
 		
 		tableSach = new JTable();
+		tableSach.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		scrollPane2.setViewportView(tableSach);
 		
 		JSeparator separator = new JSeparator();
@@ -169,11 +173,16 @@ public class panelMuon extends JPanel {
 		panel.add(btnMuon);
 		
 		JButton btnTra = new JButton("Trả");
+		btnTra.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TraSach();
+			}
+		});
 		btnTra.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnTra.setBounds(977, 429, 110, 40);
 		panel.add(btnTra);
 		
-		JRadioButton rbTatCa = new JRadioButton("Tất cả");
+		rbTatCa = new JRadioButton("Tất cả");
 		rbTatCa.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		rbTatCa.setBounds(997, 185, 90, 23);
 		panel.add(rbTatCa);
@@ -188,7 +197,7 @@ public class panelMuon extends JPanel {
 			}
 		});
 		
-		JRadioButton rbMuon = new JRadioButton("Đang mượn");
+		rbMuon = new JRadioButton("Đang mượn");
 		rbMuon.setSelected(true);
 		rbMuon.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		rbMuon.setBounds(864, 185, 103, 23);
@@ -219,7 +228,7 @@ public class panelMuon extends JPanel {
 		model.addColumn("Ngày mượn");
 		model.addColumn("Ngày trả");
 		tableDG.setModel(model);
-		ListSelectionModel model2 = tableSach.getSelectionModel();
+		ListSelectionModel model2 = tableDG.getSelectionModel();
 		model2.addListSelectionListener(new ListSelectionListener() {
 
 			@Override
@@ -227,8 +236,8 @@ public class panelMuon extends JPanel {
 				try {
 					if (!model2.isSelectionEmpty()) {
 						int index = model2.getMinSelectionIndex();
-						txtMaCuonSach.setText(tableSach.getValueAt(index, 0).toString());
-						txtTuaSach.setText(tableSach.getValueAt(index, 1).toString());
+						txtMaCuonSach.setText(tableDG.getValueAt(index, 0).toString());
+						txtTuaSach.setText(tableDG.getValueAt(index, 1).toString());
 					}
 				} catch (Exception e2) {
 					e2.printStackTrace();
@@ -342,12 +351,23 @@ public class panelMuon extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			try {
+				if(txtMaDG.getText().isEmpty()) {
+					Alert.ShowMessageWarn("Vui lòng nhập mã độc giả", "Thông tin độc giả");
+					return;
+				}
+				DocGiaDAO dgDAO=new DocGiaDAO();
+				DocGia dg= dgDAO.GetDocGiaFromMaDG(txtMaDG.getText());
+				txtTenDG.setText(dg.getTenDG());
+				txtDC.setText(dg.getDiaChi());
+				txtSDT.setText(dg.getSoDT());
 				MuonDAO DAO=new MuonDAO();
-				LoadDataTableDG(DAO.GetDanhSachMuonFromMaDG(txtMaDG.getText()));
+				if(rbMuon.isSelected())
+					LoadDataTableDG(DAO.GetDanhSachDangMuonFromMaDG(txtMaDG.getText()));
+				else
+					LoadDataTableDG(DAO.GetDanhSachMuonFromMaDG(txtMaDG.getText()));
 				
 			} catch (Exception e2) {
-				Alert.ShowMessageError("Lỗi khi tìm độc giả", 
-						 "Tìm độc giả");
+				Alert.ShowMessageError("Lỗi khi tìm độc giả","Tìm độc giả");
 				e2.printStackTrace();
 			}		
 		}
@@ -376,15 +396,43 @@ public class panelMuon extends JPanel {
 		}
 	}
 	
+	private void TraSach() {
+		try {
+			if(txtMaDG.getText().isEmpty()||txtMaCuonSach.getText().isEmpty()) {
+				Alert.ShowMessageWarn("Vui lòng điền đầy đủ thông tin", "Trả sách");
+				return;
+			}
+			MuonDAO muonDAO=new MuonDAO();
+			ResultSet rs=muonDAO.GetDangMuon(txtMaDG.getText(), txtMaCuonSach.getText());
+			if(rs.next()) {
+				Date ngayMuon=rs.getDate(3);
+				java.util.Date d=new java.util.Date();
+				Date ngayTra=new Date(d.getYear(), d.getMonth(), d.getDay());
+				Muon muon=new Muon(txtMaCuonSach.getText(), txtMaDG.getText(), ngayMuon,ngayTra);
+				
+				if(muonDAO.TraSach(muon)){
+					Alert.ShowMessageInfo("Trả thành công", "Trả sách");
+				}
+				else {
+					Alert.ShowMessageInfo("Trả không thành công", "Trả sách");
+				}
+			}
+			
+		} catch (Exception e) {
+			Alert.ShowMessageError("Lỗi mượn sách", "Mượn sách");
+			e.printStackTrace();
+			// TODO: handle exception
+		}
+	}
+	
 	private class ClickCellTableDG extends MouseAdapter {
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			int index= tableDG.getSelectedRow();
 			if(index!=-1) {
-				txtMaDG.setText(tableDG.getValueAt(index, 0).toString());
-				txtTenDG.setText(tableDG.getValueAt(index, 1).toString());
-				txtDC.setText(tableDG.getValueAt(index, 2).toString());
-				txtSDT.setText(tableDG.getValueAt(index, 3).toString());
+				txtMaCuonSach.setText(tableDG.getValueAt(index, 0).toString());
+				txtTuaSach.setText(tableDG.getValueAt(index, 1).toString());
+				
 				
 			}
 		}

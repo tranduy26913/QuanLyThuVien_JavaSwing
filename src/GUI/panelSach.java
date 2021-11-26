@@ -332,10 +332,18 @@ public class panelSach extends JPanel {
 		txtNXBCuonSach.setColumns(10);
 		txtNXBCuonSach.setBounds(930, 83, 205, 25);
 		panel_tabSach.add(txtNXBCuonSach);
+		
+		JScrollPane scrollPaneCuonSach = new JScrollPane();
+		scrollPaneCuonSach.setBounds(10, 11, 800, 477);
+		panel_tabSach.add(scrollPaneCuonSach);
 
 		tableCuonSach = new JTable();
-		tableCuonSach.setBounds(10, 11, 800, 477);
-		panel_tabSach.add(tableCuonSach);
+		scrollPaneCuonSach.setViewportView(tableCuonSach);
+		
+		JButton btnTimDauSach_1 = new JButton("Tìm");
+		btnTimDauSach_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnTimDauSach_1.setBounds(930, 146, 110, 40);
+		panel_tabSach.add(btnTimDauSach_1);
 
 	}
 
@@ -468,6 +476,58 @@ public class panelSach extends JPanel {
 		}
 
 	}
+	
+	private void InitTableCuonSach() {
+		DefaultTableModel model = new DefaultTableModel();
+		model.addColumn("Mã cuốn");
+		model.addColumn("Tựa Sách");
+		model.addColumn("Tác giả");
+		model.addColumn("Nhà xuất bản");
+		model.addColumn("Trạng thái");
+		tableCuonSach.setModel(model);
+		
+		ListSelectionModel model2=tableCuonSach.getSelectionModel();
+		model2.addListSelectionListener(new ListSelectionListener() {
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				if(!model2.isSelectionEmpty()) {
+					int index=model2.getMinSelectionIndex();
+					txtMaDauSach.setText(tableDauSach.getValueAt(index, 0).toString());
+					txtTuaSach.setText(tableDauSach.getValueAt(index, 1).toString());
+					String[] tgString = tableDauSach.getValueAt(index, 2).toString().split("-");
+					txtTacGia.setText(String.join("\n", tgString));
+
+					for (int i = 0; i < cBNXB.getItemCount(); i++) {
+						if (((NXB) cBNXB.getItemAt(i)).getTenNXB().equals(tableDauSach.getValueAt(index, 3).toString())) {
+							cBNXB.setSelectedIndex(i);
+							break;
+						}
+					}
+				}
+				
+			}
+		});
+			LoadDataDauSach(null);
+	}
+
+	private void LoadDataCuonSach(ResultSet rs) {
+		try {
+			if (rs == null) {
+				DauSachDAO dauSachDAO = new DauSachDAO();
+				rs = dauSachDAO.GetAllDauSach();
+			}
+			DefaultTableModel model = (DefaultTableModel) tableDauSach.getModel();
+			model.setRowCount(0);
+
+			while (rs.next()) {
+				model.addRow(new String[] { rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4) });
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+	}
+	
 
 	private void ThemNXB() {
 		try {
@@ -667,5 +727,4 @@ public class panelSach extends JPanel {
 			}
 		}
 	}
-
 }

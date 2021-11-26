@@ -49,4 +49,36 @@ public class MuonDAO {
 			return null;
 		}
 	}
+	
+	public boolean TraSach(Muon muon) {
+		try {
+			Connection con = DBConnection.getConnection();
+			String sql = "Update Muon set ngaytra=? where madg=? and macuon=?";
+			PreparedStatement pstm = con.prepareStatement(sql);
+			pstm.setDate(1, muon.getNgayTra());
+			pstm.setString(2, muon.getMaDG());
+			pstm.setString(3, muon.getMaCuon());
+			return pstm.executeUpdate() > 0 ? true : false;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	public ResultSet GetDangMuon(String maDG,String maCuon) {
+		try {
+			Connection con = DBConnection.getConnection();
+			String sql = "select m.macuon MaCuon, ds.tuasach TuaSach, m.ngaymuon,m.ngaytra from "
+					+ "muon m inner join cuonsach cs on m.macuon=cs.macuon "
+					+ "inner join dausach ds on ds.masach=cs.masach " + "where m.madg=? and m.macuon=? and ngaytra is null";
+			PreparedStatement pstm = con.prepareStatement(sql);
+			pstm.setString(1, maDG);
+			pstm.setString(2, maCuon);
+			return pstm.executeQuery();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 }
