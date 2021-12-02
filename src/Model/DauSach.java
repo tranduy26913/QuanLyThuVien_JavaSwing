@@ -8,8 +8,17 @@ public class DauSach {
 	private String tua;
 	private String maNXB;
 	private String tacGia;
+	private int giaSach;
 	
 	
+	public int getGiaSach() {
+		return giaSach;
+	}
+
+	public void setGiaSach(int giaSach) {
+		this.giaSach = giaSach;
+	}
+
 	public String getMaSach() {
 		return maSach;
 	}
@@ -46,11 +55,12 @@ public class DauSach {
 		
 	}
 
-	public DauSach(String maSach,String tua,String maNXB,String tacGia) {
+	public DauSach(String maSach,String tua,String maNXB,String tacGia,int giaSach) {
 		this.maSach=maSach;
 		this.tua=tua;
 		this.maNXB=maNXB;
 		this.tacGia=tacGia;
+		this.giaSach=giaSach;
 	}
 	
 	

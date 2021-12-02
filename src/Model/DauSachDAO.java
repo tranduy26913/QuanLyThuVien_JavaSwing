@@ -10,11 +10,12 @@ public class DauSachDAO {
 	public boolean Insert(DauSach sp) throws ClassNotFoundException, SQLException {
 		try {
 			Connection con = DBConnection.getConnection();
-			String sql = "INSERT INTO DauSach VALUES(?,?, ?)";
+			String sql = "INSERT INTO DauSach VALUES(?,?, ?,?)";
 			PreparedStatement pstm = con.prepareStatement(sql);
 			pstm.setString(1, sp.getMaSach());
 			pstm.setString(2, sp.getTua());
 			pstm.setString(3, sp.getMaNXB());
+			pstm.setInt(4, sp.getGiaSach());
 			
 			if (pstm.executeUpdate()>0) {
 				pstm = con.prepareStatement("INSERT INTO TacGia VALUES(?, ?)");
@@ -37,12 +38,13 @@ public class DauSachDAO {
 	public boolean Update(DauSach ds) throws ClassNotFoundException, SQLException {
 		try {
 			Connection con = DBConnection.getConnection();
-			String sql = "UPDATE DauSach SET TuaSach=?, MaNXB=? where maSach=?";
+			String sql = "UPDATE DauSach SET TuaSach=?, MaNXB=?,giasach=? where maSach=?";
 			PreparedStatement pstm = con.prepareStatement(sql);
 
 			pstm.setString(1, ds.getTua());
 			pstm.setString(2, ds.getMaNXB());
-			pstm.setString(3, ds.getMaSach());
+			pstm.setInt(3, ds.getGiaSach());
+			pstm.setString(4, ds.getMaSach());
 			pstm.executeUpdate();
 
 			pstm = con.prepareStatement("Delete from TacGia where MaSach=?");
@@ -68,15 +70,7 @@ public class DauSachDAO {
 	public boolean Delete(String maSach) throws ClassNotFoundException, SQLException {
 		try {
 			Connection con = DBConnection.getConnection();
-			PreparedStatement pstm = con.prepareStatement("Delete from TacGia where MaSach=?");
-			pstm.setString(1, maSach);
-			pstm.executeUpdate();
-
-			pstm = con.prepareStatement("Delete from CuonSach where maSach=?");
-			pstm.setString(1, maSach);
-			pstm.executeUpdate();
-			
-			pstm = con.prepareStatement("Delete from DauSach where maSach=?");
+			PreparedStatement pstm = con.prepareStatement("Delete from DauSach where maSach=?");
 			pstm.setString(1, maSach);
 			pstm.executeUpdate();
 			return true;

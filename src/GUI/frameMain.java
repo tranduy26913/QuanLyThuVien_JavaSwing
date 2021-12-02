@@ -66,7 +66,7 @@ public class frameMain extends JFrame {
 		btnTabSach.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnTabSach.setBounds(10, 25, 100, 80);
 		panel.add(btnTabSach);
-		btnTabSach.setIcon(new ImageIcon(frameMain.class.getResource("/icon/Actions-document-edit-icon-32.png")));
+		btnTabSach.setIcon(new ImageIcon(frameMain.class.getResource("/icon/books_48px.png")));
 		btnTabSach.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JButton btnTabDocGia = new JButton("\u0110\u1ED9c gi\u1EA3");
@@ -75,7 +75,7 @@ public class frameMain extends JFrame {
 				changePanel(panel_DocGia);
 			}
 		});
-		btnTabDocGia.setIcon(new ImageIcon(frameMain.class.getResource("/icon/10207-man-student-light-skin-tone-icon-32.png")));
+		btnTabDocGia.setIcon(new ImageIcon(frameMain.class.getResource("/icon/identification_documents_48px.png")));
 		btnTabDocGia.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnTabDocGia.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnTabDocGia.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -97,6 +97,7 @@ public class frameMain extends JFrame {
 		menuTab.add(mnItemExit);
 		
 		JButton btnTabMuon = new JButton("M\u01B0\u1EE3n/Tr\u1EA3");
+		btnTabMuon.setIcon(new ImageIcon(frameMain.class.getResource("/icon/paid_bill_48px.png")));
 		btnTabMuon.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				changePanel(panel_Muon);

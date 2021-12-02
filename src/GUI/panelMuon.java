@@ -169,7 +169,7 @@ public class panelMuon extends JPanel {
 			}
 		});
 		btnMuon.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnMuon.setBounds(857, 429, 110, 40);
+		btnMuon.setBounds(879, 378, 110, 40);
 		panel.add(btnMuon);
 		
 		JButton btnTra = new JButton("Trả");
@@ -179,7 +179,7 @@ public class panelMuon extends JPanel {
 			}
 		});
 		btnTra.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnTra.setBounds(977, 429, 110, 40);
+		btnTra.setBounds(999, 378, 110, 40);
 		panel.add(btnTra);
 		
 		rbTatCa = new JRadioButton("Tất cả");
@@ -216,6 +216,26 @@ public class panelMuon extends JPanel {
 		ButtonGroup group=new ButtonGroup();
 		group.add(rbMuon);
 		group.add(rbTatCa);
+		
+		JButton btnGiaHan = new JButton("Gia hạn");
+		btnGiaHan.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		btnGiaHan.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnGiaHan.setBounds(879, 429, 110, 40);
+		panel.add(btnGiaHan);
+		
+		JButton btnMatSach = new JButton("Mất sách");
+		btnMatSach.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				MatSach();
+			}
+		});
+		btnMatSach.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnMatSach.setBounds(999, 429, 110, 40);
+		panel.add(btnMatSach);
 		
 		InitTableDG();
 		InitTableSach();
@@ -424,6 +444,61 @@ public class panelMuon extends JPanel {
 			// TODO: handle exception
 		}
 	}
+	
+	private void GiaHanSach() {
+		try {
+			if(txtMaDG.getText().isEmpty()||txtMaCuonSach.getText().isEmpty()) {
+				Alert.ShowMessageWarn("Vui lòng điền đầy đủ thông tin", "Gia hạn sách");
+				return;
+			}
+			MuonDAO muonDAO=new MuonDAO();
+			ResultSet rs=muonDAO.GetDangMuon(txtMaDG.getText(), txtMaCuonSach.getText());
+			if(rs.next()) {
+				Date ngayMuon=rs.getDate(3);
+				java.util.Date d=new java.util.Date();
+				Date ngayGiaHan=new Date(d.getYear(), d.getMonth(), d.getDay());
+				Muon muon=new Muon(txtMaCuonSach.getText(), txtMaDG.getText(), ngayGiaHan);
+				
+				if(muonDAO.GiaHanSach(muon)){
+					Alert.ShowMessageInfo("Gia hạn thành công", "Gia hạn sách");
+				}
+				else {
+					Alert.ShowMessageInfo("Gia hạn không thành công", "Gia hạn sách");
+				}
+			}
+			
+		} catch (Exception e) {
+			Alert.ShowMessageError("Lỗi mượn sách", "Mượn sách");
+			e.printStackTrace();
+			// TODO: handle exception
+		}
+	}
+	
+	private void MatSach() {
+		try {
+			if(txtMaDG.getText().isEmpty()||txtMaCuonSach.getText().isEmpty()) {
+				Alert.ShowMessageWarn("Vui lòng điền đầy đủ thông tin", "Báo mất sách");
+				return;
+			}
+			int maCuon=Integer.parseInt(txtMaCuonSach.getText());
+			MuonDAO muonDAO=new MuonDAO();
+			int giaSach=muonDAO.GetGiaSach(Integer.parseInt(txtMaCuonSach.getText()));
+			CuonSachDAO csDAO=new CuonSachDAO();
+			if(csDAO.Delete(maCuon)) {
+				Alert.ShowMessageInfo("Báo mất thành công. Phạt:"+giaSach+" vnd", "Báo mất sách");
+			}
+			else {
+				Alert.ShowMessageInfo("Báo mất không thành công", "Báo mất sách");
+			}
+			
+			
+		} catch (Exception e) {
+			Alert.ShowMessageError("Lỗi báo mất sách", "Báo mất sách");
+			e.printStackTrace();
+			// TODO: handle exception
+		}
+	}
+	
 	
 	private class ClickCellTableDG extends MouseAdapter {
 		@Override
