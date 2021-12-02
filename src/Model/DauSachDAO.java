@@ -10,7 +10,7 @@ public class DauSachDAO {
 	public boolean Insert(DauSach sp) throws ClassNotFoundException, SQLException {
 		try {
 			Connection con = DBConnection.getConnection();
-			String sql = "INSERT INTO DauSach VALUES(?, ?, ?)";
+			String sql = "INSERT INTO DauSach VALUES(?,?, ?)";
 			PreparedStatement pstm = con.prepareStatement(sql);
 			pstm.setString(1, sp.getMaSach());
 			pstm.setString(2, sp.getTua());
@@ -88,9 +88,7 @@ public class DauSachDAO {
 
 	public ResultSet GetDauSachFromMaSach(String maso) throws ClassNotFoundException, SQLException {
 		Connection con = DBConnection.getConnection();
-		String sql = "select ds.masach,ds.tuasach, group_concat(tg.tentacgia separator '-') tacgia,nxb.tennxb nxb "
-				+ "from dausach ds inner join tacgia tg on ds.masach=tg.masach "
-				+ "inner join nxb on ds.manxb=nxb.manxb where ds.masach=? group by ds.masach";
+		String sql = "call GetDauSachFromMaSach(?)";
 		PreparedStatement pstm = con.prepareStatement(sql);
 		pstm.setString(1, maso);
 		return pstm.executeQuery();
@@ -98,10 +96,9 @@ public class DauSachDAO {
 
 	public ResultSet GetAllDauSach() throws ClassNotFoundException, SQLException {
 		Connection con = DBConnection.getConnection();
-		String sql = "select ds.masach,ds.tuasach, group_concat(tg.tentacgia separator '-') tacgia,nxb.tennxb nxb "
-				+ "from dausach ds inner join tacgia tg on ds.masach=tg.masach "
-				+ "inner join nxb on ds.manxb=nxb.manxb group by ds.masach";
+		String sql = "call GetAllDauSach()";
 		PreparedStatement pstm = con.prepareStatement(sql);
+		
 		return pstm.executeQuery();
 	}
 

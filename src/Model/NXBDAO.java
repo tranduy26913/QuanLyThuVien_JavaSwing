@@ -11,12 +11,11 @@ import DAO.DBConnection;
 public class NXBDAO {
 	public boolean Insert(NXB nxb) throws ClassNotFoundException, SQLException {
 		Connection con=DBConnection.getConnection();
-		String sql = "INSERT INTO NXB VALUES(?, ?, ?,?)";
+		String sql = "INSERT INTO NXB(tennxb,diachi,sodt) VALUES(?, ?,?)";
 		PreparedStatement pstm = con.prepareStatement(sql);
-		pstm.setString(1, nxb.getMaNXB());
-		pstm.setString(2, nxb.getTenNXB());
-		pstm.setString(3, nxb.getDiaChi());
-		pstm.setString(4, nxb.getSoDT());
+		pstm.setString(1, nxb.getTenNXB());
+		pstm.setString(2, nxb.getDiaChi());
+		pstm.setString(3, nxb.getSoDT());
 		if(pstm.executeUpdate()>0)
 			return true;
 		return false;

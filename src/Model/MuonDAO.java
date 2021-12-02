@@ -10,7 +10,7 @@ import DAO.DBConnection;
 public class MuonDAO {
 	public boolean Insert(Muon muon) throws ClassNotFoundException, SQLException {
 		Connection con = DBConnection.getConnection();
-		String sql = "INSERT INTO Muon VALUES(?, ?,?,?)";
+		String sql = "INSERT INTO Muon(macuon,madg,ngaymuon,ngaytra) VALUES(?, ?,?,?)";
 		PreparedStatement pstm = con.prepareStatement(sql);
 		pstm.setString(1, muon.getMaCuon());
 		pstm.setString(2, muon.getMaDG());
