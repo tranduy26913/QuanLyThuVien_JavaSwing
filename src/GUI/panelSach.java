@@ -365,11 +365,9 @@ public class panelSach extends JPanel {
 		JButton btnSuaCuonSach = new JButton("Sửa Vị trí");
 		btnSuaCuonSach.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-<<<<<<< HEAD
-				//mmm
-=======
+
 				SuaCuonSach();
->>>>>>> 6637ad0cd59ead964eed573e571ca84712d2acd9
+
 			}
 		});
 		btnSuaCuonSach.setFont(new Font("Tahoma", Font.PLAIN, 14));

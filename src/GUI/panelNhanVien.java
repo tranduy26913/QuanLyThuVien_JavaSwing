@@ -271,7 +271,7 @@ public class panelNhanVien extends JPanel {
 				boolean cellHasFocus) {
 			if (value instanceof NhanVien) {
 				NhanVien nhanVien = (NhanVien) value;
-				value = nhanVien.getTenString();
+				value = nhanVien.getHoTen();
 			}
 			// TODO Auto-generated method stub
 			return super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
@@ -319,7 +319,7 @@ public class panelNhanVien extends JPanel {
 			model.setRowCount(0);
 
 			for (NhanVien nxb : list) {
-				model.addRow(new Object[] { nxb.getMa(), nxb.getTenString(), nxb.getDiaChiString(), nxb.getSDT(), nxb.getLuong()});
+				model.addRow(new Object[] { nxb.getMa(), nxb.getHoTen(), nxb.getDiaChi(), nxb.getSoDT(), nxb.getLuong()});
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
