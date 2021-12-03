@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `thuvien` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `thuvien`;
 -- MySQL dump 10.13  Distrib 8.0.27, for Win64 (x86_64)
 --
 -- Host: localhost    Database: thuvien
@@ -154,6 +156,33 @@ INSERT INTO `muon` VALUES (1,31,2,'2021-11-03','2021-11-03'),(3,33,2,'2021-11-03
 UNLOCK TABLES;
 
 --
+-- Table structure for table `nhanvien`
+--
+
+DROP TABLE IF EXISTS `nhanvien`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `nhanvien` (
+  `manv` int NOT NULL,
+  `hoten` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `diachi` longtext,
+  `sdt` varchar(11) DEFAULT NULL,
+  `luong` double DEFAULT NULL,
+  PRIMARY KEY (`manv`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `nhanvien`
+--
+
+LOCK TABLES `nhanvien` WRITE;
+/*!40000 ALTER TABLE `nhanvien` DISABLE KEYS */;
+INSERT INTO `nhanvien` VALUES (1,'Lê Văn Cường','Đăk Lăk','0389365835',1000),(2,'Trần Bảo Duy','Đăk Lăk','0397436178',10000),(3,'Lê Dĩ Hân','039333999','Đăk Lăk',10000),(6,'Trần Bảo Duy','0397436178','10000.0',111111),(9,'Lê Dĩ Hân','Đăk Lăk','10000.0',1111111);
+/*!40000 ALTER TABLE `nhanvien` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `nxb`
 --
 
@@ -202,6 +231,10 @@ LOCK TABLES `tacgia` WRITE;
 INSERT INTO `tacgia` VALUES ('1','tg1'),('1','tg2'),('2','tg3'),('4','tg1'),('4','tg2'),('5','tg3'),('6','tg3'),('7','tg3');
 /*!40000 ALTER TABLE `tacgia` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Dumping events for database 'thuvien'
+--
 
 --
 -- Dumping routines for database 'thuvien'
@@ -333,4 +366,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-12-02 22:41:18
+-- Dump completed on 2021-12-04  0:11:48
