@@ -377,7 +377,7 @@ public class panelMuon extends JPanel {
 				}
 				DocGiaDAO dgDAO=new DocGiaDAO();
 				DocGia dg= dgDAO.GetDocGiaFromMaDG(txtMaDG.getText());
-				txtTenDG.setText(dg.getTenDG());
+				txtTenDG.setText(dg.getHoTen());
 				txtDC.setText(dg.getDiaChi());
 				txtSDT.setText(dg.getSoDT());
 				MuonDAO DAO=new MuonDAO();

@@ -16,6 +16,18 @@ public class CuonSachDAO {
 		pstm.setString(2, cs.getViTri());
 		return pstm.execute();		
 	}
+	
+	public boolean Update(CuonSach cs) throws ClassNotFoundException, SQLException {
+		Connection con=DBConnection.getConnection();
+		String sql = "Update CuonSach set vitri=? where macuon=?";
+		PreparedStatement pstm = con.prepareStatement(sql);
+		
+		pstm.setString(1, cs.getViTri());
+		pstm.setInt(1, cs.getMaCuonSach());
+		
+		return pstm.executeUpdate()>0?true:false;	
+			
+	}
 	public boolean Delete(int macuon) throws ClassNotFoundException, SQLException {
 		Connection con=DBConnection.getConnection();
 		String sql = "Delete from Muon where macuon=?";

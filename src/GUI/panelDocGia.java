@@ -220,7 +220,7 @@ public class panelDocGia extends JPanel {
 					Alert.ShowMessageWarn("Vui lòng điền đầy đủ thông tin", "Sửa độc giả");
 					return;
 				}
-				DocGia dg = new DocGia(txtMaDG.getText(), txtTenDG.getText(), txtDC.getText(), txtSDT.getText());
+				DocGia dg = new DocGia(Integer.parseInt(txtMaDG.getText()), txtTenDG.getText(), txtDC.getText(), txtSDT.getText());
 				DocGiaDAO DAO = new DocGiaDAO();
 				DAO.Update(dg);
 				Alert.ShowMessageInfo("Sửa độc giả thành công", "Sửa độc giả");

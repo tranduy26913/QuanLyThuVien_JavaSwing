@@ -1,13 +1,13 @@
 package Model;
 
 public class CuonSach {
-	private String maCuonSach;
+	private int maCuonSach;
 	private String maSach;
 	private String viTri="";
-	public String getMaCuonSach() {
+	public int getMaCuonSach() {
 		return maCuonSach;
 	}
-	public void setMaCuonSach(String maCuonSach) {
+	public void setMaCuonSach(int maCuonSach) {
 		this.maCuonSach = maCuonSach;
 	}
 	public String getMaSach() {
@@ -32,9 +32,8 @@ public class CuonSach {
 		this.viTri=vitri;
 	}
 	
-	public CuonSach(String maCuon,String maSach, String vitri) {
+	public CuonSach(int maCuon, String vitri) {
 		this.maCuonSach=maCuon;
-		this.maSach=maSach;
 		this.viTri=vitri;
 	}
 	

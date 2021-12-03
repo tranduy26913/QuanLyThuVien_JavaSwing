@@ -14,9 +14,9 @@ public class NhanVienDAO {
 		String sqlString = "Insert into nhanvien values(?,?,?,?,?)";
 		PreparedStatement preparedStatement = connection.prepareStatement(sqlString);
 		preparedStatement.setInt(1, nv.getMa());
-		preparedStatement.setString(2, nv.getTenString());
-		preparedStatement.setString(3, nv.getDiaChiString());
-		preparedStatement.setString(4, nv.getSDT());
+		preparedStatement.setString(2, nv.getHoTen());
+		preparedStatement.setString(3, nv.getDiaChi());
+		preparedStatement.setString(4, nv.getSoDT());
 		preparedStatement.setDouble(5, nv.getLuong());
 		return preparedStatement.execute();
 	}
@@ -25,9 +25,9 @@ public class NhanVienDAO {
 		String sqlString = "Update nhanvien set hoten=?, diachi=?, sdt=?, luong=? where manv=?";
 		PreparedStatement preparedStatement = connection.prepareStatement(sqlString);
 		
-		preparedStatement.setString(1, nv.getTenString());
-		preparedStatement.setString(2, nv.getDiaChiString());
-		preparedStatement.setString(3, nv.getSDT());
+		preparedStatement.setString(1, nv.getHoTen());
+		preparedStatement.setString(2, nv.getDiaChi());
+		preparedStatement.setString(3, nv.getSoDT());
 		preparedStatement.setDouble(4, nv.getLuong());
 		preparedStatement.setInt(5, nv.getMa());
 		if(preparedStatement.executeUpdate()>0)

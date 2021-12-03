@@ -9,7 +9,7 @@ public class DocGiaDAO {
 		Connection con = DBConnection.getConnection();
 		String sql = "INSERT INTO DocGia(TenDG,DiaChi,SoDT) VALUES( ?, ?, ?)";
 		PreparedStatement pstm = con.prepareStatement(sql);
-		pstm.setString(1, dg.getTenDG());
+		pstm.setString(1, dg.getHoTen());
 		pstm.setString(2, dg.getDiaChi());
 		pstm.setString(3, dg.getSoDT());
 		pstm.execute();
@@ -22,10 +22,10 @@ public class DocGiaDAO {
 		String sql = "UPDATE DocGia SET tenDG=?, diachi=?, sodt=? where madg=?";
 		PreparedStatement pstm = con.prepareStatement(sql);
 		
-		pstm.setString(1, dg.getTenDG());
+		pstm.setString(1, dg.getHoTen());
 		pstm.setString(2, dg.getDiaChi());
 		pstm.setString(3, dg.getSoDT());
-		pstm.setString(4, dg.getMaDG());
+		pstm.setInt(4, dg.getMa());
 		pstm.executeUpdate();
 		System.out.println("Thành công");
 		
@@ -40,7 +40,7 @@ public class DocGiaDAO {
 		if(!rs.next()) {
 			return null;
 		}
-		return new DocGia(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4));
+		return new DocGia(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4));
 	}
 	
 	public ResultSet GetDocGiaFromInfo(String p1,String p2,String p3,String p4) throws ClassNotFoundException, SQLException {
