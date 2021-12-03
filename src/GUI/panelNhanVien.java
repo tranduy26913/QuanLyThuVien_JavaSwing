@@ -40,6 +40,7 @@ import javax.swing.JSeparator;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.EventQueue;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -51,16 +52,13 @@ public class panelNhanVien extends JPanel {
 	private JTextArea txtDCNXB;
 	private JTextField txtSDTNXB;
 	private JTable tableNXB;
-	private JTextField txtMaCuonSach;
-	private JTextField txtTuaCuonSach;
-	private JTextField txtNXBCuonSach;
-	private JTable tableCuonSach;
 	private JTextField MaNhanVienTextBox;
 	private JTextField HoTenNhanVienTextBox;
 	private JTextField DiaChiTextBox;
 	private JTextField SoDienThoaiTextBox;
 	private JTextField LuongNhanVienTextBox;
 	private Component frameMain;
+	private JTextField luongTextBox;
 
 	/**
 	 * Create the panel.
@@ -72,7 +70,6 @@ public class panelNhanVien extends JPanel {
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		add(tabbedPane);
-		InitTableDauSach();
 		//Panel Ä‘áº§u sÃ¡ch
 				JPanel panel_tabDauSach = new JPanel();
 				panel_tabDauSach.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -212,7 +209,7 @@ public class panelNhanVien extends JPanel {
 			}
 		});
 		btnThemNXB.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnThemNXB.setBounds(877, 227, 110, 40);
+		btnThemNXB.setBounds(900, 250, 110, 40);
 		panel_tabNXB.add(btnThemNXB);
 
 		JButton btnSuaNXB = new JButton("Sửa");
@@ -222,7 +219,7 @@ public class panelNhanVien extends JPanel {
 			}
 		});
 		btnSuaNXB.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnSuaNXB.setBounds(997, 227, 110, 40);
+		btnSuaNXB.setBounds(1100, 250, 110, 40);
 		panel_tabNXB.add(btnSuaNXB);
 
 		JButton btnXoaNXB = new JButton("Xóa");
@@ -232,65 +229,23 @@ public class panelNhanVien extends JPanel {
 			}
 		});
 		btnXoaNXB.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnXoaNXB.setBounds(877, 278, 110, 40);
+		btnXoaNXB.setBounds(900, 300, 110, 40);
 		panel_tabNXB.add(btnXoaNXB);
 
 		JButton btnTimNXB = new JButton("T\u00ECm");
 		btnTimNXB.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnTimNXB.setBounds(997, 278, 110, 40);
+		btnTimNXB.setBounds(1100, 300, 110, 40);
 		panel_tabNXB.add(btnTimNXB);
-
-		JPanel panel_tabSach = new JPanel();
-		panel_tabSach.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		tabbedPane.addTab("S\u00E1ch", null, panel_tabSach, null);
-		panel_tabSach.setLayout(null);
-
-		txtMaCuonSach = new JTextField();
-		txtMaCuonSach.setColumns(10);
-		txtMaCuonSach.setBounds(930, 11, 102, 25);
-		panel_tabSach.add(txtMaCuonSach);
-
-		JLabel lblMSch = new JLabel("M\u00E3 S\u00E1ch");
-		lblMSch.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblMSch.setBounds(830, 11, 102, 25);
-		panel_tabSach.add(lblMSch);
-
-		JLabel lblTaSch_1 = new JLabel("T\u1EF1a s\u00E1ch");
-		lblTaSch_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblTaSch_1.setBounds(830, 47, 92, 25);
-		panel_tabSach.add(lblTaSch_1);
-
-		txtTuaCuonSach = new JTextField();
-		txtTuaCuonSach.setColumns(10);
-		txtTuaCuonSach.setBounds(930, 47, 205, 25);
-		panel_tabSach.add(txtTuaCuonSach);
-
-		JLabel lblNhXutBn_1 = new JLabel("Nh\u00E0 xu\u1EA5t b\u1EA3n");
-		lblNhXutBn_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNhXutBn_1.setBounds(830, 83, 92, 25);
-		panel_tabSach.add(lblNhXutBn_1);
-
-		JButton btnTimSach = new JButton("T\u00ECm");
-		btnTimSach.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnTimSach.setBounds(1042, 12, 93, 24);
-		panel_tabSach.add(btnTimSach);
-
-		txtNXBCuonSach = new JTextField();
-		txtNXBCuonSach.setColumns(10);
-		txtNXBCuonSach.setBounds(930, 83, 205, 25);
-		panel_tabSach.add(txtNXBCuonSach);
 		
-		JScrollPane scrollPaneCuonSach = new JScrollPane();
-		scrollPaneCuonSach.setBounds(10, 11, 800, 477);
-		panel_tabSach.add(scrollPaneCuonSach);
-
-		tableCuonSach = new JTable();
-		scrollPaneCuonSach.setViewportView(tableCuonSach);
+		JLabel lblLng = new JLabel("Lương");
+		lblLng.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblLng.setBounds(852, 198, 100, 25);
+		panel_tabNXB.add(lblLng);
 		
-		JButton btnTimDauSach_1 = new JButton("TÃ¬m");
-		btnTimDauSach_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnTimDauSach_1.setBounds(930, 146, 110, 40);
-		panel_tabSach.add(btnTimDauSach_1);
+		luongTextBox = new JTextField();
+		luongTextBox.setColumns(10);
+		luongTextBox.setBounds(955, 198, 180, 25);
+		panel_tabNXB.add(luongTextBox);
 
 	}
 
@@ -309,67 +264,14 @@ public class panelNhanVien extends JPanel {
 		return model;
 	}
 
-	
-	private void InitTableDauSach() {
-		DefaultTableModel model = new DefaultTableModel();
-		model.addColumn("Mã nhân viên");
-		model.addColumn("Tên nhân viên");
-		model.addColumn("Địa chỉ");
-		model.addColumn("Số điện thoại");
-		model.addColumn("Lương");
-		tableNXB
-		model.addListSelectionListener(new ListSelectionListener() {
-			@Override
-			public void valueChanged(ListSelectionEvent e) {
-				if(!model2.isSelectionEmpty()) {
-					int index=model2.getMinSelectionIndex();
-					txtMaDauSach.setText(tableDauSach.getValueAt(index, 0).toString());
-					txtTuaSach.setText(tableDauSach.getValueAt(index, 1).toString());
-					String[] tgString = tableDauSach.getValueAt(index, 2).toString().split("-");
-					txtTacGia.setText(String.join("\n", tgString));
-
-					for (int i = 0; i < cBNXB.getItemCount(); i++) {
-						if (((NXB) cBNXB.getItemAt(i)).getTenNXB().equals(tableDauSach.getValueAt(index, 3).toString())) {
-							cBNXB.setSelectedIndex(i);
-							break;
-						}
-					}
-				}
-				
-			}
-		});
-			LoadDataDauSach(null);
-	}
-
-	private void LoadDataDauSach(ResultSet rs) {
-		try {
-			if (rs == null) {
-				DauSachDAO dauSachDAO = new DauSachDAO();
-				rs = dauSachDAO.GetAllDauSach();
-			}
-			model.setRowCount(0);
-
-			while (rs.next()) {
-				model.addRow(new String[] { rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4) });
-			}
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		}
-	}
-
-	private void LoadDataComboBoxNXB() {
-
-	}
-
 	private class NXBListCellRenderer extends DefaultListCellRenderer {
 
 		@Override
 		public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected,
 				boolean cellHasFocus) {
-			if (value instanceof NXB) {
-				NXB nxb = (NXB) value;
-				value = nxb.getTenNXB();
+			if (value instanceof NhanVien) {
+				NhanVien nhanVien = (NhanVien) value;
+				value = nhanVien.getTenString();
 			}
 			// TODO Auto-generated method stub
 			return super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
@@ -425,56 +327,7 @@ public class panelNhanVien extends JPanel {
 
 	}
 	
-	private void InitTableCuonSach() {
-		DefaultTableModel model = new DefaultTableModel();
-		model.addColumn("MÃ£ cuá»‘n");
-		model.addColumn("Tá»±a SÃ¡ch");
-		model.addColumn("TÃ¡c giáº£");
-		model.addColumn("NhÃ  xuáº¥t báº£n");
-		model.addColumn("Tráº¡ng thÃ¡i");
-		tableCuonSach.setModel(model);
-		
-		ListSelectionModel model2=tableCuonSach.getSelectionModel();
-		model2.addListSelectionListener(new ListSelectionListener() {
-			@Override
-			public void valueChanged(ListSelectionEvent e) {
-				if(!model2.isSelectionEmpty()) {
-					int index=model2.getMinSelectionIndex();
-					txtMaDauSach.setText(tableDauSach.getValueAt(index, 0).toString());
-					txtTuaSach.setText(tableDauSach.getValueAt(index, 1).toString());
-					String[] tgString = tableDauSach.getValueAt(index, 2).toString().split("-");
-					txtTacGia.setText(String.join("\n", tgString));
 
-					for (int i = 0; i < cBNXB.getItemCount(); i++) {
-						if (((NXB) cBNXB.getItemAt(i)).getTenNXB().equals(tableDauSach.getValueAt(index, 3).toString())) {
-							cBNXB.setSelectedIndex(i);
-							break;
-						}
-					}
-				}
-				
-			}
-		});
-			LoadDataDauSach(null);
-	}
-
-	private void LoadDataCuonSach(ResultSet rs) {
-		try {
-			if (rs == null) {
-				DauSachDAO dauSachDAO = new DauSachDAO();
-				rs = dauSachDAO.GetAllDauSach();
-			}
-			DefaultTableModel model = (DefaultTableModel) tableDauSach.getModel();
-			model.setRowCount(0);
-
-			while (rs.next()) {
-				model.addRow(new String[] { rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4) });
-			}
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		}
-	}
 	
 
 	private void ThemNXB() {
@@ -485,7 +338,7 @@ public class panelNhanVien extends JPanel {
 				Alert.ShowMessageWarn("Vui lòng điền đầy đủ thông tin !!", "Nhân viên");
 				return;
 			}
-			NhanVien nhanVien = new NhanVien(Integer.parseInt(txtMaNXB.getText()), txtTenNXB.getText(), txtDCNXB.getText(), txtSDTNXB.getText(), 0);
+			NhanVien nhanVien = new NhanVien(Integer.parseInt(txtMaNXB.getText()), txtTenNXB.getText(), txtDCNXB.getText(), txtSDTNXB.getText(), Double.parseDouble(luongTextBox.getText()));
 			
 			NhanVienDAO dao = new NhanVienDAO();
 			AccountDAO accountDAO = new AccountDAO();			
@@ -532,23 +385,25 @@ public class panelNhanVien extends JPanel {
 	private void SuaNXB() {
 		try {
 			if (txtMaNXB.getText().isEmpty() || txtTenNXB.getText().isEmpty() || txtDCNXB.getText().isEmpty()
-					|| txtSDTNXB.getText().isEmpty()) {
-				Alert.ShowMessageWarn("Vui lÃ²ng Ä‘iá»�n dáº§y Ä‘á»§ thÃ´ng tin", "NhÃ  xuáº¥t báº£n");
+					|| txtSDTNXB.getText().isEmpty() ||luongTextBox.getText().isEmpty()) {
+				Alert.ShowMessageWarn("Vui lòng nhập đầy đủ thông tin!", "Sửa nhân viên");
 				return;
 			}
-			NXB nxb = new NXB(txtMaNXB.getText(), txtTenNXB.getText(), txtDCNXB.getText(), txtSDTNXB.getText());
-			NXBDAO dao = new NXBDAO();
-			if (dao.Update(nxb)) {
-				Alert.ShowMessageInfo("Cáº­p nháº­t nhÃ  xuáº¥t báº£n thÃ nh cÃ´ng", "NhÃ  xuáº¥t báº£n");
+			
+			NhanVien nhanVien = new NhanVien(Integer.parseInt(txtMaNXB.getText()), txtTenNXB.getText(), txtDCNXB.getText(), txtSDTNXB.getText(), Double.parseDouble(luongTextBox.getText()));
+			NhanVienDAO dao = new NhanVienDAO();
+			
+			if (dao.Update(nhanVien)) {
+				Alert.ShowMessageInfo("Cập nhật thông tin nhân viên thành công", "Nhân viên");
 				LoadDataTableNXB(null);
 			}
 			
 			else {
-				Alert.ShowMessageWarn("Cáº­p nháº­t nhÃ  xuáº¥t báº£n khÃ´ng thÃ nh cÃ´ng. Vui lÃ²ng kiá»ƒm tra láº¡i", "NhÃ  xuáº¥t báº£n");
+				Alert.ShowMessageWarn("Cập nhật thông tin nhân viên không thành công!! Vui lòng kiểm tra lại", "Nhân viên");
 			}
 
 		} catch (Exception e) {
-			Alert.ShowMessageError("Lá»—i cáº­p nháº­t nhÃ  xuáº¥t báº£n", "NhÃ  xuáº¥t báº£n");
+			Alert.ShowMessageError("Lỗi cập nhật thông tin nhân viên !!", "Nhân viên");
 
 		}
 	}
@@ -556,47 +411,26 @@ public class panelNhanVien extends JPanel {
 	private void XoaNXB() {
 		try {
 			if (txtMaNXB.getText().isEmpty()) {
-				Alert.ShowMessageWarn("Vui lÃ²ng Ä‘iá»�n mÃ£ nhÃ  xuáº¥t báº£n cáº§n xoÃ¡", "NhÃ  xuáº¥t báº£n");
+				Alert.ShowMessageWarn("Vui lòng chonh nhân viên cần xóa", "Xóa nhân viên");
 				return;
 			}
-			NXBDAO dao = new NXBDAO();
-			if (dao.Delete(txtMaNXB.getText())) {
-				Alert.ShowMessageInfo("XoÃ¡ nhÃ  xuáº¥t báº£n thÃ nh cÃ´ng", "NhÃ  xuáº¥t báº£n");
+			NhanVien nhanVien = new NhanVien(Integer.parseInt(txtMaNXB.getText()), txtTenNXB.getText(), txtDCNXB.getText(), txtSDTNXB.getText(), Double.parseDouble(luongTextBox.getText()));
+			NhanVienDAO nhanVienDAO = new NhanVienDAO();
+			
+			if (nhanVienDAO.Delete(nhanVien)) {
+				Alert.ShowMessageInfo("Xóa nhân viên thành công!", "Xóa nhân viên");
 				LoadDataTableNXB(null);
 			}
 			else {
-				Alert.ShowMessageWarn("XoÃ¡ nhÃ  xuáº¥t báº£n khÃ´ng thÃ nh cÃ´ng. Vui lÃ²ng kiá»ƒm tra láº¡i", "NhÃ  xuáº¥t báº£n");
+				Alert.ShowMessageWarn("Xóa nhân viên không thành công! Vui lòng kiểm tra lại", "Xóa nhân viên");
 			}
 
 		} catch (Exception e) {
-			Alert.ShowMessageError("Lá»—i xoÃ¡ nhÃ  xuáº¥t báº£n", "NhÃ  xuáº¥t báº£n");
+			Alert.ShowMessageError("Lỗi xóa nhân viên", "Xóa nhân viên");
 		}
 	}
 
 	// Region Event
-	
-	
-	 
-
-	private class ClickCellTableDauSach extends MouseAdapter {
-		@Override
-		public void mouseClicked(MouseEvent e) {
-			int index = tableDauSach.getSelectedRow();
-			if (index != -1) {
-				txtMaDauSach.setText(tableDauSach.getValueAt(index, 0).toString());
-				txtTuaSach.setText(tableDauSach.getValueAt(index, 1).toString());
-				String[] tgString = tableDauSach.getValueAt(index, 2).toString().split("-");
-				txtTacGia.setText(String.join("\n", tgString));
-
-				for (int i = 0; i < cBNXB.getItemCount(); i++) {
-					if (((NXB) cBNXB.getItemAt(i)).getTenNXB().equals(tableDauSach.getValueAt(index, 3).toString())) {
-						cBNXB.setSelectedIndex(i);
-						break;
-					}
-				}
-			}
-		}
-	}
 
 	private class ClickCellTableNXB extends MouseAdapter {
 		@Override
@@ -607,7 +441,20 @@ public class panelNhanVien extends JPanel {
 				txtTenNXB.setText(tableNXB.getValueAt(index, 1).toString());
 				txtDCNXB.setText(tableNXB.getValueAt(index, 2).toString());
 				txtSDTNXB.setText(tableNXB.getValueAt(index, 3).toString());
+				luongTextBox.setText(tableNXB.getValueAt(index, 4).toString());
 			}
 		}
+	}
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					panelNhanVien frame = new panelNhanVien();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 }
