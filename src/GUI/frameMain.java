@@ -33,6 +33,7 @@ public class frameMain extends JFrame {
 	private JPanel panel_Muon;
 	private JPanel panel_In;
 	private JPanel panelMain;
+	private JPanel panel_NhanVien;
 
 	/**
 	 * Launch the application.
@@ -109,6 +110,19 @@ public class frameMain extends JFrame {
 		btnTabMuon.setBounds(230, 25, 100, 80);
 		panel.add(btnTabMuon);
 		
+		JButton btnTabNhanVien = new JButton("Nhân viên");
+		btnTabNhanVien.setIcon(new ImageIcon(frameMain.class.getResource("/icon/people_48px.png")));
+		btnTabNhanVien.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				changePanel(panel_NhanVien);
+			}
+		});
+		btnTabNhanVien.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnTabNhanVien.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnTabNhanVien.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnTabNhanVien.setBounds(340, 25, 100, 80);
+		panel.add(btnTabNhanVien);
+		
 		panelMain = new JPanel();
 		panelMain.setBackground(new Color(0, 255, 127));
 		panelMain.setBounds(10, 110, 1164, 530);
@@ -117,6 +131,7 @@ public class frameMain extends JFrame {
 		panel_Sach=new panelSach();
 		panel_DocGia=new panelDocGia();
 		panel_Muon=new panelMuon();
+		panel_NhanVien = new panelNhanVien();
 		panelMain.setLayout(new BorderLayout(0, 0));
 		
 		
@@ -128,6 +143,7 @@ public class frameMain extends JFrame {
 	private void changePanel(JPanel pnl) {
 		panel_DocGia.setVisible(false);
 		panel_Sach.setVisible(false);
+		panel_NhanVien.setVisible(false);
 		panelMain.removeAll();
 		
 		pnl.setVisible(true);

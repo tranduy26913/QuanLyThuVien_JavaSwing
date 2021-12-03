@@ -304,7 +304,6 @@ public class panelNhanVien extends JPanel {
 			}
 		});
 		LoadDataTableNXB(null);
-
 	}
 
 	private void LoadDataTableNXB(ArrayList<NhanVien> list)// load dá»¯ liá»‡u cho báº£ng NXB
