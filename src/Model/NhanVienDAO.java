@@ -34,11 +34,11 @@ public class NhanVienDAO {
 			return true;
 		return false;
 	}
-	public boolean Delete(NhanVien nv) throws ClassNotFoundException, SQLException{
+	public boolean Delete(int manv) throws ClassNotFoundException, SQLException{
 		Connection con=DBConnection.getConnection();
 		String sql = "Delete from nhanvien where manv=?";
 		PreparedStatement pstm = con.prepareStatement(sql);
-		pstm.setInt(1, nv.getMa());
+		pstm.setInt(1, manv);
 		if( pstm.executeUpdate()>0)
 			return true;
 		return false;

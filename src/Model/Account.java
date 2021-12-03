@@ -4,7 +4,7 @@ public class Account {
 	private String username;
 	private String password;
 	private String typeUser;
-	private String maNV;
+	private int maNV;
 	public String getUsername() {
 		return username;
 	}
@@ -23,10 +23,10 @@ public class Account {
 	public void setTypeUser(String typeUser) {
 		this.typeUser = typeUser;
 	}
-	public String getMaNV() {
+	public int getMaNV() {
 		return maNV;
 	}
-	public void setMaNV(String maNV) {
+	public void setMaNV(int maNV) {
 		this.maNV = maNV;
 	}
 	
@@ -39,7 +39,7 @@ public class Account {
 		this.password=pw;
 		this.typeUser=type;
 	}
-	public Account(String user,String pw,String type,String manv){
+	public Account(String user,String pw,String type,int manv){
 		this.username=user;
 		this.password=pw;
 		this.typeUser=type;

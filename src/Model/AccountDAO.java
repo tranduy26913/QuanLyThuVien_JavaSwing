@@ -8,16 +8,16 @@ import java.sql.SQLException;
 import DAO.DBConnection;
 
 public class AccountDAO {
-	public void Insert(Account acc) throws ClassNotFoundException, SQLException {
+	public boolean Insert(Account acc) throws ClassNotFoundException, SQLException {
 		Connection con=DBConnection.getConnection();
 		String sql = "INSERT INTO Account VALUES(?, ?, ?, ?)";
 		PreparedStatement pstm = con.prepareStatement(sql);
 		pstm.setString(1, acc.getUsername());
 		pstm.setString(2, acc.getPassword());
 		pstm.setString(3, acc.getTypeUser());
-		pstm.setString(4, acc.getMaNV());
+		pstm.setInt(4, acc.getMaNV());
 		pstm.execute();
-		System.out.println("Thành công");
+		return pstm.execute();
 		
 	}
 	
@@ -34,5 +34,15 @@ public class AccountDAO {
 		return false;	
 	}
 	
+	public boolean Delete(int manv) throws ClassNotFoundException, SQLException{
+		Connection connection = DBConnection.getConnection();
+		String sqlString ="Delete from account where manv = ?";
+		PreparedStatement preparedStatement = connection.prepareStatement(sqlString);
+		preparedStatement.setInt(1, manv);
+		int rs=preparedStatement.executeUpdate();
+		if(rs>0)
+			return true;
+		return false;
+	}
 	
 }

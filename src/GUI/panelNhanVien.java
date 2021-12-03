@@ -59,7 +59,8 @@ public class panelNhanVien extends JPanel {
 	private JTextField LuongNhanVienTextBox;
 	private Component frameMain;
 	private JTextField luongTextBox;
-
+	NhanVienDAO nhanVienDAO = new NhanVienDAO();
+	AccountDAO accountDAO = new AccountDAO();
 	/**
 	 * Create the panel.
 	 */
@@ -249,20 +250,6 @@ public class panelNhanVien extends JPanel {
 
 	}
 
-	DefaultComboBoxModel customComboBoxModel() {
-		DefaultComboBoxModel model = new DefaultComboBoxModel();
-		try {
-			NXBDAO nxbDAO = new NXBDAO();
-			ArrayList<NXB> list = nxbDAO.GetAllNXB();
-			for (NXB nxb : list) {
-				model.addElement(nxb);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return model;
-	}
 
 	private class NXBListCellRenderer extends DefaultListCellRenderer {
 
@@ -318,7 +305,7 @@ public class panelNhanVien extends JPanel {
 			model.setRowCount(0);
 
 			for (NhanVien nxb : list) {
-				model.addRow(new Object[] { nxb.getMa(), nxb.getHoTen(), nxb.getDiaChi(), nxb.getSoDT(), nxb.getLuong()});
+				model.addRow(new Object[] {nxb.getMa(), nxb.getHoTen(),  nxb.getSoDT(), nxb.getDiaChi(), nxb.getLuong()});
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -338,9 +325,7 @@ public class panelNhanVien extends JPanel {
 				return;
 			}
 			NhanVien nhanVien = new NhanVien(Integer.parseInt(txtMaNXB.getText()), txtTenNXB.getText(), txtDCNXB.getText(), txtSDTNXB.getText(), Double.parseDouble(luongTextBox.getText()));
-			
-			NhanVienDAO dao = new NhanVienDAO();
-			AccountDAO accountDAO = new AccountDAO();			
+						
 			int output = JOptionPane.showConfirmDialog(frameMain,
                     "Thêm nhân viên này làm quản lý?", "Thêm nhân viên",
                     JOptionPane.YES_NO_CANCEL_OPTION, 
@@ -348,11 +333,11 @@ public class panelNhanVien extends JPanel {
             if (output == JOptionPane.YES_OPTION) {
                 //statusLabel.setText("Yes selected.");
             	typeString ="QL";
-            	Account account = new Account(txtMaNXB.getText(), "12345", typeString, txtMaNXB.getText());
-            	if (dao.Insert(nhanVien)) {
+            	Account account = new Account(txtMaNXB.getText(), "12345", typeString, Integer.parseInt(txtMaNXB.getText()));
+            	if (nhanVienDAO.Insert(nhanVien) && accountDAO.Insert(account)) {
     				Alert.ShowMessageInfo("Thêm quản lý thành công: Tên đăng nhập: " + txtMaNXB.getText() + "Mật khẩu: 123456" , "Nhân viên");
     				LoadDataTableNXB(null);
-    				accountDAO.Insert(account);
+    				
     			}
     			else {
     				Alert.ShowMessageWarn("Thêm nhân viên không thành công!! Vui lòng kiểm tra lại", "Nhân viên");
@@ -361,11 +346,10 @@ public class panelNhanVien extends JPanel {
             } else if (output == JOptionPane.NO_OPTION) {
                 //statusLabel.setText("No selected.");
             	typeString ="NV";
-            	Account account = new Account(txtMaNXB.getText(), "12345", typeString, txtMaNXB.getText());
-            	if (dao.Insert(nhanVien)) {
+            	Account account = new Account(txtMaNXB.getText(), "12345", typeString, Integer.parseInt(txtMaNXB.getText()));
+            	if (nhanVienDAO.Insert(nhanVien) && accountDAO.Insert(account)) {
     				Alert.ShowMessageInfo("Thêm nhân viên thành công: Tên đăng nhập: " + txtMaNXB.getText() + "Mật khẩu: 123456" , "Nhân viên");
     				LoadDataTableNXB(null);
-    				accountDAO.Insert(account);
     			}
     			else {
     				Alert.ShowMessageWarn("Thêm nhân viên không thành công!! Vui lòng kiểm tra lại", "Nhân viên");
@@ -414,9 +398,8 @@ public class panelNhanVien extends JPanel {
 				return;
 			}
 			NhanVien nhanVien = new NhanVien(Integer.parseInt(txtMaNXB.getText()), txtTenNXB.getText(), txtDCNXB.getText(), txtSDTNXB.getText(), Double.parseDouble(luongTextBox.getText()));
-			NhanVienDAO nhanVienDAO = new NhanVienDAO();
 			
-			if (nhanVienDAO.Delete(nhanVien)) {
+			if (nhanVienDAO.Delete(Integer.parseInt(txtMaNXB.getText())) && accountDAO.Delete(Integer.parseInt(txtMaNXB.getText()))) {
 				Alert.ShowMessageInfo("Xóa nhân viên thành công!", "Xóa nhân viên");
 				LoadDataTableNXB(null);
 			}
