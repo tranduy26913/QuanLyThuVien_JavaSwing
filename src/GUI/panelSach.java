@@ -363,6 +363,11 @@ public class panelSach extends JPanel {
 		scrollPaneCuonSach.setViewportView(tableCuonSach);
 
 		JButton btnSuaCuonSach = new JButton("Sửa Vị trí");
+		btnSuaCuonSach.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				mmm
+			}
+		});
 		btnSuaCuonSach.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnSuaCuonSach.setBounds(856, 181, 110, 40);
 		panel_tabSach.add(btnSuaCuonSach);
@@ -746,6 +751,32 @@ public class panelSach extends JPanel {
 			}
 			if (sl == 0) {
 				Alert.ShowMessageWarn("Vui lòng điền số lượng cuốn sách cần thêm", "Thêm sách");
+				return;
+			}
+
+			CuonSachDAO csDAO = new CuonSachDAO();
+			for (int i = 0; i < sl; i++) {
+				CuonSach cs = new CuonSach(txtMaDauSach.getText());
+				csDAO.Insert(cs);
+			}
+			Alert.ShowMessageInfo("Thêm sách thành công", "Thêm cuốn sách");
+
+		} catch (Exception e) {
+			Alert.ShowMessageError("Lỗi xoá đầu sách", "Thêm cuốn sách");
+			e.printStackTrace();
+		}
+	}
+	
+	private void SuaCuonSach() {
+		try {
+			int sl = 0;
+			try {
+				sl = Integer.parseInt(txtSoCuonSach.getText());
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+			if (sl == 0) {
+				Alert.ShowMessageWarn("Vui lòng điền mã cuốn sách cần sửa", "Sửa sách");
 				return;
 			}
 
