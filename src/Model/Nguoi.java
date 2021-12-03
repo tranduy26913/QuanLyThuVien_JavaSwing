@@ -1,34 +1,35 @@
 package Model;
 
 public class Nguoi {
-	private int ma;
-	private String tenString;
-	private String diaChiString;
-	private String SDT;
+	protected int ma;
+	protected String hoTen;
+	protected String diaChi;
+	protected String soDT;
 	
-	public String getDiaChiString() {
-		return diaChiString;
-	}
+	
 	public int getMa() {
 		return ma;
-	}
-	public String getSDT() {
-		return SDT;
-	}
-	public String getTenString() {
-		return tenString;
-	}
-	public void setDiaChiString(String diaChiString) {
-		this.diaChiString = diaChiString;
 	}
 	public void setMa(int ma) {
 		this.ma = ma;
 	}
-	public void setSDT(String sDT) {
-		SDT = sDT;
+	public String getHoTen() {
+		return hoTen;
 	}
-	public void setTenString(String tenString) {
-		this.tenString = tenString;
+	public void setHoTen(String hoTen) {
+		this.hoTen = hoTen;
+	}
+	public String getDiaChi() {
+		return diaChi;
+	}
+	public void setDiaChi(String diaChi) {
+		this.diaChi = diaChi;
+	}
+	public String getSoDT() {
+		return soDT;
+	}
+	public void setSoDT(String soDT) {
+		this.soDT = soDT;
 	}
 	public Nguoi() {
 		
@@ -36,9 +37,9 @@ public class Nguoi {
 	public Nguoi(int ma, String hotenString, String diachiString, String sdt)
 	{
 		this.ma= ma;
-		this.tenString=hotenString;
-		this.diaChiString= diachiString;
-		this.SDT=sdt;
+		this.hoTen=hotenString;
+		this.diaChi= diachiString;
+		this.soDT=sdt;
 	}
 	
 }

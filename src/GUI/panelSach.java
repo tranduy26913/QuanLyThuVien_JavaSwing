@@ -365,7 +365,11 @@ public class panelSach extends JPanel {
 		JButton btnSuaCuonSach = new JButton("Sửa Vị trí");
 		btnSuaCuonSach.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+<<<<<<< HEAD
 				//mmm
+=======
+				SuaCuonSach();
+>>>>>>> 6637ad0cd59ead964eed573e571ca84712d2acd9
 			}
 		});
 		btnSuaCuonSach.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -769,23 +773,25 @@ public class panelSach extends JPanel {
 	
 	private void SuaCuonSach() {
 		try {
-			int sl = 0;
+			int macuon = 0;
 			try {
-				sl = Integer.parseInt(txtSoCuonSach.getText());
+				macuon = Integer.parseInt(txtSoCuonSach.getText());
 			} catch (Exception e) {
-				// TODO: handle exception
 			}
-			if (sl == 0) {
+			if (macuon == 0) {
 				Alert.ShowMessageWarn("Vui lòng điền mã cuốn sách cần sửa", "Sửa sách");
 				return;
 			}
 
 			CuonSachDAO csDAO = new CuonSachDAO();
-			for (int i = 0; i < sl; i++) {
-				CuonSach cs = new CuonSach(txtMaDauSach.getText());
-				csDAO.Insert(cs);
+			CuonSach cs=new CuonSach(macuon, txtViTriCuonSach.getText());
+			if(csDAO.Update(cs)) {
+				Alert.ShowMessageInfo("Sửa cuốn sách thành công", "Sửa cuốn sách");
 			}
-			Alert.ShowMessageInfo("Thêm sách thành công", "Thêm cuốn sách");
+			else {
+				Alert.ShowMessageInfo("Sửa cuốn sách không thành công", "Sửa cuốn sách");
+			}
+			
 
 		} catch (Exception e) {
 			Alert.ShowMessageError("Lỗi xoá đầu sách", "Thêm cuốn sách");
