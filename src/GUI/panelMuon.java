@@ -12,7 +12,7 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
-import Model.CuonSach;
+
 import Model.CuonSachDAO;
 import Model.DocGia;
 import Model.DocGiaDAO;
@@ -28,7 +28,6 @@ import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
-import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.border.EtchedBorder;
@@ -40,6 +39,10 @@ import javax.swing.JSeparator;
 import javax.swing.JRadioButton;
 
 public class panelMuon extends JPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JTextField txtMaDG;
 	private JTextField txtTenDG;
 	private JTextArea txtDC;
