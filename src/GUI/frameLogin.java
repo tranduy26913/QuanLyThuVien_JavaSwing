@@ -21,6 +21,8 @@ import javax.swing.JButton;
 import javax.swing.JRadioButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.UIManager;
+import java.awt.Color;
 
 public class frameLogin extends JFrame {
 
@@ -33,21 +35,8 @@ public class frameLogin extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					//frameLogin frame = new frameLogin();
-					//frame.setVisible(true);
-					frameMain frameMain=new frameMain();
-					frameMain.setVisible(true);
-					
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	
+	
 
 	/**
 	 * Create the frame.
@@ -62,50 +51,53 @@ public class frameLogin extends JFrame {
 		
 		JLabel lblNewLabel = new JLabel("T\u00EAn \u0111\u0103ng nh\u1EADp");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel.setBounds(86, 98, 110, 25);
+		lblNewLabel.setBounds(60, 105, 110, 25);
 		contentPane.add(lblNewLabel);
 		
 		txtUser = new JTextField();
-		txtUser.setBounds(217, 98, 140, 25);
+		txtUser.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtUser.setBounds(180, 105, 177, 25);
 		contentPane.add(txtUser);
 		txtUser.setColumns(10);
 		
 		JLabel lblMtKhu = new JLabel("M\u1EADt kh\u1EA9u");
 		lblMtKhu.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblMtKhu.setBounds(86, 137, 110, 25);
+		lblMtKhu.setBounds(60, 144, 110, 25);
 		contentPane.add(lblMtKhu);
 		
 		txtPw = new JPasswordField();
-		txtPw.setBounds(217, 137, 140, 25);
+		txtPw.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtPw.setBounds(180, 144, 177, 25);
 		contentPane.add(txtPw);
 		
 		JLabel lblNewLabel_1 = new JLabel("");
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1.setIcon(new ImageIcon(frameLogin.class.getResource("/icon/Person-Male-Light-icon-48.png")));
-		lblNewLabel_1.setBounds(190, 12, 90, 75);
+		lblNewLabel_1.setIcon(new ImageIcon(frameLogin.class.getResource("/icon/test_account_100px.png")));
+		lblNewLabel_1.setBounds(166, 11, 95, 83);
 		contentPane.add(lblNewLabel_1);
 		
 		JButton btnDN = new JButton("\u0110\u0103ng nh\u1EADp");
+		btnDN.setBackground(UIManager.getColor("MenuItem.selectionBackground"));
 		btnDN.addActionListener(new Login());
 		btnDN.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnDN.setBounds(107, 216, 110, 40);
+		btnDN.setBounds(90, 225, 110, 40);
 		contentPane.add(btnDN);
 		
 		JButton btnThoat = new JButton("Tho\u00E1t");
 		btnThoat.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnThoat.setBounds(227, 216, 110, 40);
+		btnThoat.setBounds(230, 225, 110, 40);
 		contentPane.add(btnThoat);
 		
 		
 		rbQuanLy = new JRadioButton("Qu\u1EA3n l\u00FD");
 		rbQuanLy.setSelected(true);
 		rbQuanLy.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		rbQuanLy.setBounds(117, 175, 95, 23);
+		rbQuanLy.setBounds(117, 182, 95, 23);
 		contentPane.add(rbQuanLy);
 		
 		rbTT = new JRadioButton("Th\u1EE7 th\u01B0");
 		rbTT.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		rbTT.setBounds(231, 175, 95, 23);
+		rbTT.setBounds(231, 182, 95, 23);
 		contentPane.add(rbTT);
 		ButtonGroup group = new ButtonGroup();
 		group.add(rbQuanLy);
@@ -124,17 +116,28 @@ public class frameLogin extends JFrame {
 			if(rbTT.isSelected())
 				typeUser="TT";
 			@SuppressWarnings("deprecation")
-			Account acc=new Account(txtUser.getText(), txtPw.getText(), typeUser);
 			AccountDAO dao=new AccountDAO();
-			if(dao.Login(acc)) {
+			Account acc=dao.Login(txtUser.getText(), txtPw.getText(), typeUser);
+			
+			//if(acc!=null) {
 				if(typeUser.equals("TT")) {
+					this.setVisible(false);
 					frameMain f=new frameMain();
 					f.setVisible(true);
+					f.setMaNV(acc.getMaNV());
+					
 				}
 				else {
-					//
+					this.setVisible(false);
+					frameQuanLy qLy=new frameQuanLy();
+					qLy.setVisible(true);
+					qLy.setMaNV(acc.getMaNV());
+					
 				}
-			}
+			//}
+			//else {
+			//	Alert.ShowMessageInfo("Sai mật khẩu hoặc tên đăng nhập. Vui lòng nhập lại", "Đăng nhập");
+			//}
 		} catch (Exception e2) {
 			e2.printStackTrace();
 		}

@@ -25,7 +25,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JMenu;
 
-public class frameMain extends JFrame {
+public class frameQuanLy extends JFrame {
 
 	private JPanel contentPane;
 	private JPanel panel_Sach;
@@ -34,9 +34,7 @@ public class frameMain extends JFrame {
 	private JPanel panel_In;
 	private JPanel panelMain;
 	private JPanel panel_NhanVien;
-	
 	private int maNV=0;
-
 	/**
 	 * Launch the application.
 	 */
@@ -53,45 +51,21 @@ public class frameMain extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public frameMain() {
-		setTitle("Main");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	public frameQuanLy() {
+		setTitle("Quản lý");
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(50, 20, 1200, 700);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		panel_NhanVien=new panelNhanVien();
+		
 		JPanel panel = new JPanel();
 		panel.setBounds(10, 0, 1164, 110);
 		contentPane.add(panel);
 		panel.setLayout(null);
-		
-		JButton btnTabSach = new JButton("S\u00E1ch");
-		btnTabSach.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				changePanel(panel_Sach);
-			}
-		});
-		btnTabSach.setHorizontalTextPosition(SwingConstants.CENTER);
-		btnTabSach.setVerticalTextPosition(SwingConstants.BOTTOM);
-		btnTabSach.setBounds(10, 25, 100, 80);
-		panel.add(btnTabSach);
-		btnTabSach.setIcon(new ImageIcon(frameMain.class.getResource("/icon/books_48px.png")));
-		btnTabSach.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		
-		JButton btnTabDocGia = new JButton("\u0110\u1ED9c gi\u1EA3");
-		btnTabDocGia.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				changePanel(panel_DocGia);
-			}
-		});
-		btnTabDocGia.setIcon(new ImageIcon(frameMain.class.getResource("/icon/identification_documents_48px.png")));
-		btnTabDocGia.setVerticalTextPosition(SwingConstants.BOTTOM);
-		btnTabDocGia.setHorizontalTextPosition(SwingConstants.CENTER);
-		btnTabDocGia.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnTabDocGia.setBounds(120, 25, 100, 80);
-		panel.add(btnTabDocGia);
 		
 		JSeparator separator = new JSeparator();
 		separator.setBounds(120, 35, -11, 100);
@@ -105,46 +79,10 @@ public class frameMain extends JFrame {
 		menuBar.add(menuTab);
 		
 		JMenuItem mnItemExit = new JMenuItem("Tho\u00E1t");
-		mnItemExit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Program.frame.setVisible(true);
-				dispose();
-			}
-		});
 		menuTab.add(mnItemExit);
 		
-		JMenu menuTaiKhoan = new JMenu("Tài khoản");
-		menuBar.add(menuTaiKhoan);
-		
-		JMenuItem mnItemDoiMatKhau = new JMenuItem("Đổi mật khẩu");
-		mnItemDoiMatKhau.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				try {
-					frameDoiMK frame=new frameDoiMK();
-					frame.setVisible(true);
-					frame.setMaNV(maNV);
-				} catch (Exception e2) {
-					// TODO: handle exception
-				}
-			}
-		});
-		menuTaiKhoan.add(mnItemDoiMatKhau);
-		
-		JButton btnTabMuon = new JButton("M\u01B0\u1EE3n/Tr\u1EA3");
-		btnTabMuon.setIcon(new ImageIcon(frameMain.class.getResource("/icon/paid_bill_48px.png")));
-		btnTabMuon.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				changePanel(panel_Muon);
-			}
-		});
-		btnTabMuon.setVerticalTextPosition(SwingConstants.BOTTOM);
-		btnTabMuon.setHorizontalTextPosition(SwingConstants.CENTER);
-		btnTabMuon.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnTabMuon.setBounds(230, 25, 100, 80);
-		panel.add(btnTabMuon);
-		
 		JButton btnTabNhanVien = new JButton("Nhân viên");
-		btnTabNhanVien.setIcon(new ImageIcon(frameMain.class.getResource("/icon/people_48px.png")));
+		btnTabNhanVien.setIcon(new ImageIcon(frameQuanLy.class.getResource("/icon/people_48px.png")));
 		btnTabNhanVien.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				changePanel(panel_NhanVien);
@@ -153,7 +91,7 @@ public class frameMain extends JFrame {
 		btnTabNhanVien.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnTabNhanVien.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnTabNhanVien.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnTabNhanVien.setBounds(340, 25, 100, 80);
+		btnTabNhanVien.setBounds(10, 25, 100, 80);
 		panel.add(btnTabNhanVien);
 		
 		panelMain = new JPanel();
@@ -168,14 +106,12 @@ public class frameMain extends JFrame {
 		panelMain.setLayout(new BorderLayout(0, 0));
 		
 		
-		changePanel(panel_Sach);
+		changePanel(panel_NhanVien);
 		
 			
 	}
 	
 	private void changePanel(JPanel pnl) {
-		panel_DocGia.setVisible(false);
-		panel_Sach.setVisible(false);
 		panel_NhanVien.setVisible(false);
 		panelMain.removeAll();
 		
