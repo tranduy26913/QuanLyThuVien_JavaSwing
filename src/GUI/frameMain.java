@@ -34,18 +34,28 @@ public class frameMain extends JFrame {
 	private JPanel panel_In;
 	private JPanel panelMain;
 	private JPanel panel_NhanVien;
+	
+	private int maNV=0;
 
 	/**
 	 * Launch the application.
 	 */
 	
 
+	public int getMaNV() {
+		return maNV;
+	}
+
+	public void setMaNV(int maNV) {
+		this.maNV = maNV;
+	}
+
 	/**
 	 * Create the frame.
 	 */
 	public frameMain() {
 		setTitle("Main");
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(50, 20, 1200, 700);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -95,7 +105,30 @@ public class frameMain extends JFrame {
 		menuBar.add(menuTab);
 		
 		JMenuItem mnItemExit = new JMenuItem("Tho\u00E1t");
+		mnItemExit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Program.frame.setVisible(true);
+				dispose();
+			}
+		});
 		menuTab.add(mnItemExit);
+		
+		JMenu menuTaiKhoan = new JMenu("Tài khoản");
+		menuBar.add(menuTaiKhoan);
+		
+		JMenuItem mnItemDoiMatKhau = new JMenuItem("Đổi mật khẩu");
+		mnItemDoiMatKhau.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					frameDoiMK frame=new frameDoiMK();
+					frame.setVisible(true);
+					frame.setMaNV(maNV);
+				} catch (Exception e2) {
+					// TODO: handle exception
+				}
+			}
+		});
+		menuTaiKhoan.add(mnItemDoiMatKhau);
 		
 		JButton btnTabMuon = new JButton("M\u01B0\u1EE3n/Tr\u1EA3");
 		btnTabMuon.setIcon(new ImageIcon(frameMain.class.getResource("/icon/paid_bill_48px.png")));

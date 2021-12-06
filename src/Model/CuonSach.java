@@ -4,6 +4,13 @@ public class CuonSach {
 	private int maCuonSach;
 	private String maSach;
 	private String viTri="";
+	private String trangThai;
+	public String getTrangThai() {
+		return trangThai;
+	}
+	public void setTrangThai(String trangThai) {
+		this.trangThai = trangThai;
+	}
 	public int getMaCuonSach() {
 		return maCuonSach;
 	}
@@ -27,9 +34,10 @@ public class CuonSach {
 		this.maSach=maSach;
 	}
 	
-	public CuonSach(String maSach, String vitri) {
+	public CuonSach(String maSach, String vitri,String trangThai) {
 		this.maSach=maSach;
 		this.viTri=vitri;
+		this.trangThai=trangThai;
 	}
 	
 	public CuonSach(int maCuon, String vitri) {

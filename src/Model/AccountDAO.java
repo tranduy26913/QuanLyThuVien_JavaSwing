@@ -1,5 +1,6 @@
 package Model;
 
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,18 +22,29 @@ public class AccountDAO {
 		
 	}
 	
-	public boolean Login(Account acc) throws ClassNotFoundException, SQLException {
+	public Account Login(String user,String pw,String type) throws ClassNotFoundException, SQLException {
 		Connection con=DBConnection.getConnection();
-		String sql = "Select * from account where username=? and password=? and typeuser=?";
+		String sql = "Select * from account where username=? and password=? and typeuser=? limit 1";
 		PreparedStatement pstm = con.prepareStatement(sql);
-		pstm.setString(1, acc.getUsername());
-		pstm.setString(2, acc.getPassword());
-		pstm.setString(3, acc.getTypeUser());
+		pstm.setString(1, user);
+		pstm.setString(2, pw);
+		pstm.setString(3, type);
 		ResultSet rs=pstm.executeQuery();
 		if(rs.next())
-			return true;
-		return false;	
+			return new Account(rs.getString(1), rs.getString(2),rs.getString(3),rs.getInt(4));
+		return null;	
 	}
+	
+	public boolean DoiMatKhau(int manv,String pwold,String pwnew) throws ClassNotFoundException, SQLException {
+		Connection con=DBConnection.getConnection();
+		String sql = "Update account set password=? where manv=? and password=?";
+		PreparedStatement pstm = con.prepareStatement(sql);
+		pstm.setString(1, pwnew);
+		pstm.setInt(2, manv);
+		pstm.setString(3, pwold);
+		return pstm.executeUpdate()>0?true:false;
+	}
+	
 	
 	public boolean Delete(int manv) throws ClassNotFoundException, SQLException{
 		Connection connection = DBConnection.getConnection();

@@ -10,10 +10,11 @@ import DAO.DBConnection;
 public class CuonSachDAO {
 	public boolean Insert(CuonSach cs) throws ClassNotFoundException, SQLException {
 		Connection con=DBConnection.getConnection();
-		String sql = "INSERT INTO CuonSach(maSach,Vitri) VALUES(?, ?)";
+		String sql = "INSERT INTO CuonSach(maSach,Vitri,TrangThai) VALUES(?, ?,?)";
 		PreparedStatement pstm = con.prepareStatement(sql);
 		pstm.setString(1, cs.getMaSach());
 		pstm.setString(2, cs.getViTri());
+		pstm.setString(3, cs.getTrangThai());
 		return pstm.execute();		
 	}
 	
@@ -51,8 +52,9 @@ public class CuonSachDAO {
 				+ "inner join nxb on ds.manxb=nxb.manxb "
 				+ "group by ds.masach) temp inner join cuonsach cs "
 				+ "on temp.masach=cs.MaSach "
-				+ "where not exists (select * from muon where macuon=cs.macuon and ngaytra is null )";
+				+ "where cs.TrangThai=?";
 		PreparedStatement pstm = con.prepareStatement(sql);
+		pstm.setString(1, "Chưa mượn");
 		return pstm.executeQuery();
 	}
 	

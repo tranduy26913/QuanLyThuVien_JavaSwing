@@ -758,7 +758,7 @@ public class panelSach extends JPanel {
 
 			CuonSachDAO csDAO = new CuonSachDAO();
 			for (int i = 0; i < sl; i++) {
-				CuonSach cs = new CuonSach(txtMaDauSach.getText());
+				CuonSach cs = new CuonSach(txtMaDauSach.getText(),"","Chưa mượn");
 				csDAO.Insert(cs);
 			}
 			Alert.ShowMessageInfo("Thêm sách thành công", "Thêm cuốn sách");
