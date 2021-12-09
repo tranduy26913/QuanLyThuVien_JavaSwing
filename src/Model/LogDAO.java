@@ -78,4 +78,29 @@ public class LogDAO {
 			return null;
 		}
 	}
+	
+	public ResultSet GetThongKeMuon() {
+		try {
+			Connection con = DBConnection.getConnection();
+			String sql = "call thongkemuon()";
+			PreparedStatement pstm = con.prepareStatement(sql);
+			return pstm.executeQuery();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	public ResultSet GetThongKeMuonTheoNgay(Date d1, Date d2) {
+		try {
+			Connection con = DBConnection.getConnection();
+			String sql = "call thongkemuontheongay(?,?)";
+			PreparedStatement pstm = con.prepareStatement(sql);
+			pstm.setDate(1, d1);
+			pstm.setDate(2, d2);
+			return pstm.executeQuery();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 }

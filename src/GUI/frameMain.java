@@ -34,7 +34,7 @@ public class frameMain extends JFrame {
 	private JPanel panel_Sach;
 	private JPanel panel_DocGia;
 	private JPanel panel_Muon;
-	private JPanel panel_In;
+	private JPanel panel_TraCuu;
 	private JPanel panelMain;
 	private JPanel panel_Log;
 	
@@ -92,7 +92,7 @@ public class frameMain extends JFrame {
 		panel.add(separator);
 		
 		JMenuBar menuBar = new JMenuBar();
-		menuBar.setBounds(0, 0, 695, 22);
+		menuBar.setBounds(0, 0, 1187, 22);
 		panel.add(menuBar);
 		
 		JMenu menuTab = new JMenu("File");
@@ -150,6 +150,19 @@ public class frameMain extends JFrame {
 		btnTabLog.setBounds(340, 25, 100, 80);
 		panel.add(btnTabLog);
 		
+		JButton btnTabTraCuu = new JButton("Tra Cứu");
+		btnTabTraCuu.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				changePanel(panel_TraCuu);
+			}
+		});
+		btnTabTraCuu.setIcon(new ImageIcon(frameMain.class.getResource("/icon/study_48px.png")));
+		btnTabTraCuu.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnTabTraCuu.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnTabTraCuu.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnTabTraCuu.setBounds(450, 25, 100, 80);
+		panel.add(btnTabTraCuu);
+		
 		panelMain = new JPanel();
 		panelMain.setBackground(new Color(0, 255, 127));
 		panelMain.setBounds(10, 110, 1164, 530);
@@ -159,6 +172,7 @@ public class frameMain extends JFrame {
 		panel_DocGia=new panelDocGia();
 		panel_Muon=new panelMuon();
 		panel_Log = new panelLog(Global.getMaNV(),1);
+		panel_TraCuu=new panelTraCuu();
 		panelMain.setLayout(new BorderLayout(0, 0));
 		changePanel(panel_Sach);
 		
@@ -170,6 +184,7 @@ public class frameMain extends JFrame {
 		panel_Sach.setVisible(false);
 		panel_Log.setVisible(false);
 		panel_Muon.setVisible(false);
+		panel_TraCuu.setVisible(false);
 		panelMain.removeAll();
 		
 		pnl.setVisible(true);

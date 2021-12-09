@@ -60,6 +60,9 @@ public class panelThongKe extends JPanel {
 	private JLabel lbNXB;
 
 	private int maNV = 0;
+	private JLabel lbSoLanMuonSach;
+	private JLabel lbSoSachDuocMuonNhieuNhat;
+	private JLabel lbSoLanTraSach;
 
 	public int getMaNV() {
 		return maNV;
@@ -90,7 +93,7 @@ public class panelThongKe extends JPanel {
 		add(panel);
 		panel.setLayout(null);
 
-		JButton btnF5 = new JButton("Làm mới");
+		JButton btnF5 = new JButton("Xem");
 		btnF5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Refresh();
@@ -125,8 +128,9 @@ public class panelThongKe extends JPanel {
 		panel.add(datePickerFrom);
 
 		cbThoiGian = new JCheckBox("Theo thời gian");
+		cbThoiGian.setBackground(SystemColor.control);
 		cbThoiGian.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		cbThoiGian.setBounds(457, 25, 126, 23);
+		cbThoiGian.setBounds(468, 25, 124, 23);
 		panel.add(cbThoiGian);
 
 		JLabel lblNewLabel = new JLabel("Từ");
@@ -139,14 +143,9 @@ public class panelThongKe extends JPanel {
 		lbln.setBounds(804, 29, 46, 14);
 		panel.add(lbln);
 
-		JPanel panelTop = new JPanel();
-		panelTop.setBackground(new Color(51, 255, 153));
-		panelTop.setBounds(0, 0, 1160, 80);
-		panel.add(panelTop);
-
 		JSeparator separator = new JSeparator();
 		separator.setOrientation(SwingConstants.VERTICAL);
-		separator.setBounds(457, 78, 9, 432);
+		separator.setBounds(457, 0, 9, 510);
 		panel.add(separator);
 
 		lbSoDauSach = new JLabel("Số đầu sách: ");
@@ -183,6 +182,21 @@ public class panelThongKe extends JPanel {
 		lbNV.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lbNV.setBounds(35, 284, 367, 30);
 		panel.add(lbNV);
+		
+		lbSoLanMuonSach = new JLabel("Số cuốn sách được mượn: ");
+		lbSoLanMuonSach.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lbSoLanMuonSach.setBounds(541, 120, 367, 30);
+		panel.add(lbSoLanMuonSach);
+		
+		lbSoSachDuocMuonNhieuNhat = new JLabel("Số đầu sách được mượn nhiều nhất: ");
+		lbSoSachDuocMuonNhieuNhat.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lbSoSachDuocMuonNhieuNhat.setBounds(541, 202, 367, 30);
+		panel.add(lbSoSachDuocMuonNhieuNhat);
+		
+		lbSoLanTraSach = new JLabel("Số cuốn sách trả sách: ");
+		lbSoLanTraSach.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lbSoLanTraSach.setBounds(541, 161, 367, 30);
+		panel.add(lbSoLanTraSach);
 		LoadData();
 
 	}
@@ -202,65 +216,48 @@ public class panelThongKe extends JPanel {
 					lbNV.setText("Số nhân viên: " + rs.getString(7));
 				}
 			}
+			Refresh();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	private void InitTable() {
-		DefaultTableModel model = new DefaultTableModel();
-		model.addColumn("ID Log");
-		model.addColumn("Tên nhân viên");
-		model.addColumn("Ghi chú");
-		model.addColumn("Thời gian");
-		try {
-			LogDAO dgDAO = new LogDAO();
-			ResultSet rs;
-			if (maNV == 0) {
-				rs = dgDAO.GetAllLog();
-			} else {
-				rs = dgDAO.GetLogFromMaNV(maNV);
-			}
-			// LoadDataTable(rs);
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-	}
 
 	private void Refresh() {
 		try {
-
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-	}
-
-	private class TimTatCaLog implements ActionListener {
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			try {
-				LogDAO DAO = new LogDAO();
-				if (cbThoiGian.isSelected()) {
-					java.util.Date from = (java.util.Date) datePickerFrom.getModel().getValue();
-					java.util.Date to = (java.util.Date) datePickerTo.getModel().getValue();
-					if (from.compareTo(to) > 0) {
-						Alert.ShowMessageWarn("Vui lòng chọn ngày phù hợp", "Tìm theo ngày");
-						return;
-					}
-
-					Date d1 = new Date(from.getTime());
-					Date d2 = new Date(to.getTime());
-
-					// LoadDataTable(DAO.GetAllLogDate(d1,d2));
-				} else {
-
-					// LoadDataTable(DAO.GetAllLog());
+			LogDAO DAO = new LogDAO();
+			if (cbThoiGian.isSelected()) {
+				java.util.Date from = (java.util.Date) datePickerFrom.getModel().getValue();
+				java.util.Date to = (java.util.Date) datePickerTo.getModel().getValue();
+				if (from.compareTo(to) > 0) {
+					Alert.ShowMessageWarn("Vui lòng chọn ngày phù hợp", "Tìm theo ngày");
+					return;
 				}
 
-			} catch (Exception e2) {
-				Alert.ShowMessageError("Lỗi khi tìm Log Event", "Log event");
-				e2.printStackTrace();
+				Date d1 = new Date(from.getTime());
+				Date d2 = new Date(to.getTime());
+				ResultSet rs= DAO.GetThongKeMuonTheoNgay(d1,d2);
+				if(rs!=null) {
+					if(rs.next()) {
+						lbSoLanMuonSach.setText("Số lần mượn sách: "+rs.getString(1));
+						lbSoLanTraSach.setText("Số lần trả sách: "+rs.getString(2));
+						lbSoSachDuocMuonNhieuNhat.setText("Sách được mượn nhiều nhất: "+rs.getString(3));
+					}
+					
+				}
+			} else {
+				ResultSet rs= DAO.GetThongKeMuon();
+				if(rs!=null) {
+					if(rs.next()) {
+						lbSoLanMuonSach.setText("Số lần mượn sách: "+rs.getString(1));
+						lbSoLanTraSach.setText("Số lần trả sách: "+rs.getString(2));
+						lbSoSachDuocMuonNhieuNhat.setText("Sách được mượn nhiều nhất: "+rs.getString(3));
+					}
+				}
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
+
 }

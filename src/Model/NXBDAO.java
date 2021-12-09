@@ -81,16 +81,21 @@ public class NXBDAO {
 		return new NXB(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4));
 	}
 	
-	public ArrayList<NXB> GetAllNXB() throws ClassNotFoundException, SQLException {
-		Connection con=DBConnection.getConnection();
-		String sql="select * from NXB";
-		PreparedStatement pstm = con.prepareStatement(sql);
-		ResultSet rs= pstm.executeQuery();
-		ArrayList<NXB> list=new ArrayList<NXB>();
-		while(rs.next()) {
-			list.add(new NXB(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4)));
+	public ArrayList<NXB> GetAllNXB() {
+		try {
+			Connection con=DBConnection.getConnection();
+			String sql="select * from NXB";
+			PreparedStatement pstm = con.prepareStatement(sql);
+			ResultSet rs= pstm.executeQuery();
+			ArrayList<NXB> list=new ArrayList<NXB>();
+			while(rs.next()) {
+				list.add(new NXB(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4)));
+			}
+			return list;
+		} catch (Exception e) {
+			return null;
 		}
-		return list;
+		
 	}
 	
 }

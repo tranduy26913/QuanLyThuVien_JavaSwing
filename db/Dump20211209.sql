@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `thuvien` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `thuvien`;
 -- MySQL dump 10.13  Distrib 8.0.27, for Win64 (x86_64)
 --
 -- Host: localhost    Database: thuvien
@@ -28,7 +26,7 @@ CREATE TABLE `account` (
   `username` varchar(45) NOT NULL,
   `password` varchar(45) DEFAULT NULL,
   `typeuser` varchar(45) DEFAULT NULL,
-  `manv` varchar(45) DEFAULT NULL,
+  `manv` int DEFAULT NULL,
   PRIMARY KEY (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -39,7 +37,7 @@ CREATE TABLE `account` (
 
 LOCK TABLES `account` WRITE;
 /*!40000 ALTER TABLE `account` DISABLE KEYS */;
-INSERT INTO `account` VALUES ('duy','123','TT',NULL),('duy2','123','QL',NULL);
+INSERT INTO `account` VALUES ('ql','123','QL',1),('QL20','123','QL',20),('tt','123','TT',2);
 /*!40000 ALTER TABLE `account` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -54,6 +52,7 @@ CREATE TABLE `cuonsach` (
   `MaCuon` int NOT NULL AUTO_INCREMENT,
   `MaSach` varchar(10) DEFAULT NULL,
   `ViTri` varchar(45) DEFAULT NULL,
+  `TrangThai` varchar(20) NOT NULL,
   PRIMARY KEY (`MaCuon`),
   KEY `cuonsach_ibfk_1` (`MaSach`),
   CONSTRAINT `cuonsach_ibfk_1` FOREIGN KEY (`MaSach`) REFERENCES `dausach` (`MaSach`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -66,7 +65,7 @@ CREATE TABLE `cuonsach` (
 
 LOCK TABLES `cuonsach` WRITE;
 /*!40000 ALTER TABLE `cuonsach` DISABLE KEYS */;
-INSERT INTO `cuonsach` VALUES (31,'1',''),(33,'1',''),(34,'1',''),(35,'1',''),(36,'1',''),(37,'1',''),(38,'1',''),(39,'1',''),(40,'1',''),(41,'4',''),(42,'4',''),(43,'4',''),(44,'4',''),(45,'4',''),(46,'4',''),(47,'4',''),(48,'4',''),(49,'4',''),(50,'4','');
+INSERT INTO `cuonsach` VALUES (31,'1','','Đang mượn'),(33,'1','','Chưa mượn'),(34,'1','','Chưa mượn'),(35,'1','','Chưa mượn'),(36,'1','','Chưa mượn'),(37,'1','','Chưa mượn'),(38,'1','','Chưa mượn'),(39,'1','','Chưa mượn'),(40,'1','','Chưa mượn'),(41,'4','','Chưa mượn'),(42,'4','','Chưa mượn'),(43,'4','','Chưa mượn'),(44,'4','','Chưa mượn'),(45,'4','','Chưa mượn'),(46,'4','','Chưa mượn'),(47,'4','','Chưa mượn'),(48,'4','','Chưa mượn'),(49,'4','','Chưa mượn'),(50,'4','','Chưa mượn');
 /*!40000 ALTER TABLE `cuonsach` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -94,7 +93,7 @@ CREATE TABLE `dausach` (
 
 LOCK TABLES `dausach` WRITE;
 /*!40000 ALTER TABLE `dausach` DISABLE KEYS */;
-INSERT INTO `dausach` VALUES ('1','test',1,0),('2','test33',1,50000),('4','test2',1,0),('5','test2',3,0);
+INSERT INTO `dausach` VALUES ('1','test',1,0),('10','tes55',5,50000),('2','test33',1,50000),('4','test2',1,0),('5','test2',3,0);
 /*!40000 ALTER TABLE `dausach` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -125,6 +124,34 @@ INSERT INTO `docgia` VALUES (2,'Trần Bảo Duy','An Giang','0481048134'),(3,'T
 UNLOCK TABLES;
 
 --
+-- Table structure for table `log`
+--
+
+DROP TABLE IF EXISTS `log`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `log` (
+  `idLog` int NOT NULL AUTO_INCREMENT,
+  `maNV` int DEFAULT NULL,
+  `description` varchar(100) DEFAULT NULL,
+  `date` datetime DEFAULT NULL,
+  PRIMARY KEY (`idLog`),
+  KEY `MaNV_idx` (`maNV`),
+  CONSTRAINT `MaNV` FOREIGN KEY (`maNV`) REFERENCES `nhanvien` (`manv`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `log`
+--
+
+LOCK TABLES `log` WRITE;
+/*!40000 ALTER TABLE `log` DISABLE KEYS */;
+INSERT INTO `log` VALUES (1,1,'','2021-12-07 16:50:02'),(2,2,'Thêm đầu sách (Mã:10)','2021-12-07 19:58:19');
+/*!40000 ALTER TABLE `log` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `muon`
 --
 
@@ -151,7 +178,7 @@ CREATE TABLE `muon` (
 
 LOCK TABLES `muon` WRITE;
 /*!40000 ALTER TABLE `muon` DISABLE KEYS */;
-INSERT INTO `muon` VALUES (1,31,2,'2021-11-03','2021-11-03'),(3,33,2,'2021-11-03',NULL),(4,31,2,'2021-12-04',NULL);
+INSERT INTO `muon` VALUES (1,31,2,'2021-11-03','2021-12-06'),(3,33,2,'2021-11-03','2021-12-06'),(4,31,2,'2021-12-04',NULL);
 /*!40000 ALTER TABLE `muon` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -163,13 +190,13 @@ DROP TABLE IF EXISTS `nhanvien`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `nhanvien` (
-  `manv` int NOT NULL,
+  `manv` int NOT NULL AUTO_INCREMENT,
   `hoten` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `diachi` longtext,
   `sdt` varchar(11) DEFAULT NULL,
   `luong` double DEFAULT NULL,
   PRIMARY KEY (`manv`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -178,7 +205,7 @@ CREATE TABLE `nhanvien` (
 
 LOCK TABLES `nhanvien` WRITE;
 /*!40000 ALTER TABLE `nhanvien` DISABLE KEYS */;
-INSERT INTO `nhanvien` VALUES (1,'Lê Văn Cường','Đăk Lăk','0389365835',1000),(2,'Trần Bảo Duy','Đăk Lăk','0397436178',10000),(3,'Lê Dĩ Hân','039333999','Đăk Lăk',10000),(6,'Trần Bảo Duy','0397436178','10000.0',111111),(9,'Lê Dĩ Hân','Đăk Lăk','10000.0',1111111);
+INSERT INTO `nhanvien` VALUES (1,'Lê Văn Cường','Đăk Lăk','0389365835',1000),(2,'Trần Bảo Duy','Đăk Lăk','0397436178',10000),(20,'Trần Duy','An Giang','0398110398',7792429);
 /*!40000 ALTER TABLE `nhanvien` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -228,13 +255,9 @@ CREATE TABLE `tacgia` (
 
 LOCK TABLES `tacgia` WRITE;
 /*!40000 ALTER TABLE `tacgia` DISABLE KEYS */;
-INSERT INTO `tacgia` VALUES ('1','tg1'),('1','tg2'),('2','tg3'),('4','tg1'),('4','tg2'),('5','tg3'),('6','tg3'),('7','tg3');
+INSERT INTO `tacgia` VALUES ('1','tg1'),('1','tg2'),('10','tg10'),('10','tg2'),('2','tg3'),('4','tg1'),('4','tg2'),('5','tg3'),('6','tg3'),('7','tg3');
 /*!40000 ALTER TABLE `tacgia` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Dumping events for database 'thuvien'
---
 
 --
 -- Dumping routines for database 'thuvien'
@@ -251,14 +274,12 @@ UNLOCK TABLES;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `GetAllCuonSach`()
 BEGIN
-		select cs.macuon,temp.tuasach,tacgia,nxb,case when temp2.test=1 then "Đang mượn" else "Chưa mượn" end Trangthai
+		select cs.macuon,temp.tuasach,tacgia,nxb,cs.trangthai
 from (select ds.masach,ds.tuasach, group_concat(tg.tentacgia separator "-") tacgia,nxb.tennxb nxb
 from dausach ds left join tacgia tg on ds.masach=tg.masach
 inner join nxb on ds.manxb=nxb.manxb
 group by ds.masach) temp inner join cuonsach cs
-on temp.masach=cs.MaSach
-left join (select 1 as test,muon.MaCuon as macuon from muon where muon.NgayTra is null) temp2
-on cs.MaCuon=temp2.macuon;
+on temp.masach=cs.MaSach;
   END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -307,6 +328,154 @@ from dausach ds left join tacgia tg on ds.masach=tg.masach
 inner join nxb on ds.manxb=nxb.manxb where ds.masach=param1 group by ds.masach ) as t
 left join (select count(*) soluong,ds.MaSach ms from cuonsach cs,dausach ds where cs.MaSach=ds.MaSach group by ds.masach) as t2
 on t.MaSach=t2.ms;
+  END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `Thongke` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Thongke`()
+BEGIN
+    SELECT * from 
+		(Select count(*) SoDauSach from DauSach) a,
+        (Select count(*) SoSachDangMuon from CuonSach where trangthai='Đang mượn') b,
+		(Select count(*) SoSachChuaMuon from CuonSach where trangthai<>'Đang mượn') g,
+        (Select count(*) SoDocGia from docgia) c,
+        (Select count(*) SoTacGia from tacgia) d,
+        (Select count(*) SoNXB from nxb) e,
+        (Select count(*) SoNhanVien from nhanvien) f;
+  END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `ThongkeMuon` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ThongkeMuon`()
+BEGIN
+    SELECT * from 
+		(Select count(*) SoLanMuon from Muon) a,
+        (Select count(*) SoLanTra from Muon where ngaytra) b,
+        (select g.tua, max(g.macuon) from (Select count(mamuon) macuon,ds.tuaSach tua from Muon m inner join CuonSach cs
+        on m.macuon=cs.macuon inner join DauSach ds
+        on cs.masach=ds.masach
+        group by ds.masach,ds.tuaSach) g group by g.tua) d;
+  END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `ThongkeMuonTheoNgay` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ThongkeMuonTheoNgay`(In d1 date, In d2 date)
+BEGIN
+    SELECT * from 
+		(Select count(*) SoLanMuon from Muon where ngaymuon>=d1 and ngaymuon<=d2) a,
+        (Select count(*) SoLanTra from Muon where ngaytra and ngaymuon>=d1 and ngaymuon<=d2) b,
+        (select g.tua, max(g.macuon) from (Select count(mamuon) macuon,ds.tuaSach tua from Muon m inner join CuonSach cs
+        on m.macuon=cs.macuon inner join DauSach ds
+        on cs.masach=ds.masach where ngaymuon>=d1 and ngaymuon<=d2
+        group by ds.masach,ds.tuaSach ) g group by g.tua) d;
+  END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `TraCuu` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `TraCuu`(In para1 VARCHAR(15),In para2 VARCHAR(50))
+BEGIN
+        select t.MaSach,t.TuaSach,t.tacgia,t.nxb,(CASE when soluong>0 then soluong else 0 end),t.GiaSach from
+		(select ds.masach,ds.tuasach, group_concat(tg.tentacgia separator "-") tacgia,nxb.tennxb nxb,ds.GiaSach 
+		from dausach ds left join tacgia tg on ds.masach=tg.masach
+		inner join nxb on ds.manxb=nxb.manxb where nxb.manxb=para1 and tg.TenTacGia=para2  group by ds.masach ) as t
+		left join (select count(*) soluong,ds.MaSach ms from cuonsach cs,dausach ds where cs.MaSach=ds.MaSach group by ds.masach) as t2
+		on t.MaSach=t2.ms;
+  END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `TraCuuTheoNXB` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `TraCuuTheoNXB`(In para1 VARCHAR(15))
+BEGIN
+        select t.MaSach,t.TuaSach,t.tacgia,t.nxb,(CASE when soluong>0 then soluong else 0 end),t.GiaSach from
+		(select ds.masach,ds.tuasach, group_concat(tg.tentacgia separator "-") tacgia,nxb.tennxb nxb ,ds.GiaSach
+		from dausach ds left join tacgia tg on ds.masach=tg.masach
+		inner join nxb on ds.manxb=nxb.manxb where nxb.manxb=para1  group by ds.masach ) as t
+		left join (select count(*) soluong,ds.MaSach ms from cuonsach cs,dausach ds where cs.MaSach=ds.MaSach group by ds.masach) as t2
+		on t.MaSach=t2.ms;
+  END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `TraCuuTheoTacGia` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `TraCuuTheoTacGia`(In para1 VARCHAR(55))
+BEGIN
+        select t.MaSach,t.TuaSach,t.tacgia,t.nxb,(CASE when soluong>0 then soluong else 0 end),t.GiaSach from
+		(select ds.masach,ds.tuasach, group_concat(tg.tentacgia separator "-") tacgia,nxb.tennxb nxb ,ds.GiaSach
+		from dausach ds left join tacgia tg on ds.masach=tg.masach
+		inner join nxb on ds.manxb=nxb.manxb where tg.TenTacGia=para1  group by ds.masach ) as t
+		left join (select count(*) soluong,ds.MaSach ms from cuonsach cs,dausach ds where cs.MaSach=ds.MaSach group by ds.masach) as t2
+		on t.MaSach=t2.ms;
   END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -366,4 +535,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-12-04  0:11:48
+-- Dump completed on 2021-12-09 19:50:45

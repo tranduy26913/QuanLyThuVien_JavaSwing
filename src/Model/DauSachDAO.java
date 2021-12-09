@@ -107,5 +107,29 @@ public class DauSachDAO {
 		
 		return pstm.executeQuery();
 	}
+	
+	public ResultSet TraCuuSachTheoNXB(String manxb) throws ClassNotFoundException, SQLException {
+		Connection con = DBConnection.getConnection();
+		String sql = "call TraCuuTheoNXB(?)";
+		PreparedStatement pstm = con.prepareStatement(sql);
+		pstm.setString(1, manxb);
+		return pstm.executeQuery();
+	}
+	public ResultSet TraCuuSachTheoTacGia(String tentg) throws ClassNotFoundException, SQLException {
+		Connection con = DBConnection.getConnection();
+		String sql = "call TraCuuTheoTacGia(?)";
+		PreparedStatement pstm = con.prepareStatement(sql);
+		pstm.setString(1, tentg);
+		return pstm.executeQuery();
+	}
+	
+	public ResultSet TraCuu(String manxb,String tentg) throws ClassNotFoundException, SQLException {
+		Connection con = DBConnection.getConnection();
+		String sql = "call TraCuu(?,?)";
+		PreparedStatement pstm = con.prepareStatement(sql);
+		pstm.setString(1, manxb);
+		pstm.setString(2, tentg);
+		return pstm.executeQuery();
+	}
 
 }
