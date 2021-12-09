@@ -24,6 +24,16 @@ public class MuonDAO {
 				pstm.setString(1, "Đã mượn");
 				pstm.setString(2, muon.getMaCuon());
 				int i = pstm.executeUpdate();
+				try {
+					pstm = con.prepareStatement("INSERT INTO Log(manv,description,date)"
+							+ " VALUES(?, ?,now())");
+					pstm.setInt(1, Global.getMaNV());
+					pstm.setString(2,"Thao tác cho mượn sách (Mã cuốn:"+muon.getMaCuon()
+					+";(Mã độc giả:"+muon.getMaDG()+")");
+					pstm.executeUpdate();
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
 				con.commit();
 				con.close();
 				return i > 0 ? true : false;
@@ -83,6 +93,16 @@ public class MuonDAO {
 				pstm.setString(2, muon.getMaCuon());
 				int i = pstm.executeUpdate();
 				if (i > 0) {
+					try {
+						pstm = con.prepareStatement("INSERT INTO Log(manv,description,date)"
+								+ " VALUES(?, ?,now())");
+						pstm.setInt(1, Global.getMaNV());
+						pstm.setString(2,"Thao tác trả sách (Mã cuốn:"+muon.getMaCuon()
+						+";(Mã độc giả:"+muon.getMaDG()+")");
+						pstm.executeUpdate();
+					} catch (Exception e) {
+						// TODO: handle exception
+					}
 					con.commit();
 					con.close();
 					return true;
@@ -113,7 +133,20 @@ public class MuonDAO {
 			pstm.setDate(1, muon.getNgayMuon());
 			pstm.setString(2, muon.getMaDG());
 			pstm.setString(3, muon.getMaCuon());
-			return pstm.executeUpdate() > 0 ? true : false;
+			if(pstm.executeUpdate() > 0) {
+				try {
+					pstm = con.prepareStatement("INSERT INTO Log(manv,description,date)"
+							+ " VALUES(?, ?,now())");
+					pstm.setInt(1, Global.getMaNV());
+					pstm.setString(2,"Thao tác cho gia hạn sách (Mã cuốn:"+muon.getMaCuon()
+					+";(Mã độc giả:"+muon.getMaDG()+")");
+					pstm.executeUpdate();
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
+				return true;
+			}
+			return false;
 
 		} catch (Exception e) {
 			e.printStackTrace();

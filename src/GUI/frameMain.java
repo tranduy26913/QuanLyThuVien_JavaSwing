@@ -6,6 +6,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import Model.Global;
+
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -33,22 +36,13 @@ public class frameMain extends JFrame {
 	private JPanel panel_Muon;
 	private JPanel panel_In;
 	private JPanel panelMain;
-	private JPanel panel_NhanVien;
+	private JPanel panel_Log;
 	
-	private int maNV=0;
 
 	/**
 	 * Launch the application.
 	 */
 	
-
-	public int getMaNV() {
-		return maNV;
-	}
-
-	public void setMaNV(int maNV) {
-		this.maNV = maNV;
-	}
 
 	/**
 	 * Create the frame.
@@ -122,7 +116,7 @@ public class frameMain extends JFrame {
 				try {
 					frameDoiMK frame=new frameDoiMK();
 					frame.setVisible(true);
-					frame.setMaNV(maNV);
+					frame.setMaNV(Global.getMaNV());
 				} catch (Exception e2) {
 					// TODO: handle exception
 				}
@@ -143,18 +137,18 @@ public class frameMain extends JFrame {
 		btnTabMuon.setBounds(230, 25, 100, 80);
 		panel.add(btnTabMuon);
 		
-		JButton btnTabNhanVien = new JButton("Nhân viên");
-		btnTabNhanVien.setIcon(new ImageIcon(frameMain.class.getResource("/icon/people_48px.png")));
-		btnTabNhanVien.addActionListener(new ActionListener() {
+		JButton btnTabLog = new JButton("Hoạt động");
+		btnTabLog.setIcon(new ImageIcon(frameMain.class.getResource("/icon/log_48px.png")));
+		btnTabLog.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				changePanel(panel_NhanVien);
+				changePanel(panel_Log);
 			}
 		});
-		btnTabNhanVien.setVerticalTextPosition(SwingConstants.BOTTOM);
-		btnTabNhanVien.setHorizontalTextPosition(SwingConstants.CENTER);
-		btnTabNhanVien.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnTabNhanVien.setBounds(340, 25, 100, 80);
-		panel.add(btnTabNhanVien);
+		btnTabLog.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnTabLog.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnTabLog.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnTabLog.setBounds(340, 25, 100, 80);
+		panel.add(btnTabLog);
 		
 		panelMain = new JPanel();
 		panelMain.setBackground(new Color(0, 255, 127));
@@ -164,10 +158,8 @@ public class frameMain extends JFrame {
 		panel_Sach=new panelSach();
 		panel_DocGia=new panelDocGia();
 		panel_Muon=new panelMuon();
-		panel_NhanVien = new panelNhanVien();
+		panel_Log = new panelLog(Global.getMaNV(),1);
 		panelMain.setLayout(new BorderLayout(0, 0));
-		
-		
 		changePanel(panel_Sach);
 		
 			
@@ -176,7 +168,8 @@ public class frameMain extends JFrame {
 	private void changePanel(JPanel pnl) {
 		panel_DocGia.setVisible(false);
 		panel_Sach.setVisible(false);
-		panel_NhanVien.setVisible(false);
+		panel_Log.setVisible(false);
+		panel_Muon.setVisible(false);
 		panelMain.removeAll();
 		
 		pnl.setVisible(true);

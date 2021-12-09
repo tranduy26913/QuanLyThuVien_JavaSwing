@@ -15,9 +15,9 @@ public class DauSachDAO {
 			pstm.setString(1, sp.getMaSach());
 			pstm.setString(2, sp.getTua());
 			pstm.setString(3, sp.getMaNXB());
-			pstm.setInt(4, sp.getGiaSach());
-			
+			pstm.setInt(4, sp.getGiaSach());			
 			if (pstm.executeUpdate()>0) {
+				
 				pstm = con.prepareStatement("INSERT INTO TacGia VALUES(?, ?)");
 				String ds[] = sp.getTacGia().split("\n");
 				for (int i = 0; i < ds.length; i++) {
@@ -25,6 +25,11 @@ public class DauSachDAO {
 					pstm.setString(2, ds[i]);
 					pstm.execute();
 				}
+				pstm = con.prepareStatement("INSERT INTO Log(manv,description,date)"
+						+ " VALUES(?, ?,now())");
+				pstm.setInt(1, Global.getMaNV());
+				pstm.setString(2,"Thêm đầu sách (Mã:"+sp.getMaSach()+")");
+				pstm.executeUpdate();
 				return true;
 			}
 			return false;
@@ -73,6 +78,13 @@ public class DauSachDAO {
 			PreparedStatement pstm = con.prepareStatement("Delete from DauSach where maSach=?");
 			pstm.setString(1, maSach);
 			pstm.executeUpdate();
+			
+			pstm = con.prepareStatement("INSERT INTO Log(manv,description,date)"
+					+ " VALUES(?, ?,now())");
+			pstm.setInt(1, Global.getMaNV());
+			pstm.setString(2,"Xoá đầu sách (Mã:"+maSach+")");
+			pstm.executeUpdate();
+			
 			return true;
 		} catch (Exception e) {
 			return false;

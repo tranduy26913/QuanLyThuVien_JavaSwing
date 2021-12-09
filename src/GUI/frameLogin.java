@@ -9,6 +9,7 @@ import javax.swing.border.EmptyBorder;
 
 import Model.Account;
 import Model.AccountDAO;
+import Model.Global;
 
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -118,23 +119,25 @@ public class frameLogin extends JFrame {
 			@SuppressWarnings("deprecation")
 			AccountDAO dao=new AccountDAO();
 			Account acc=dao.Login(txtUser.getText(), txtPw.getText(), typeUser);
-			
-			//if(acc!=null) {
+			System.out.println(acc.getMaNV());
+			if(acc!=null) {
 				if(typeUser.equals("TT")) {
+					Global.setMaNV(acc.getMaNV());
 					this.setVisible(false);
 					frameMain f=new frameMain();
 					f.setVisible(true);
-					f.setMaNV(acc.getMaNV());
 					
 				}
 				else {
+					Global.setMaNV(acc.getMaNV());
 					this.setVisible(false);
 					frameQuanLy qLy=new frameQuanLy();
 					qLy.setVisible(true);
 					qLy.setMaNV(acc.getMaNV());
 					
+					
 				}
-			//}
+			}
 			//else {
 			//	Alert.ShowMessageInfo("Sai mật khẩu hoặc tên đăng nhập. Vui lòng nhập lại", "Đăng nhập");
 			//}

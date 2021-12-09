@@ -16,8 +16,19 @@ public class NXBDAO {
 		pstm.setString(1, nxb.getTenNXB());
 		pstm.setString(2, nxb.getDiaChi());
 		pstm.setString(3, nxb.getSoDT());
-		if(pstm.executeUpdate()>0)
+		if(pstm.executeUpdate()>0) {
+			try {
+				pstm = con.prepareStatement("INSERT INTO Log(manv,description,date)"
+						+ " VALUES(?, ?,now())");
+				pstm.setInt(1, Global.getMaNV());
+				pstm.setString(2,"Thêm nhà xuất bản (Mã NXB:"+nxb.getMaNXB()+")");
+				pstm.executeUpdate();
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
 			return true;
+		}
+			
 		return false;
 		
 	}
@@ -43,8 +54,18 @@ public class NXBDAO {
 		PreparedStatement pstm = con.prepareStatement(sql);
 		
 		pstm.setString(1, maNXB);
-		if( pstm.executeUpdate()>0)
+		if( pstm.executeUpdate()>0) {
+			try {
+				pstm = con.prepareStatement("INSERT INTO Log(manv,description,date)"
+						+ " VALUES(?, ?,now())");
+				pstm.setInt(1, Global.getMaNV());
+				pstm.setString(2,"Xoá nhà xuất bản (Mã NXB:"+maNXB+")");
+				pstm.executeUpdate();
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
 			return true;
+		}
 		return false;
 	}
 	

@@ -28,12 +28,9 @@ import javax.swing.JMenu;
 public class frameQuanLy extends JFrame {
 
 	private JPanel contentPane;
-	private JPanel panel_Sach;
-	private JPanel panel_DocGia;
-	private JPanel panel_Muon;
-	private JPanel panel_In;
 	private JPanel panelMain;
 	private JPanel panel_NhanVien;
+	private JPanel panel_Log;
 	private int maNV=0;
 	/**
 	 * Launch the application.
@@ -94,14 +91,33 @@ public class frameQuanLy extends JFrame {
 		btnTabNhanVien.setBounds(10, 25, 100, 80);
 		panel.add(btnTabNhanVien);
 		
+		JButton btnTabThongKe = new JButton("Thống kê");
+		btnTabThongKe.setIcon(new ImageIcon(frameQuanLy.class.getResource("/icon/statistics_48px.png")));
+		btnTabThongKe.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnTabThongKe.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnTabThongKe.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnTabThongKe.setBounds(120, 25, 100, 80);
+		panel.add(btnTabThongKe);
+		
+		JButton btnTabLog = new JButton("Hoạt động");
+		btnTabLog.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				changePanel(panel_Log);
+			}
+		});
+		btnTabLog.setIcon(new ImageIcon(frameQuanLy.class.getResource("/icon/log_48px.png")));
+		btnTabLog.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnTabLog.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnTabLog.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnTabLog.setBounds(230, 25, 100, 80);
+		panel.add(btnTabLog);
+		
 		panelMain = new JPanel();
 		panelMain.setBackground(new Color(0, 255, 127));
 		panelMain.setBounds(10, 110, 1164, 530);
 		contentPane.add(panelMain);
 		
-		panel_Sach=new panelSach();
-		panel_DocGia=new panelDocGia();
-		panel_Muon=new panelMuon();
+		panel_Log=new panelLog();
 		panel_NhanVien = new panelNhanVien();
 		panelMain.setLayout(new BorderLayout(0, 0));
 		
@@ -113,6 +129,7 @@ public class frameQuanLy extends JFrame {
 	
 	private void changePanel(JPanel pnl) {
 		panel_NhanVien.setVisible(false);
+		panel_Log.setVisible(false);
 		panelMain.removeAll();
 		
 		pnl.setVisible(true);
