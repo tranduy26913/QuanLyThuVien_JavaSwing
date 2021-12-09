@@ -34,6 +34,15 @@ public class Nguoi {
 	public Nguoi() {
 		
 	}
+	
+	public Nguoi(String hotenString, String diachiString, String sdt)
+	{
+		
+		this.hoTen=hotenString;
+		this.diaChi= diachiString;
+		this.soDT=sdt;
+	}
+	
 	public Nguoi(int ma, String hotenString, String diachiString, String sdt)
 	{
 		this.ma= ma;

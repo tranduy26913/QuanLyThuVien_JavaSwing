@@ -38,7 +38,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JCheckBox;
 import javax.swing.ImageIcon;
 
-public class panelLog extends JPanel {
+public class panelThongKe extends JPanel {
 	/**
 	 * 
 	 */
@@ -71,11 +71,11 @@ public class panelLog extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public panelLog() {
+	public panelThongKe() {
 		Init();
 	}
 	
-	public panelLog(int maNv,int chucNang) {
+	public panelThongKe(int maNv,int chucNang) {
 		this.maNV=maNv;
 		this.chucNang=chucNang;
 		Init();
@@ -104,7 +104,7 @@ public class panelLog extends JPanel {
 		lblMuSch.setFont(new Font("Tahoma", Font.PLAIN, 14));
 
 		JButton btnTimNV = new JButton("");
-		btnTimNV.setIcon(new ImageIcon(panelLog.class.getResource("/icon/search_36px.png")));
+		btnTimNV.setIcon(new ImageIcon(panelThongKe.class.getResource("/icon/search_36px.png")));
 		btnTimNV.addActionListener(new TimLog());
 		btnTimNV.setBounds(245, 16, 40, 40);
 		panel.add(btnTimNV);

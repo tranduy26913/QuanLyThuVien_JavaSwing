@@ -12,6 +12,11 @@ public class NhanVien extends Nguoi{
 		return luong;
 	}
 	
+	public NhanVien(String tenString, String diachiString, String sdt, double luong) {
+		super(tenString, diachiString, sdt);
+		this.luong=luong;
+	}
+	
 	public NhanVien(int Ma, String tenString, String diachiString, String sdt, double luong) {
 		super(Ma, tenString, diachiString, sdt);
 		this.luong=luong;
