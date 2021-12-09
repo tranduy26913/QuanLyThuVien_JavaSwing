@@ -130,12 +130,16 @@ public class NhanVienDAO {
 		return list;
 	}
 
-	public NhanVien layThongTinNhanVien(int mnv) throws ClassNotFoundException, SQLException {
+	public ArrayList<NhanVien> layThongTinNhanVien(int mnv) throws ClassNotFoundException, SQLException {
 		Connection con = DBConnection.getConnection();
-		String sql = "select * from nhanvien";
+		String sql = "select * from nhanvien where manv=?";
 		PreparedStatement pstm = con.prepareStatement(sql);
+		pstm.setInt(1, mnv);
 		ResultSet rs = pstm.executeQuery();
-		NhanVien nv = new NhanVien(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getDouble(5));
-		return nv;
+		ArrayList<NhanVien> list = new ArrayList<NhanVien>();
+		while (rs.next()) {
+			list.add(new NhanVien(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getDouble(5)));
+		}
+		return list;
 	}
 }

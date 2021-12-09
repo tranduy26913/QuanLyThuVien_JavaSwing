@@ -260,7 +260,7 @@ public class panelDocGia extends JPanel {
 						txtSDT.getText()));
 
 			} catch (Exception e2) {
-				Alert.ShowMessageError("Lỗi khi Sửa độc giả", "Sửa độc giả");
+				Alert.ShowMessageError("Lỗi khi Tìm độc giả", "Tìm độc giả");
 				e2.printStackTrace();
 			}
 		}

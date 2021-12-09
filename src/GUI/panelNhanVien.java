@@ -20,9 +20,6 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
-import Model.DauSachDAO;
-import Model.NXB;
-import Model.NXBDAO;
 import Model.*;
 
 import javax.swing.JLabel;
@@ -73,75 +70,75 @@ public class panelNhanVien extends JPanel {
 		tabbedPane.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		add(tabbedPane);
 		// Panel Ä‘áº§u sÃ¡ch
-		JPanel panel_tabDauSach = new JPanel();
-		panel_tabDauSach.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		tabbedPane.addTab("Thông tin cá nhân", null, panel_tabDauSach, null);
-		panel_tabDauSach.setLayout(null);
+		JPanel panel_tabThongTin = new JPanel();
+		panel_tabThongTin.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		tabbedPane.addTab("Thông tin cá nhân", null, panel_tabThongTin, null);
+		panel_tabThongTin.setLayout(null);
 
 		JLabel nhanVienLabel = new JLabel("Mã nhân viên:");
 		nhanVienLabel.setMaximumSize(new Dimension(300, 30));
-		nhanVienLabel.setFont(new Font("Tahoma", Font.BOLD, 30));
+		nhanVienLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
 		nhanVienLabel.setPreferredSize(new Dimension(100, 20));
-		nhanVienLabel.setBounds(30, 50, 300, 40);
-		panel_tabDauSach.add(nhanVienLabel);
+		nhanVienLabel.setBounds(30, 50, 180, 40);
+		panel_tabThongTin.add(nhanVienLabel);
 
 		JLabel HoTenNhanVienLabel = new JLabel("Họ và tên:");
 		HoTenNhanVienLabel.setMaximumSize(new Dimension(300, 30));
 		HoTenNhanVienLabel.setPreferredSize(new Dimension(100, 20));
-		HoTenNhanVienLabel.setFont(new Font("Tahoma", Font.BOLD, 30));
-		HoTenNhanVienLabel.setBounds(30, 100, 300, 40);
-		panel_tabDauSach.add(HoTenNhanVienLabel);
+		HoTenNhanVienLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
+		HoTenNhanVienLabel.setBounds(30, 100, 180, 40);
+		panel_tabThongTin.add(HoTenNhanVienLabel);
 
 		JLabel lblaCh = new JLabel("Địa chỉ:");
 		lblaCh.setMaximumSize(new Dimension(300, 30));
 		lblaCh.setPreferredSize(new Dimension(100, 20));
-		lblaCh.setFont(new Font("Tahoma", Font.BOLD, 30));
-		lblaCh.setBounds(30, 150, 300, 40);
-		panel_tabDauSach.add(lblaCh);
+		lblaCh.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblaCh.setBounds(30, 150, 180, 40);
+		panel_tabThongTin.add(lblaCh);
 
 		JLabel lblSinThoi_1 = new JLabel("Số điện thoại:");
 		lblSinThoi_1.setMaximumSize(new Dimension(300, 30));
 		lblSinThoi_1.setPreferredSize(new Dimension(100, 20));
-		lblSinThoi_1.setFont(new Font("Tahoma", Font.BOLD, 30));
-		lblSinThoi_1.setBounds(30, 200, 300, 40);
-		panel_tabDauSach.add(lblSinThoi_1);
+		lblSinThoi_1.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblSinThoi_1.setBounds(30, 200, 180, 40);
+		panel_tabThongTin.add(lblSinThoi_1);
 
 		JLabel lblSinThoi_1_1 = new JLabel("Lương:");
 		lblSinThoi_1_1.setMaximumSize(new Dimension(300, 30));
 		lblSinThoi_1_1.setPreferredSize(new Dimension(100, 20));
-		lblSinThoi_1_1.setFont(new Font("Tahoma", Font.BOLD, 30));
-		lblSinThoi_1_1.setBounds(30, 250, 300, 40);
+		lblSinThoi_1_1.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblSinThoi_1_1.setBounds(30, 250, 180, 40);
 		lblSinThoi_1.setFocusable(false);
-		panel_tabDauSach.add(lblSinThoi_1_1);
+		panel_tabThongTin.add(lblSinThoi_1_1);
 
 		MaNhanVienTextBox = new JTextField();
 		MaNhanVienTextBox.setMaximumSize(new Dimension(300, 30));
-		MaNhanVienTextBox.setBounds(250, 50, 300, 40);
-		panel_tabDauSach.add(MaNhanVienTextBox);
+		MaNhanVienTextBox.setBounds(166, 50, 300, 40);
+		panel_tabThongTin.add(MaNhanVienTextBox);
 		MaNhanVienTextBox.setColumns(10);
 
 		HoTenNhanVienTextBox = new JTextField();
 		HoTenNhanVienTextBox.setMaximumSize(new Dimension(300, 30));
-		HoTenNhanVienTextBox.setBounds(250, 100, 300, 40);
-		panel_tabDauSach.add(HoTenNhanVienTextBox);
+		HoTenNhanVienTextBox.setBounds(166, 100, 300, 40);
+		panel_tabThongTin.add(HoTenNhanVienTextBox);
 		HoTenNhanVienTextBox.setColumns(10);
 
 		DiaChiTextBox = new JTextField();
 		DiaChiTextBox.setMaximumSize(new Dimension(300, 30));
-		DiaChiTextBox.setBounds(250, 150, 300, 40);
-		panel_tabDauSach.add(DiaChiTextBox);
+		DiaChiTextBox.setBounds(166, 150, 300, 40);
+		panel_tabThongTin.add(DiaChiTextBox);
 		DiaChiTextBox.setColumns(10);
 
 		SoDienThoaiTextBox = new JTextField();
 		SoDienThoaiTextBox.setMaximumSize(new Dimension(300, 30));
-		SoDienThoaiTextBox.setBounds(250, 200, 300, 40);
-		panel_tabDauSach.add(SoDienThoaiTextBox);
+		SoDienThoaiTextBox.setBounds(166, 200, 300, 40);
+		panel_tabThongTin.add(SoDienThoaiTextBox);
 		SoDienThoaiTextBox.setColumns(10);
 
 		LuongNhanVienTextBox = new JTextField();
 		LuongNhanVienTextBox.setMaximumSize(new Dimension(300, 30));
-		LuongNhanVienTextBox.setBounds(250, 250, 300, 40);
-		panel_tabDauSach.add(LuongNhanVienTextBox);
+		LuongNhanVienTextBox.setBounds(166, 250, 300, 40);
+		panel_tabThongTin.add(LuongNhanVienTextBox);
 		LuongNhanVienTextBox.setColumns(10);
 
 		JPanel panel_tabNV = new JPanel();
@@ -235,6 +232,7 @@ public class panelNhanVien extends JPanel {
 		panel_tabNV.add(btnXoaNV);
 
 		JButton btnTimNV = new JButton("T\u00ECm");
+		btnTimNV.addActionListener(new TimNV());
 		btnTimNV.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnTimNV.setBounds(1033, 300, 110, 40);
 		panel_tabNV.add(btnTimNV);
@@ -393,6 +391,27 @@ public class panelNhanVien extends JPanel {
 
 		} catch (Exception e) {
 			Alert.ShowMessageError("Lỗi xóa nhân viên", "Xóa nhân viên");
+		}
+	}
+	
+	
+	private class TimNV implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			try {
+				int ma=0;
+				try {
+					ma=Integer.parseInt(txtMaNV.getText());
+				} catch (Exception e2) {
+					Alert.ShowMessageWarn("Vui lòng nhập số vào ô mã nhân viên", "Tìm nhân viên");
+				}
+				
+				LoadDataTableNV(nhanVienDAO.layThongTinNhanVien(ma));
+
+			} catch (Exception e2) {
+				Alert.ShowMessageError("Lỗi khi Tìm độc giả", "Tìm độc giả");
+				e2.printStackTrace();
+			}
 		}
 	}
 
