@@ -67,5 +67,15 @@ public class LogDAO {
 		}
 	}
 	
-	
+	public ResultSet GetThongKeChung() {
+		try {
+			Connection con = DBConnection.getConnection();
+			String sql = "call thongke()";
+			PreparedStatement pstm = con.prepareStatement(sql);
+			return pstm.executeQuery();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 }

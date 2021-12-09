@@ -31,6 +31,7 @@ public class frameQuanLy extends JFrame {
 	private JPanel panelMain;
 	private JPanel panel_NhanVien;
 	private JPanel panel_Log;
+	private JPanel panel_ThongKe;
 	private int maNV=0;
 	/**
 	 * Launch the application.
@@ -92,6 +93,11 @@ public class frameQuanLy extends JFrame {
 		panel.add(btnTabNhanVien);
 		
 		JButton btnTabThongKe = new JButton("Thống kê");
+		btnTabThongKe.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				changePanel(panel_ThongKe);
+			}
+		});
 		btnTabThongKe.setIcon(new ImageIcon(frameQuanLy.class.getResource("/icon/statistics_48px.png")));
 		btnTabThongKe.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnTabThongKe.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -119,6 +125,7 @@ public class frameQuanLy extends JFrame {
 		
 		panel_Log=new panelLog();
 		panel_NhanVien = new panelNhanVien();
+		panel_ThongKe=new panelThongKe();
 		panelMain.setLayout(new BorderLayout(0, 0));
 		
 		
@@ -130,6 +137,7 @@ public class frameQuanLy extends JFrame {
 	private void changePanel(JPanel pnl) {
 		panel_NhanVien.setVisible(false);
 		panel_Log.setVisible(false);
+		panel_ThongKe.setVisible(false);
 		panelMain.removeAll();
 		
 		pnl.setVisible(true);
