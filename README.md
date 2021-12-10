@@ -30,5 +30,12 @@ mysql-connector-java-8.0.27.jar (Hỗ trợ driver kết nối với mysql trên
 	+ Chọn Add External JARs
 	+ Chọn 2 thư viện ở trên
 Bước 4: Cấu hình lại connection string với MySQL tại DAO/DBConnection
-Bước 5: Chọn môi trường Java1.8
+Bước 5: Cấu hình môi trường Java1.8
+	+ Click chuột phải vào project, chọn Built Path > Cofigure Build Path
+	+ Chọn tab Libraries
+	+ Nếu Buitl path không phải là JRE Library[JavaSE-1.8] thì ta click vào built path đó > Edit> Excutions Environment > JavaSE-1.8(jre1.8.0_311)>Finish 
 Bước 6: Build Project và chạy
+Tài khoản quản lý: 	username: ql
+					mật khẩu: 123
+Tài khoản thủ thư: 	username: tt
+					mật khẩu: 123
