@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.CompactNumberFormat;
+//import java.text.CompactNumberFormat;
 import java.util.ArrayList;
 
 import DAO.DBConnection;
@@ -141,5 +141,23 @@ public class NhanVienDAO {
 			list.add(new NhanVien(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getDouble(5)));
 		}
 		return list;
+	}
+	public NhanVien layThongTinNhanVienTuMa(int mnv) throws ClassNotFoundException, SQLException{
+		NhanVien nhanVien = new NhanVien();
+		Connection con = DBConnection.getConnection();
+		String sql = "select * from nhanvien where manv=?";
+		PreparedStatement pstm = con.prepareStatement(sql);
+		pstm.setInt(1, mnv);
+		ResultSet rs = pstm.executeQuery();
+		//ArrayList<NhanVien> list = new ArrayList<NhanVien>();
+		while (rs.next()) {
+			//list.add(new NhanVien(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getDouble(5)));
+			nhanVien.setMa(rs.getInt(1));
+			nhanVien.setHoTen(rs.getString(2));
+			nhanVien.setDiaChi(rs.getString(3));
+			nhanVien.setSoDT(rs.getString(4));
+			nhanVien.setLuong(rs.getDouble(5));
+		}
+		return nhanVien;
 	}
 }

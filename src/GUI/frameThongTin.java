@@ -146,6 +146,7 @@ public class frameThongTin extends JFrame {
 				textField_2.setText(list.get(0).getDiaChi());
 				textField_3.setText(list.get(0).getSoDT());
 				textField_4.setText(String.valueOf(list.get(0).getLuong()));
+				textField_4.setEditable(false);
 			}
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
