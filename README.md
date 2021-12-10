@@ -3,12 +3,15 @@
 Yêu cầu phần mềm:
 - Eclipse IDE for Java Developers - 2021-06
 - MySQL Workbench 8.0 CE
-- Môi trường Java 8.301
+- Môi trường Java 8u301
 
 Hướng dẫn cài đặt:
-Phần mềm Eclipse IDE for Java Developers - 2021-06
-Phần mềm MySQL Workbench 8.0 CE
-Môi trường Java 8.301
+Phần mềm Eclipse IDE for Java Developers - 2021-06: 
+https://blogchiasekienthuc.com/thu-thuat-hay/cai-dat-eclipse-tren-windows-10.html
+Phần mềm MySQL Workbench 8.0 CE:
+https://blogchiasekienthuc.com/thu-thuat-hay/cai-dat-mysql-workbench-tren-windows-10.html
+Môi trường Java 8u301:
+https://viettuts.vn/java/cai-dat-moi-truong-java
 
 ## Cài đặt Database:
 Bước 1: Mở phần mềm MySQL Workbench 8.0 CE
