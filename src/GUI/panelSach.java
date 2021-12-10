@@ -360,6 +360,7 @@ public class panelSach extends JPanel {
 		panel_tabSach.add(scrollPaneCuonSach);
 
 		tableCuonSach = new JTable();
+		tableCuonSach.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		scrollPaneCuonSach.setViewportView(tableCuonSach);
 
 		JButton btnSuaCuonSach = new JButton("Sửa Vị trí");

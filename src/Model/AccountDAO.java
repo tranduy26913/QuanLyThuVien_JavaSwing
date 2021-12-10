@@ -17,8 +17,7 @@ public class AccountDAO {
 		pstm.setString(2, acc.getPassword());
 		pstm.setString(3, acc.getTypeUser());
 		pstm.setInt(4, acc.getMaNV());
-		pstm.execute();
-		return pstm.execute();
+		return pstm.executeUpdate()>0?true:false;
 		
 	}
 	

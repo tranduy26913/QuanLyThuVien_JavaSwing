@@ -48,7 +48,7 @@ public class frameMain extends JFrame {
 	 * Create the frame.
 	 */
 	public frameMain() {
-		setTitle("Main");
+		setTitle("Thủ thư");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(50, 20, 1200, 700);
 		contentPane = new JPanel();
@@ -69,7 +69,7 @@ public class frameMain extends JFrame {
 		});
 		btnTabSach.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnTabSach.setVerticalTextPosition(SwingConstants.BOTTOM);
-		btnTabSach.setBounds(10, 25, 100, 80);
+		btnTabSach.setBounds(0, 25, 100, 80);
 		panel.add(btnTabSach);
 		btnTabSach.setIcon(new ImageIcon(frameMain.class.getResource("/icon/books_48px.png")));
 		btnTabSach.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -84,7 +84,7 @@ public class frameMain extends JFrame {
 		btnTabDocGia.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnTabDocGia.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnTabDocGia.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnTabDocGia.setBounds(120, 25, 100, 80);
+		btnTabDocGia.setBounds(100, 25, 100, 80);
 		panel.add(btnTabDocGia);
 		
 		JSeparator separator = new JSeparator();
@@ -134,7 +134,7 @@ public class frameMain extends JFrame {
 		btnTabMuon.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnTabMuon.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnTabMuon.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnTabMuon.setBounds(230, 25, 100, 80);
+		btnTabMuon.setBounds(200, 25, 100, 80);
 		panel.add(btnTabMuon);
 		
 		JButton btnTabLog = new JButton("Hoạt động");
@@ -147,7 +147,7 @@ public class frameMain extends JFrame {
 		btnTabLog.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnTabLog.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnTabLog.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnTabLog.setBounds(340, 25, 100, 80);
+		btnTabLog.setBounds(300, 25, 100, 80);
 		panel.add(btnTabLog);
 		
 		JButton btnTabTraCuu = new JButton("Tra Cứu");
@@ -160,7 +160,7 @@ public class frameMain extends JFrame {
 		btnTabTraCuu.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnTabTraCuu.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnTabTraCuu.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnTabTraCuu.setBounds(450, 25, 100, 80);
+		btnTabTraCuu.setBounds(400, 25, 100, 80);
 		panel.add(btnTabTraCuu);
 		
 		panelMain = new JPanel();

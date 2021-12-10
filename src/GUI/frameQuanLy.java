@@ -77,6 +77,12 @@ public class frameQuanLy extends JFrame {
 		menuBar.add(menuTab);
 		
 		JMenuItem mnItemExit = new JMenuItem("Tho\u00E1t");
+		mnItemExit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Program.frame.setVisible(true);
+				dispose();
+			}
+		});
 		menuTab.add(mnItemExit);
 		
 		JButton btnTabNhanVien = new JButton("Nhân viên");
@@ -89,7 +95,7 @@ public class frameQuanLy extends JFrame {
 		btnTabNhanVien.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnTabNhanVien.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnTabNhanVien.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnTabNhanVien.setBounds(10, 25, 100, 80);
+		btnTabNhanVien.setBounds(0, 25, 100, 80);
 		panel.add(btnTabNhanVien);
 		
 		JButton btnTabThongKe = new JButton("Thống kê");
@@ -102,7 +108,7 @@ public class frameQuanLy extends JFrame {
 		btnTabThongKe.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnTabThongKe.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnTabThongKe.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnTabThongKe.setBounds(120, 25, 100, 80);
+		btnTabThongKe.setBounds(100, 25, 100, 80);
 		panel.add(btnTabThongKe);
 		
 		JButton btnTabLog = new JButton("Hoạt động");
@@ -115,7 +121,7 @@ public class frameQuanLy extends JFrame {
 		btnTabLog.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnTabLog.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnTabLog.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnTabLog.setBounds(230, 25, 100, 80);
+		btnTabLog.setBounds(200, 25, 100, 80);
 		panel.add(btnTabLog);
 		
 		panelMain = new JPanel();

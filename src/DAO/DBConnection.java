@@ -10,7 +10,6 @@ public class DBConnection {
 		String url="jdbc:mysql://localhost:3306/ThuVien";
 		String pw="123456@abc";
 		String user="root";
-		
 		Connection con=DriverManager.getConnection(url, user, pw);
 		return con;
 		

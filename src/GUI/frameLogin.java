@@ -43,6 +43,7 @@ public class frameLogin extends JFrame {
 	 * Create the frame.
 	 */
 	public frameLogin() {
+		setTitle("Đăng nhập");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 334);
 		contentPane = new JPanel();
@@ -85,6 +86,11 @@ public class frameLogin extends JFrame {
 		contentPane.add(btnDN);
 		
 		JButton btnThoat = new JButton("Tho\u00E1t");
+		btnThoat.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
 		btnThoat.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnThoat.setBounds(230, 225, 110, 40);
 		contentPane.add(btnThoat);
@@ -119,14 +125,13 @@ public class frameLogin extends JFrame {
 			@SuppressWarnings("deprecation")
 			AccountDAO dao=new AccountDAO();
 			Account acc=dao.Login(txtUser.getText(), txtPw.getText(), typeUser);
-			System.out.println(acc.getMaNV());
+			//System.out.println(acc.getMaNV());
 			if(acc!=null) {
 				if(typeUser.equals("TT")) {
 					Global.setMaNV(acc.getMaNV());
 					this.setVisible(false);
 					frameMain f=new frameMain();
 					f.setVisible(true);
-					
 				}
 				else {
 					Global.setMaNV(acc.getMaNV());
@@ -134,13 +139,11 @@ public class frameLogin extends JFrame {
 					frameQuanLy qLy=new frameQuanLy();
 					qLy.setVisible(true);
 					qLy.setMaNV(acc.getMaNV());
-					
-					
 				}
 			}
-			//else {
-			//	Alert.ShowMessageInfo("Sai mật khẩu hoặc tên đăng nhập. Vui lòng nhập lại", "Đăng nhập");
-			//}
+			else {
+				Alert.ShowMessageInfo("Sai mật khẩu hoặc tên đăng nhập. Vui lòng nhập lại", "Đăng nhập");
+			}
 		} catch (Exception e2) {
 			e2.printStackTrace();
 		}
