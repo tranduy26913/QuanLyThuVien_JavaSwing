@@ -5,7 +5,6 @@ import javax.swing.JTabbedPane;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.awt.Font;
 
@@ -15,28 +14,26 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
-import Model.*;
+import Model.AccountDAO;
+import Model.NhanVien;
+import Model.NhanVienDAO;
 
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import java.awt.BorderLayout;
 import javax.swing.JSeparator;
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.nio.channels.CompletionHandler;
 
 public class panelNhanVien extends JPanel {
 	private JTextField txtMaNV;
@@ -170,7 +167,7 @@ public class panelNhanVien extends JPanel {
 		txtLuong.setColumns(10);
 		txtLuong.setBounds(955, 198, 180, 25);
 		panel_tabNV.add(txtLuong);
-		// Panel Ä‘áº§u sÃ¡ch
+
 		JPanel panel_tabThongTin = new JPanel();
 		panel_tabThongTin.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tabbedPane.addTab("Thông tin cá nhân", null, panel_tabThongTin, null);
@@ -373,9 +370,6 @@ public class panelNhanVien extends JPanel {
 				Alert.ShowMessageWarn("Vui lòng chonh nhân viên cần xóa", "Xóa nhân viên");
 				return;
 			}
-			NhanVien nhanVien = new NhanVien(Integer.parseInt(txtMaNV.getText()), txtTenNV.getText(), txtDCNV.getText(),
-					txtSDTNV.getText(), Double.parseDouble(txtLuong.getText()));
-
 			if (nhanVienDAO.Delete(Integer.parseInt(txtMaNV.getText()))) {
 				Alert.ShowMessageInfo("Xóa nhân viên thành công!", "Xóa nhân viên");
 				LoadDataTableNV(null);
@@ -424,16 +418,4 @@ public class panelNhanVien extends JPanel {
 		}
 	}
 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					panelNhanVien frame = new panelNhanVien();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 }

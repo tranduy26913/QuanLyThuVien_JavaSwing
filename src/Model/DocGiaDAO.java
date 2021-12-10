@@ -1,6 +1,8 @@
 package Model;
-import java.sql.*;
-import java.util.ArrayList;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import DAO.DBConnection;
 public class DocGiaDAO {
@@ -62,6 +64,24 @@ public class DocGiaDAO {
 		pstm.setString(1, MaDG);
 		pstm.executeUpdate();
 		System.out.println("Th�nh c�ng");
+	}
+	
+	public int CheckDocGiaDangMuon(String MaDG)  {
+		try {
+			Connection con=DBConnection.getConnection();
+			String sql="select count(*) from muon m inner join docgia dg "
+					+ "on m.MaDG=dg.MaDG where m.NgayTra is null and dg.madg=?";
+			PreparedStatement pstm = con.prepareStatement(sql);
+			pstm.setString(1, MaDG);
+			ResultSet rs=pstm.executeQuery();
+			int count=0;
+			if(rs.next()) {
+				count=rs.getInt(1);
+			}
+			return count;
+		} catch (Exception e) {
+			return 0;
+		}
 	}
 	
 	public ResultSet GetAllDocGia() throws ClassNotFoundException, SQLException {

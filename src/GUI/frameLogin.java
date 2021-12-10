@@ -1,7 +1,6 @@
 package GUI;
 
 
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -23,7 +22,6 @@ import javax.swing.JRadioButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.UIManager;
-import java.awt.Color;
 
 public class frameLogin extends JFrame {
 

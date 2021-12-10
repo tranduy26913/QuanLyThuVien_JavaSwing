@@ -10,7 +10,6 @@ import Model.Global;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 
@@ -118,6 +117,15 @@ public class frameMain extends JFrame {
 		});
 		menuTaiKhoan.add(mnItemDoiMatKhau);
 		
+		JMenuItem mnItemInfo = new JMenuItem("Cập nhật thông tin");
+		mnItemInfo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frameThongTin fThongTin=new frameThongTin(Global.getMaNV());
+				fThongTin.setVisible(true);
+			}
+		});
+		menuTaiKhoan.add(mnItemInfo);
+		
 		JButton btnTabMuon = new JButton("M\u01B0\u1EE3n/Tr\u1EA3");
 		btnTabMuon.setIcon(new ImageIcon(frameMain.class.getResource("/icon/paid_bill_48px.png")));
 		btnTabMuon.addActionListener(new ActionListener() {
@@ -168,7 +176,7 @@ public class frameMain extends JFrame {
 		panel_Log = new panelLog(Global.getMaNV(),1);
 		panel_TraCuu=new panelTraCuu();
 		panelMain.setLayout(new BorderLayout(0, 0));
-		changePanel(panel_Sach);
+		changePanel(panel_DocGia);
 		
 			
 	}

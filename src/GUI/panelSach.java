@@ -117,7 +117,7 @@ public class panelSach extends JPanel {
 		});
 
 		btnThemDauSach.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnThemDauSach.setBounds(884, 262, 110, 40);
+		btnThemDauSach.setBounds(884, 242, 110, 40);
 		panel_tabDauSach.add(btnThemDauSach);
 
 		JButton btnSuaDauSach = new JButton("S\u1EEDa");
@@ -127,7 +127,7 @@ public class panelSach extends JPanel {
 			}
 		});
 		btnSuaDauSach.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnSuaDauSach.setBounds(1004, 262, 110, 40);
+		btnSuaDauSach.setBounds(1004, 242, 110, 40);
 		panel_tabDauSach.add(btnSuaDauSach);
 
 		JButton btnXoaDauSach = new JButton("Xo\u00E1");
@@ -137,7 +137,7 @@ public class panelSach extends JPanel {
 			}
 		});
 		btnXoaDauSach.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnXoaDauSach.setBounds(884, 313, 110, 40);
+		btnXoaDauSach.setBounds(884, 293, 110, 40);
 		panel_tabDauSach.add(btnXoaDauSach);
 
 		JButton btnTimDauSach = new JButton("T\u00ECm");
@@ -147,14 +147,13 @@ public class panelSach extends JPanel {
 			}
 		});
 		btnTimDauSach.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnTimDauSach.setBounds(1004, 313, 110, 40);
+		btnTimDauSach.setBounds(1004, 293, 110, 40);
 		panel_tabDauSach.add(btnTimDauSach);
 
 		cBNXB = new JComboBox();
 		cBNXB.setBounds(930, 83, 205, 25);
 		panel_tabDauSach.add(cBNXB);
-		cBNXB.setModel(customComboBoxModel());// tạo combobox nxb
-		cBNXB.setRenderer(new NXBListCellRenderer());
+		InitCBNXB();
 
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 11, 810, 477);
@@ -171,17 +170,17 @@ public class panelSach extends JPanel {
 		JSeparator separator = new JSeparator();
 		separator.setBackground(Color.WHITE);
 		separator.setForeground(Color.LIGHT_GRAY);
-		separator.setBounds(819, 364, 326, 10);
+		separator.setBounds(819, 391, 326, 10);
 		panel_tabDauSach.add(separator);
 
 		txtSoCuonSach = new JTextField();
 		txtSoCuonSach.setColumns(10);
-		txtSoCuonSach.setBounds(930, 385, 128, 25);
+		txtSoCuonSach.setBounds(930, 412, 128, 25);
 		panel_tabDauSach.add(txtSoCuonSach);
 
 		JLabel lblTaSch_2 = new JLabel("S\u1ED1 l\u01B0\u1EE3ng");
 		lblTaSch_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblTaSch_2.setBounds(830, 385, 97, 25);
+		lblTaSch_2.setBounds(830, 410, 97, 25);
 		panel_tabDauSach.add(lblTaSch_2);
 
 		JButton btnThemSach = new JButton("Th\u00EAm S\u00E1ch");
@@ -191,7 +190,7 @@ public class panelSach extends JPanel {
 			}
 		});
 		btnThemSach.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnThemSach.setBounds(940, 415, 110, 40);
+		btnThemSach.setBounds(930, 448, 110, 40);
 		panel_tabDauSach.add(btnThemSach);
 
 		JScrollPane scrollPane_1 = new JScrollPane();
@@ -220,6 +219,16 @@ public class panelSach extends JPanel {
 		txtGiaDauSach.setColumns(10);
 		txtGiaDauSach.setBounds(930, 190, 205, 25);
 		panel_tabDauSach.add(txtGiaDauSach);
+		
+		JButton btnF5DauSach = new JButton("Làm mới");
+		btnF5DauSach.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RefreshDauSach();
+			}
+		});
+		btnF5DauSach.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnF5DauSach.setBounds(884, 344, 230, 40);
+		panel_tabDauSach.add(btnF5DauSach);
 
 		JPanel panel_tabNXB = new JPanel();
 		panel_tabNXB.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -367,9 +376,7 @@ public class panelSach extends JPanel {
 		JButton btnSuaCuonSach = new JButton("Sửa Vị trí");
 		btnSuaCuonSach.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
 				SuaCuonSach();
-
 			}
 		});
 		btnSuaCuonSach.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -398,6 +405,24 @@ public class panelSach extends JPanel {
 
 		InitTableCuonSach();
 
+	}
+	
+	private void InitCBNXB() {
+		try {
+			cBNXB.setModel(customComboBoxModel());// tạo combobox nxb
+			cBNXB.setRenderer(new NXBListCellRenderer());
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+	
+	private void RefreshDauSach() {
+		try {
+			InitCBNXB();
+			LoadDataDauSach(null);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 	}
 
 	DefaultComboBoxModel customComboBoxModel() {
@@ -602,12 +627,12 @@ public class panelSach extends JPanel {
 
 	private void ThemNXB() {
 		try {
-			if (txtMaNXB.getText().isEmpty() || txtTenNXB.getText().isEmpty() || txtDCNXB.getText().isEmpty()
+			if (txtTenNXB.getText().isEmpty() || txtDCNXB.getText().isEmpty()
 					|| txtSDTNXB.getText().isEmpty()) {
 				Alert.ShowMessageWarn("Vui lòng điền dầy đủ thông tin", "Nhà xuất bản");
 				return;
 			}
-			NXB nxb = new NXB(txtMaNXB.getText(), txtTenNXB.getText(), txtDCNXB.getText(), txtSDTNXB.getText());
+			NXB nxb = new NXB( txtTenNXB.getText(), txtDCNXB.getText(), txtSDTNXB.getText());
 			NXBDAO dao = new NXBDAO();
 			if (dao.Insert(nxb)) {
 				Alert.ShowMessageInfo("Thêm nhà xuất bản thành công", "Nhà xuất bản");
