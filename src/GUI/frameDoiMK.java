@@ -43,6 +43,7 @@ public class frameDoiMK extends JFrame {
 	 * Create the frame.
 	 */
 	public frameDoiMK() {
+		setTitle("Đổi mật khẩu");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 296);
 		contentPane = new JPanel();
@@ -68,7 +69,7 @@ public class frameDoiMK extends JFrame {
 		JButton btnDN = new JButton("Đổi mật khẩu");
 		btnDN.addActionListener(new Login());
 		btnDN.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnDN.setBounds(117, 171, 110, 40);
+		btnDN.setBounds(90, 170, 140, 40);
 		contentPane.add(btnDN);
 		
 		JButton btnThoat = new JButton("Tho\u00E1t");
@@ -78,7 +79,7 @@ public class frameDoiMK extends JFrame {
 			}
 		});
 		btnThoat.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnThoat.setBounds(237, 171, 110, 40);
+		btnThoat.setBounds(240, 170, 110, 40);
 		contentPane.add(btnThoat);
 		
 		txtPwOld = new JPasswordField();

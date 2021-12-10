@@ -73,6 +73,7 @@ public class frameThongTin extends JFrame {
 		contentPane.add(lblSinThoi_1);
 
 		JLabel lblSinThoi_1_1 = new JLabel("Lương:");
+		lblSinThoi_1_1.setEnabled(false);
 		lblSinThoi_1_1.setPreferredSize(new Dimension(100, 20));
 		lblSinThoi_1_1.setMaximumSize(new Dimension(300, 30));
 		lblSinThoi_1_1.setFont(new Font("Tahoma", Font.BOLD, 14));

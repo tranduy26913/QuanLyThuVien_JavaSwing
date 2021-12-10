@@ -6,6 +6,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import Model.Global;
+
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -84,6 +87,36 @@ public class frameQuanLy extends JFrame {
 			}
 		});
 		menuTab.add(mnItemExit);
+		
+		JMenu menuTaiKhoan = new JMenu("Tài khoản");
+		menuBar.add(menuTaiKhoan);
+		
+		JMenuItem mnItemDoiMatKhau = new JMenuItem("Đổi mật khẩu");
+		mnItemDoiMatKhau.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					frameDoiMK frame=new frameDoiMK();
+					frame.setVisible(true);
+					frame.setMaNV(Global.getMaNV());
+				} catch (Exception e2) {
+					// TODO: handle exception
+				}
+			}
+		});
+		menuTaiKhoan.add(mnItemDoiMatKhau);
+		
+		JMenuItem mnItemInfo = new JMenuItem("Cập nhật thông tin");
+		mnItemInfo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					frameThongTin fThongTin=new frameThongTin(Global.getMaNV());
+					fThongTin.setVisible(true);
+				} catch (Exception e2) {
+					// TODO: handle exception
+				}
+			}
+		});
+		menuTaiKhoan.add(mnItemInfo);
 		
 		JButton btnTabNhanVien = new JButton("Nhân viên");
 		btnTabNhanVien.setIcon(new ImageIcon(frameQuanLy.class.getResource("/icon/people_48px.png")));
