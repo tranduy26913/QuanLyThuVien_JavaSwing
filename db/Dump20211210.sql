@@ -39,7 +39,7 @@ CREATE TABLE `account` (
 
 LOCK TABLES `account` WRITE;
 /*!40000 ALTER TABLE `account` DISABLE KEYS */;
-INSERT INTO `account` VALUES ('ql','123','QL',1),('QL20','123','QL',20),('tt','123','TT',2);
+INSERT INTO `account` VALUES ('NV21','123','NV',21),('NV22','123','NV',22),('ql','123','QL',1),('tt','123','TT',2);
 /*!40000 ALTER TABLE `account` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -95,7 +95,7 @@ CREATE TABLE `dausach` (
 
 LOCK TABLES `dausach` WRITE;
 /*!40000 ALTER TABLE `dausach` DISABLE KEYS */;
-INSERT INTO `dausach` VALUES ('1','test',1,0),('10','tes55',5,50000),('2','test33',1,50000),('4','test2',1,0),('5','test2',3,0);
+INSERT INTO `dausach` VALUES ('1','Đắc Nhân Tâm',6,55000),('10','Nhà giả kim ',6,50000),('11','Cà Phê Cùng Tony',3,88000),('12','Người bán hàng vĩ đại nhất thế giới',5,50000),('13','Đừng Bao Giờ Đi Ăn Một Mình',5,50000),('2','Mỗi lần vấp ngã là một lần Trưởng Thành',1,50000),('4','Đời thay đổi khi chúng ta thay đổi',1,80000),('5','Dạy Con Làm Giàu',6,88000),('6','Những Tấm Lòng Cao Cả ',3,88000),('7','Nhà Lãnh Đạo không Chức Danh ',3,88000),('8','Cho tôi xin 1 vé đi tuổi thơ',3,88000),('9','Harry Potter',3,88000);
 /*!40000 ALTER TABLE `dausach` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -112,7 +112,7 @@ CREATE TABLE `docgia` (
   `DiaChi` varchar(45) DEFAULT NULL,
   `SoDT` varchar(12) DEFAULT NULL,
   PRIMARY KEY (`MaDG`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -121,7 +121,7 @@ CREATE TABLE `docgia` (
 
 LOCK TABLES `docgia` WRITE;
 /*!40000 ALTER TABLE `docgia` DISABLE KEYS */;
-INSERT INTO `docgia` VALUES (2,'Trần Bảo Duy','An Giang','0481048134'),(3,'Test 2','An Giang','0481048144'),(4,'Test 3','An Giang','04810481444');
+INSERT INTO `docgia` VALUES (2,'Trần Bảo Duy','An Giang','0481048134'),(3,'Nguyễn Hoài An','Hồ Chí Minh','0481048144'),(4,'Nguyễn Thị Thu Thủy','An Giang','04810481444'),(5,'Nguyễn Quỳnh Như','Đăk Lăk','0397436178'),(6,'Nguyễn Thu Hiền','Đăk Lăk','0397436178'),(7,'Trần Văn Thái','Đăk Lăk','0397436178');
 /*!40000 ALTER TABLE `docgia` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -140,7 +140,7 @@ CREATE TABLE `log` (
   PRIMARY KEY (`idLog`),
   KEY `MaNV_idx` (`maNV`),
   CONSTRAINT `MaNV` FOREIGN KEY (`maNV`) REFERENCES `nhanvien` (`manv`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -149,7 +149,7 @@ CREATE TABLE `log` (
 
 LOCK TABLES `log` WRITE;
 /*!40000 ALTER TABLE `log` DISABLE KEYS */;
-INSERT INTO `log` VALUES (1,1,'','2021-12-07 16:50:02'),(2,2,'Thêm đầu sách (Mã:10)','2021-12-07 19:58:19');
+INSERT INTO `log` VALUES (1,1,'','2021-12-07 16:50:02'),(2,2,'Thêm đầu sách (Mã:10)','2021-12-07 19:58:19'),(3,1,'Thêm nhân viên (Mã:21','2021-12-10 18:09:28'),(4,1,'Xoá nhân viên (Mã:20','2021-12-10 19:08:22'),(5,1,'Thêm nhân viên (Mã:22','2021-12-10 19:09:04'),(6,1,'Sửa thông tin nhân viên (Mã:22','2021-12-10 19:10:06'),(7,2,'Thêm đầu sách (Mã:6)','2021-12-10 19:15:29'),(8,2,'Thêm đầu sách (Mã:7)','2021-12-10 19:15:50'),(9,2,'Thêm đầu sách (Mã:8)','2021-12-10 19:16:28'),(10,2,'Thêm đầu sách (Mã:9)','2021-12-10 19:16:48'),(11,2,'Thêm đầu sách (Mã:11)','2021-12-10 19:17:23'),(12,2,'Thêm đầu sách (Mã:12)','2021-12-10 19:18:01'),(13,2,'Thêm đầu sách (Mã:13)','2021-12-10 19:18:32'),(14,2,'Thêm nhà xuất bản (Mã NXB:null)','2021-12-10 19:19:20');
 /*!40000 ALTER TABLE `log` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -198,7 +198,7 @@ CREATE TABLE `nhanvien` (
   `sdt` varchar(11) DEFAULT NULL,
   `luong` double DEFAULT NULL,
   PRIMARY KEY (`manv`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -207,7 +207,7 @@ CREATE TABLE `nhanvien` (
 
 LOCK TABLES `nhanvien` WRITE;
 /*!40000 ALTER TABLE `nhanvien` DISABLE KEYS */;
-INSERT INTO `nhanvien` VALUES (1,'Lê Văn Cường','Đăk Lăk','0389365835',1000),(2,'Trần Bảo Duy','Đăk Lăk','0397436178',10000),(20,'Trần Duy','An Giang','0398110398',7792429);
+INSERT INTO `nhanvien` VALUES (1,'Lê Văn Cường','Đăk Lăk','0389365835',1000),(2,'Trần Bảo Duy','Đăk Lăk','0397436178',10000),(21,'Lê Dĩ Hân','Đăk Lăk','0398110398',7792429),(22,'Bùi Ngọc Dũng','An Giang','0398110398',7792429);
 /*!40000 ALTER TABLE `nhanvien` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -224,7 +224,7 @@ CREATE TABLE `nxb` (
   `DiaChi` varchar(45) DEFAULT NULL,
   `SoDT` varchar(12) DEFAULT NULL,
   PRIMARY KEY (`MaNXB`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -233,7 +233,7 @@ CREATE TABLE `nxb` (
 
 LOCK TABLES `nxb` WRITE;
 /*!40000 ALTER TABLE `nxb` DISABLE KEYS */;
-INSERT INTO `nxb` VALUES (1,'NXB Giáo Dục','Hà Nội','9085345'),(3,'Nhà xuất bản DHQG','Thủ Đức','032592353'),(5,'NXB Giáo Dục 2','Hà Nội','9085345');
+INSERT INTO `nxb` VALUES (1,'NXB Giáo Dục','Hà Nội','9085345'),(3,'Nhà xuất bản DHQG','Thủ Đức','032592353'),(5,'NXB Giáo Dục 2','Hà Nội','9085345'),(6,'Nhà xuất bản Thời đại','Thôn 5, Xá EaKhal, EaHleo, Đăk Lak','0397436178');
 /*!40000 ALTER TABLE `nxb` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -257,9 +257,13 @@ CREATE TABLE `tacgia` (
 
 LOCK TABLES `tacgia` WRITE;
 /*!40000 ALTER TABLE `tacgia` DISABLE KEYS */;
-INSERT INTO `tacgia` VALUES ('1','tg1'),('1','tg2'),('10','tg10'),('10','tg2'),('2','tg3'),('4','tg1'),('4','tg2'),('5','tg3'),('6','tg3'),('7','tg3');
+INSERT INTO `tacgia` VALUES ('1','Dale Carnegie'),('10','Paulo Coelho'),('11','Tony Buổi sáng'),('12','Og Mandino'),('13',' Keith Ferrazzi'),('2','Liêu Trí Phong'),('4','Andrew Matthews'),('5','Robert Kiyosaki'),('6','Edmondo De Amicis'),('6','tg3'),('7','Robin Sharma'),('7','tg3'),('8',' Nguyễn Nhật Ánh'),('9','J. K. Rowling');
 /*!40000 ALTER TABLE `tacgia` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Dumping events for database 'thuvien'
+--
 
 --
 -- Dumping routines for database 'thuvien'
@@ -537,4 +541,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-12-09 20:03:21
+-- Dump completed on 2021-12-10 19:40:21

@@ -176,7 +176,7 @@ public class frameMain extends JFrame {
 		panel_Log = new panelLog(Global.getMaNV(),1);
 		panel_TraCuu=new panelTraCuu();
 		panelMain.setLayout(new BorderLayout(0, 0));
-		changePanel(panel_DocGia);
+		changePanel(panel_Sach);
 		
 			
 	}
