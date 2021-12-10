@@ -25,7 +25,6 @@ import java.awt.Font;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
@@ -224,7 +223,7 @@ public class panelMuon extends JPanel {
 		JButton btnGiaHan = new JButton("Gia hạn");
 		btnGiaHan.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				GiaHanSach();
 			}
 		});
 		btnGiaHan.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -267,9 +266,7 @@ public class panelMuon extends JPanel {
 					e2.printStackTrace();
 					// TODO: handle exception
 				}
-
 			}
-
 		});
 	}
 	
@@ -305,7 +302,14 @@ public class panelMuon extends JPanel {
 		}
 	}
 	
-	
+	private void Refresh() {
+		try {
+			CuonSachDAO csDAO=new CuonSachDAO();
+			LoadDataTableSach(csDAO.GetAllCuonSachChuaMuon());
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
 	private void LoadDataTableSach(ResultSet rs) {
 		try {
 			DefaultTableModel model=(DefaultTableModel)tableSach.getModel();
@@ -359,6 +363,10 @@ public class panelMuon extends JPanel {
 				}
 				
 				DocGiaDAO DAO=new DocGiaDAO();
+				if(DAO.CheckDocGiaDangMuon(txtMaDG.getText())!=0) {
+					Alert.ShowMessageWarn("Độc giả này vẫn còn sách chưa trả. Không được phép xoá!", "Xoá độc giả");
+					return;
+				}
 				DAO.DeleteDocGiaFromMaDG(txtMaDG.getText());
 				Alert.ShowMessageInfo("Xoá độc giả thành công", 
 						 "Xoá độc giả");
@@ -404,7 +412,7 @@ public class panelMuon extends JPanel {
 				return;
 			}
 			java.util.Date d=new java.util.Date();
-			Date date=new Date(d.getYear(), d.getMonth(), d.getDay());
+			Date date=new Date(d.getTime());
 			Muon muon=new Muon(txtMaCuonSach.getText(), txtMaDG.getText(), date);
 			MuonDAO muonDAO=new MuonDAO();
 			if(muonDAO.Insert(muon)) {

@@ -264,8 +264,12 @@ public class panelDocGia extends JPanel {
 			if(output==JOptionPane.NO_OPTION) {
 				return;
 			}
-
+			
 			DocGiaDAO DAO = new DocGiaDAO();
+			if(DAO.CheckDocGiaDangMuon(txtMaDG.getText())!=0) {
+				Alert.ShowMessageWarn("Độc giả này vẫn còn sách chưa trả. Không được phép xoá!", "Xoá độc giả");
+				return;
+			}
 			DAO.DeleteDocGiaFromMaDG(txtMaDG.getText());
 			Alert.ShowMessageInfo("Xoá độc giả thành công", "Xoá độc giả");
 
