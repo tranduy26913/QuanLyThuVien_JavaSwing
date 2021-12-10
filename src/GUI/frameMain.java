@@ -1,7 +1,6 @@
 package GUI;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -14,16 +13,11 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
-import java.awt.Panel;
 
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
-import java.awt.Component;
 import java.awt.Color;
 import javax.swing.JSeparator;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import java.awt.FlowLayout;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JMenu;

@@ -6,6 +6,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.Date;
 import java.sql.ResultSet;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -126,7 +127,7 @@ public class panelMuon extends JPanel {
 		txtSDT.setColumns(10);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(6, 11, 791, 250);
+		scrollPane.setBounds(5, 10, 790, 260);
 		panel.add(scrollPane);
 		
 		tableDG = new JTable();
@@ -134,7 +135,7 @@ public class panelMuon extends JPanel {
 		scrollPane.setViewportView(tableDG);
 		
 		JScrollPane scrollPane2 = new JScrollPane();
-		scrollPane2.setBounds(6, 295, 791, 250);
+		scrollPane2.setBounds(6, 290, 790, 250);
 		panel.add(scrollPane2);
 		
 		tableSach = new JTable();
@@ -430,11 +431,25 @@ public class panelMuon extends JPanel {
 			if(rs.next()) {
 				Date ngayMuon=rs.getDate(3);
 				java.util.Date d=new java.util.Date();
-				Date ngayTra=new Date(d.getYear(), d.getMonth(), d.getDay());
+				Date ngayTra=new Date(d.getTime());
+				
+				long diff=ngayTra.getTime()-ngayMuon.getTime();
+				TimeUnit time = TimeUnit.DAYS; 
+		        long days = time.convert(diff, TimeUnit.MILLISECONDS);
+		        
+				
 				Muon muon=new Muon(txtMaCuonSach.getText(), txtMaDG.getText(), ngayMuon,ngayTra);
 				
 				if(muonDAO.TraSach(muon)){
-					Alert.ShowMessageInfo("Trả thành công", "Trả sách");
+					if(days>30) //Hạn trả sách là 30 ngày
+					{
+						int a=(int)days-30;
+						Alert.ShowMessageInfo("Trả thành công. Bạn trễ hạn "+String.valueOf(a)+" ngày"
+								+ ". Phạt "+String.valueOf(a*500)+" VNĐ", "Trả sách");
+					}
+					else {
+						Alert.ShowMessageInfo("Trả thành công", "Trả sách");
+					}
 				}
 				else {
 					Alert.ShowMessageInfo("Trả không thành công", "Trả sách");
@@ -459,11 +474,23 @@ public class panelMuon extends JPanel {
 			if(rs.next()) {
 				Date ngayMuon=rs.getDate(3);
 				java.util.Date d=new java.util.Date();
-				Date ngayGiaHan=new Date(d.getYear(), d.getMonth(), d.getDay());
+				Date ngayGiaHan=new Date(d.getTime());
+				
+				long diff=ngayGiaHan.getTime()-ngayMuon.getTime();
+				TimeUnit time = TimeUnit.DAYS; 
+		        long days = time.convert(diff, TimeUnit.MILLISECONDS);
 				Muon muon=new Muon(txtMaCuonSach.getText(), txtMaDG.getText(), ngayGiaHan);
 				
 				if(muonDAO.GiaHanSach(muon)){
-					Alert.ShowMessageInfo("Gia hạn thành công", "Gia hạn sách");
+					if(days>30) {
+						int a=(int)days-30;
+						Alert.ShowMessageInfo("Gia hạn thành công. Bạn trễ hạn "+String.valueOf(a)+" ngày"
+								+ ". Phạt "+String.valueOf(a*500)+" VNĐ", "Gia hạn sách");
+					}
+					else {
+						Alert.ShowMessageInfo("Gia hạn thành công", "Gia hạn sách");
+					}
+					
 				}
 				else {
 					Alert.ShowMessageInfo("Gia hạn không thành công", "Gia hạn sách");

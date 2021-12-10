@@ -13,7 +13,7 @@ public class DocGiaDAO {
 		pstm.setString(2, dg.getDiaChi());
 		pstm.setString(3, dg.getSoDT());
 		pstm.execute();
-		System.out.println("Thành công");
+		System.out.println("Thï¿½nh cï¿½ng");
 		
 	}
 	
@@ -27,7 +27,7 @@ public class DocGiaDAO {
 		pstm.setString(3, dg.getSoDT());
 		pstm.setInt(4, dg.getMa());
 		pstm.executeUpdate();
-		System.out.println("Thành công");
+		System.out.println("Thï¿½nh cï¿½ng");
 		
 	}
 	
@@ -61,7 +61,7 @@ public class DocGiaDAO {
 		PreparedStatement pstm = con.prepareStatement(sql);
 		pstm.setString(1, MaDG);
 		pstm.executeUpdate();
-		System.out.println("Thành công");
+		System.out.println("Thï¿½nh cï¿½ng");
 	}
 	
 	public ResultSet GetAllDocGia() throws ClassNotFoundException, SQLException {
@@ -69,6 +69,22 @@ public class DocGiaDAO {
 		String sql="SELECT * FROM DocGia";
 		PreparedStatement pstm = con.prepareStatement(sql);
 		return pstm.executeQuery();
+		
+	}
+	
+	public ResultSet GetDocGiaMuonQuaHan() {
+		try {
+			Connection con=DBConnection.getConnection();
+			String sql="select dg.madg, tendg,diachi,sodt from docgia dg inner join "
+					+ "(select distinct madg from muon where datediff(now(),ngaymuon)>30) t "
+					+ "on dg.MaDG=t.madg";
+			PreparedStatement pstm = con.prepareStatement(sql);
+			return pstm.executeQuery();
+		} catch (Exception e) {
+			return null;
+			// TODO: handle exception
+		}
+		
 		
 	}
 	

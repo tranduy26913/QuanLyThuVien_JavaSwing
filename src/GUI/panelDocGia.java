@@ -15,13 +15,13 @@ import Model.DocGia;
 import Model.DocGiaDAO;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
-import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.border.EtchedBorder;
@@ -75,25 +75,29 @@ public class panelDocGia extends JPanel {
 
 		JButton btnThemDG = new JButton("Th\u00EAm");
 		btnThemDG.addActionListener(new ThemDG());// thêm độc giả
-		btnThemDG.setBounds(831, 251, 110, 40);
+		btnThemDG.setBounds(863, 235, 110, 40);
 		panel.add(btnThemDG);
 		btnThemDG.setFont(new Font("Tahoma", Font.PLAIN, 14));
 
 		JButton btnSuaDG = new JButton("S\u1EEDa");
 		btnSuaDG.addActionListener(new SuaDG());
-		btnSuaDG.setBounds(951, 251, 110, 40);
+		btnSuaDG.setBounds(983, 235, 110, 40);
 		panel.add(btnSuaDG);
 		btnSuaDG.setFont(new Font("Tahoma", Font.PLAIN, 14));
 
 		JButton btnXoaDG = new JButton("Xo\u00E1");
-		btnXoaDG.setBounds(831, 302, 110, 40);
-		btnXoaDG.addActionListener(new XoaDG());
+		btnXoaDG.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				XoaDG();
+			}
+		});
+		btnXoaDG.setBounds(863, 286, 110, 40);
 		panel.add(btnXoaDG);
 		btnXoaDG.setFont(new Font("Tahoma", Font.PLAIN, 14));
 
 		JButton btnTimDG = new JButton("T\u00ECm");
 		btnTimDG.addActionListener(new TimDG());
-		btnTimDG.setBounds(951, 302, 110, 40);
+		btnTimDG.setBounds(983, 286, 110, 40);
 		panel.add(btnTimDG);
 		btnTimDG.setFont(new Font("Tahoma", Font.PLAIN, 14));
 
@@ -119,11 +123,28 @@ public class panelDocGia extends JPanel {
 		txtSDT.setColumns(10);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(6, 11, 750, 480);
+		scrollPane.setBounds(6, 11, 780, 480);
 		panel.add(scrollPane);
 
 		tableDG = new JTable();
+		tableDG.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		scrollPane.setViewportView(tableDG);
+
+		JButton btnDocGiaNoSach = new JButton("Độc giả mượn quá hạn");
+		btnDocGiaNoSach.addActionListener(new DocGiaQuaHanMuon());
+		btnDocGiaNoSach.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnDocGiaNoSach.setBounds(863, 337, 230, 40);
+		panel.add(btnDocGiaNoSach);
+
+		JButton btnF5DocGia = new JButton("Làm mới");
+		btnF5DocGia.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Refresh();
+			}
+		});
+		btnF5DocGia.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnF5DocGia.setBounds(863, 388, 230, 40);
+		panel.add(btnF5DocGia);
 		tableDG.addMouseListener(new ClickCellTableDG());
 		InitTable();
 	}
@@ -184,7 +205,6 @@ public class panelDocGia extends JPanel {
 			}
 			while (rs.next()) {
 				model.addRow(new String[] { rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4) });
-
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -220,7 +240,8 @@ public class panelDocGia extends JPanel {
 					Alert.ShowMessageWarn("Vui lòng điền đầy đủ thông tin", "Sửa độc giả");
 					return;
 				}
-				DocGia dg = new DocGia(Integer.parseInt(txtMaDG.getText()), txtTenDG.getText(), txtDC.getText(), txtSDT.getText());
+				DocGia dg = new DocGia(Integer.parseInt(txtMaDG.getText()), txtTenDG.getText(), txtDC.getText(),
+						txtSDT.getText());
 				DocGiaDAO DAO = new DocGiaDAO();
 				DAO.Update(dg);
 				Alert.ShowMessageInfo("Sửa độc giả thành công", "Sửa độc giả");
@@ -231,24 +252,28 @@ public class panelDocGia extends JPanel {
 		}
 	}
 
-	private class XoaDG implements ActionListener {
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			try {
-				if (txtMaDG.getText().isEmpty()) {
-					Alert.ShowMessageWarn("Vui lòng điền mã độc giả cần xoá", "Xoá độc giả");
-					return;
-				}
+	private void XoaDG() {
+		try {
 
-				DocGiaDAO DAO = new DocGiaDAO();
-				DAO.DeleteDocGiaFromMaDG(txtMaDG.getText());
-				Alert.ShowMessageInfo("Xoá độc giả thành công", "Xoá độc giả");
-
-			} catch (Exception e2) {
-				Alert.ShowMessageError("Lỗi khi Sửa độc giả", "Sửa độc giả");
-				e2.printStackTrace();
+			if (txtMaDG.getText().isEmpty()) {
+				Alert.ShowMessageWarn("Vui lòng điền mã độc giả cần xoá", "Xoá độc giả");
+				return;
 			}
+			int output = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn xoá độc giả này?", "Xoá độc giả",
+					JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
+			if(output==JOptionPane.NO_OPTION) {
+				return;
+			}
+
+			DocGiaDAO DAO = new DocGiaDAO();
+			DAO.DeleteDocGiaFromMaDG(txtMaDG.getText());
+			Alert.ShowMessageInfo("Xoá độc giả thành công", "Xoá độc giả");
+
+		} catch (Exception e2) {
+			Alert.ShowMessageError("Lỗi khi Sửa độc giả", "Sửa độc giả");
+			e2.printStackTrace();
 		}
+
 	}
 
 	private class TimDG implements ActionListener {
@@ -259,6 +284,19 @@ public class panelDocGia extends JPanel {
 				LoadDataTable(DAO.GetDocGiaFromInfo(txtMaDG.getText(), txtTenDG.getText(), txtDC.getText(),
 						txtSDT.getText()));
 
+			} catch (Exception e2) {
+				Alert.ShowMessageError("Lỗi khi Tìm độc giả", "Tìm độc giả");
+				e2.printStackTrace();
+			}
+		}
+	}
+
+	private class DocGiaQuaHanMuon implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			try {
+				DocGiaDAO DAO = new DocGiaDAO();
+				LoadDataTable(DAO.GetDocGiaMuonQuaHan());
 			} catch (Exception e2) {
 				Alert.ShowMessageError("Lỗi khi Tìm độc giả", "Tìm độc giả");
 				e2.printStackTrace();

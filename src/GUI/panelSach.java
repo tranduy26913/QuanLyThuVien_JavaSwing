@@ -28,6 +28,7 @@ import Model.*;
 
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
@@ -651,6 +652,11 @@ public class panelSach extends JPanel {
 				Alert.ShowMessageWarn("Vui lòng điền mã nhà xuất bản cần xoá", "Nhà xuất bản");
 				return;
 			}
+			int output = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn xoá nhà xuất bản này?", "Xoá nhà xuất bản",
+					JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
+			if(output==JOptionPane.NO_OPTION) {
+				return;
+			}
 			NXBDAO dao = new NXBDAO();
 			if (dao.Delete(txtMaNXB.getText())) {
 				Alert.ShowMessageInfo("Xoá nhà xuất bản thành công", "Nhà xuất bản");
@@ -730,6 +736,11 @@ public class panelSach extends JPanel {
 				return;
 			}
 
+			int output = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn xoá đầu sách này?", "Xoá đầu sách",
+					JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
+			if(output==JOptionPane.NO_OPTION) {
+				return;
+			}
 			DauSachDAO dsDAO = new DauSachDAO();
 			if (dsDAO.Delete(txtMaDauSach.getText())) {
 				Alert.ShowMessageInfo("Xoá đầu sách thành công", "Đầu Sách");
@@ -808,6 +819,11 @@ public class panelSach extends JPanel {
 			}
 			if (sl == 0) {
 				Alert.ShowMessageWarn("Vui lòng điền mã số cuốn sách cần xoá", "Xoá sách");
+				return;
+			}
+			int output = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn xoá cuốn sách này?", "Xoá cuốn sách",
+					JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
+			if(output==JOptionPane.NO_OPTION) {
 				return;
 			}
 			CuonSachDAO csDAO = new CuonSachDAO();
