@@ -321,6 +321,11 @@ public class panelSach extends JPanel {
 		panel_tabNXB.add(btnXoaNXB);
 
 		JButton btnTimNXB = new JButton("T\u00ECm");
+		btnTimNXB.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TimNXB();
+			}
+		});
 		btnTimNXB.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnTimNXB.setBounds(997, 278, 110, 40);
 		panel_tabNXB.add(btnTimNXB);
@@ -356,6 +361,11 @@ public class panelSach extends JPanel {
 		panel_tabSach.add(lblNhXutBn_1);
 
 		JButton btnTimSach = new JButton("T\u00ECm");
+		btnTimSach.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			///
+			}
+		});
 		btnTimSach.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnTimSach.setBounds(1042, 12, 93, 24);
 		panel_tabSach.add(btnTimSach);
@@ -380,7 +390,7 @@ public class panelSach extends JPanel {
 			}
 		});
 		btnSuaCuonSach.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnSuaCuonSach.setBounds(856, 181, 110, 40);
+		btnSuaCuonSach.setBounds(852, 181, 110, 40);
 		panel_tabSach.add(btnSuaCuonSach);
 		
 		JLabel lblNhXutBn_1_1 = new JLabel("Vị trí");
@@ -402,6 +412,36 @@ public class panelSach extends JPanel {
 		btnXoaCuonSach.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnXoaCuonSach.setBounds(984, 181, 110, 40);
 		panel_tabSach.add(btnXoaCuonSach);
+		
+		JButton btnCuonSachChuaMuon = new JButton("Chưa mượn");
+		btnCuonSachChuaMuon.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CuonSachChuaMuon();
+			}
+		});
+		btnCuonSachChuaMuon.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnCuonSachChuaMuon.setBounds(852, 232, 110, 40);
+		panel_tabSach.add(btnCuonSachChuaMuon);
+		
+		JButton btnCuonSachDaMuon = new JButton("Đã mượn");
+		btnCuonSachDaMuon.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CuonSachDaMuon();
+			}
+		});
+		btnCuonSachDaMuon.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnCuonSachDaMuon.setBounds(984, 232, 110, 40);
+		panel_tabSach.add(btnCuonSachDaMuon);
+		
+		JButton btnTatCaCuonSach = new JButton("Tất cả");
+		btnTatCaCuonSach.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RefreshCuonSach();
+			}
+		});
+		btnTatCaCuonSach.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnTatCaCuonSach.setBounds(852, 283, 242, 40);
+		panel_tabSach.add(btnTatCaCuonSach);
 
 		InitTableCuonSach();
 
@@ -420,6 +460,30 @@ public class panelSach extends JPanel {
 		try {
 			InitCBNXB();
 			LoadDataDauSach(null);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+	private void RefreshCuonSach() {
+		try {
+			LoadDataCuonSach(null);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+	
+	private void CuonSachChuaMuon() {
+		try {
+			CuonSachDAO csDAO=new CuonSachDAO();
+			LoadDataCuonSach(csDAO.GetAllCuonSachChuaMuon());
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+	private void CuonSachDaMuon() {
+		try {
+			CuonSachDAO csDAO=new CuonSachDAO();
+			LoadDataCuonSach(csDAO.GetAllCuonSachDaMuon());
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
@@ -694,6 +758,31 @@ public class panelSach extends JPanel {
 			Alert.ShowMessageError("Lỗi xoá nhà xuất bản", "Nhà xuất bản");
 		}
 	}
+	
+	private void TimNXB() {
+		try {
+			if (txtMaNXB.getText().isEmpty()) {
+				Alert.ShowMessageWarn("Vui lòng điền mã nhà xuất bản cần tìm", "Tìm Nhà xuất bản");
+				return;
+			}
+			
+			NXBDAO dao = new NXBDAO();
+			NXB nxb=dao.GetNXBFromMaNXB(txtMaNXB.getText());
+			if(nxb==null) {
+				Alert.ShowMessageInfo("Không tìm thấy nhà xuất bản", "Nhà xuất bản");
+				return;
+			}
+			txtTenNXB.setText(nxb.getTenNXB());
+			txtDCNXB.setText(nxb.getDiaChi());
+			txtSDTNXB.setText(nxb.getSoDT());
+			ArrayList<NXB> list=new ArrayList<NXB>();
+			list.add(nxb);
+			LoadDataTableNXB(list);
+
+		} catch (Exception e) {
+			Alert.ShowMessageError("Lỗi xoá nhà xuất bản", "Nhà xuất bản");
+		}
+	}
 
 	private void ThemDauSach() {
 		try {
@@ -854,6 +943,7 @@ public class panelSach extends JPanel {
 			MuonDAO muonDAO=new MuonDAO();
 			if(muonDAO.CheckCuonSachDaMuon(sl)) {
 				Alert.ShowMessageWarn("Cuốn sách này đang được mượn. Không thể xoá","Xoá cuốn sách");
+				return;
 			}
 			CuonSachDAO csDAO = new CuonSachDAO();
 			if(csDAO.Delete(sl)) {
