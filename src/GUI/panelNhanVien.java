@@ -244,7 +244,7 @@ public class panelNhanVien extends JPanel {
 
 				if (nhanVienDAO.Insert(nhanVien, typeString)) {
 					Alert.ShowMessageInfo(
-							"Thêm nhân viên thành công: Tên đăng nhập: " + txtMaNV.getText() + "Mật khẩu: 123456",
+							"Thêm nhân viên thành công: Tên đăng nhập: " + txtMaNV.getText() + ". Mật khẩu: 123",
 							"Nhân viên");
 					LoadDataTableNV(null);
 				} else {

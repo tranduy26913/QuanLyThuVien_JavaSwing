@@ -96,7 +96,7 @@ public class DocGiaDAO {
 		try {
 			Connection con=DBConnection.getConnection();
 			String sql="select dg.madg, tendg,diachi,sodt from docgia dg inner join "
-					+ "(select distinct madg from muon where datediff(now(),ngaymuon)>30) t "
+					+ "(select distinct madg from muon where datediff(now(),ngaymuon)>30 and ngaytra is null) t "
 					+ "on dg.MaDG=t.madg";
 			PreparedStatement pstm = con.prepareStatement(sql);
 			return pstm.executeQuery();

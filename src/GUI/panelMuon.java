@@ -240,6 +240,16 @@ public class panelMuon extends JPanel {
 		btnMatSach.setBounds(999, 429, 110, 40);
 		panel.add(btnMatSach);
 		
+		JButton btnF5CuonSachChuaMuon = new JButton("Làm mới");
+		btnF5CuonSachChuaMuon.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Refresh();
+			}
+		});
+		btnF5CuonSachChuaMuon.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnF5CuonSachChuaMuon.setBounds(879, 480, 230, 40);
+		panel.add(btnF5CuonSachChuaMuon);
+		
 		InitTableDG();
 		InitTableSach();
 	}
@@ -389,7 +399,8 @@ public class panelMuon extends JPanel {
 				}
 				DocGiaDAO dgDAO=new DocGiaDAO();
 				DocGia dg= dgDAO.GetDocGiaFromMaDG(txtMaDG.getText());
-				txtTenDG.setText(dg.getHoTen());
+				if(dg!=null) {
+					txtTenDG.setText(dg.getHoTen());
 				txtDC.setText(dg.getDiaChi());
 				txtSDT.setText(dg.getSoDT());
 				MuonDAO DAO=new MuonDAO();
@@ -397,6 +408,11 @@ public class panelMuon extends JPanel {
 					LoadDataTableDG(DAO.GetDanhSachDangMuonFromMaDG(txtMaDG.getText()));
 				else
 					LoadDataTableDG(DAO.GetDanhSachMuonFromMaDG(txtMaDG.getText()));
+				}
+				else {
+					Alert.ShowMessageWarn("Không tìm thấy độc giả", "Tìm độc giả");
+				}
+				
 				
 			} catch (Exception e2) {
 				Alert.ShowMessageError("Lỗi khi tìm độc giả","Tìm độc giả");
@@ -411,12 +427,24 @@ public class panelMuon extends JPanel {
 				Alert.ShowMessageWarn("Vui lòng điền đầy đủ thông tin", "Mượn sách");
 				return;
 			}
+			
 			java.util.Date d=new java.util.Date();
 			Date date=new Date(d.getTime());
 			Muon muon=new Muon(txtMaCuonSach.getText(), txtMaDG.getText(), date);
 			MuonDAO muonDAO=new MuonDAO();
+			if(muonDAO.CheckDaMuonDauSach(txtMaCuonSach.getText(), txtMaDG.getText())) {
+				Alert.ShowMessageInfo("Đầu sách này đã mượn. Vui lòng chọn sách khác", "Mượn sách");
+				return;
+			}
+			
+			if(muonDAO.CheckCuonSachDaMuon(txtMaCuonSach.getText())) {
+				Alert.ShowMessageInfo("Cuốn sách này đã được mượn. Vui lòng chọn sách khác", "Mượn sách");
+				return;
+			}
+			
 			if(muonDAO.Insert(muon)) {
 				Alert.ShowMessageInfo("Mượn thành công", "Mượn sách");
+				Refresh();
 			}
 			else {
 				Alert.ShowMessageInfo("Mượn không thành công", "Mượn sách");
@@ -458,6 +486,7 @@ public class panelMuon extends JPanel {
 					else {
 						Alert.ShowMessageInfo("Trả thành công", "Trả sách");
 					}
+					Refresh();
 				}
 				else {
 					Alert.ShowMessageInfo("Trả không thành công", "Trả sách");
@@ -504,6 +533,9 @@ public class panelMuon extends JPanel {
 					Alert.ShowMessageInfo("Gia hạn không thành công", "Gia hạn sách");
 				}
 			}
+			else {
+				Alert.ShowMessageInfo("Bạn chưa mượn sách này", "Gia hạn sách");
+			}
 			
 		} catch (Exception e) {
 			Alert.ShowMessageError("Lỗi mượn sách", "Mượn sách");
@@ -524,6 +556,7 @@ public class panelMuon extends JPanel {
 			CuonSachDAO csDAO=new CuonSachDAO();
 			if(csDAO.Delete(maCuon)) {
 				Alert.ShowMessageInfo("Báo mất thành công. Phạt:"+giaSach+" vnd", "Báo mất sách");
+				Refresh();
 			}
 			else {
 				Alert.ShowMessageInfo("Báo mất không thành công", "Báo mất sách");

@@ -788,8 +788,8 @@ public class panelSach extends JPanel {
 			} catch (Exception e) {
 				// TODO: handle exception
 			}
-			if (sl == 0) {
-				Alert.ShowMessageWarn("Vui lòng điền số lượng cuốn sách cần thêm", "Thêm sách");
+			if (sl == 0 || sl<1) {
+				Alert.ShowMessageWarn("Vui lòng điền số lượng cuốn sách cần thêm phù hợp", "Thêm sách");
 				return;
 			}
 

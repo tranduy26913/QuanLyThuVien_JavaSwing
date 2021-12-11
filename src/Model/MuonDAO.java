@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.mysql.cj.exceptions.RSAException;
+
 import DAO.DBConnection;
 
 public class MuonDAO {
@@ -188,6 +190,47 @@ public class MuonDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
+		}
+	}
+	
+	public boolean CheckDaMuonDauSach(String maCuon, String maDG) {
+		try {
+			Connection con = DBConnection.getConnection();
+			String sql = "Select count(*) from muon m inner join cuonsach cs on m.MaCuon=cs.MaCuon"
+					+ " where cs.MaSach=any (select cs2.MaSach from cuonsach cs2 where cs2.MaCuon=?)"
+					+ " and m.NgayTra is null and maDG=?";
+			PreparedStatement pstm = con.prepareStatement(sql);
+			pstm.setString(1, maCuon);
+			pstm.setString(2, maDG);
+			ResultSet rs= pstm.executeQuery();
+			if(rs.next()) {
+				if(rs.getInt(1)>0)
+					return true;
+				return false;
+			}
+			return false;
+		} catch (Exception e) {
+			e.printStackTrace();
+				return false;
+		}
+	}
+	
+	public boolean CheckCuonSachDaMuon(String maCuon) {
+		try {
+			Connection con = DBConnection.getConnection();
+			String sql = "select count(*) from muon where macuon=? and ngaytra is null";
+			PreparedStatement pstm = con.prepareStatement(sql);
+			pstm.setString(1, maCuon);
+			ResultSet rs= pstm.executeQuery();
+			if(rs.next()) {
+				if(rs.getInt(1)>0)
+					return true;
+				return false;
+			}
+			return false;
+		} catch (Exception e) {
+			e.printStackTrace();
+				return false;
 		}
 	}
 }
