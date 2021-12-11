@@ -35,6 +35,11 @@ public class frameQuanLy extends JFrame {
 	private JPanel panel_NhanVien;
 	private JPanel panel_Log;
 	private JPanel panel_ThongKe;
+	
+	private JPanel panel_Sach;
+	private JPanel panel_DocGia;
+	private JPanel panel_Muon;
+	private JPanel panel_TraCuu;
 	private int maNV=0;
 	/**
 	 * Launch the application.
@@ -73,7 +78,7 @@ public class frameQuanLy extends JFrame {
 		panel.add(separator);
 		
 		JMenuBar menuBar = new JMenuBar();
-		menuBar.setBounds(0, 0, 695, 22);
+		menuBar.setBounds(0, 0, 1164, 22);
 		panel.add(menuBar);
 		
 		JMenu menuTab = new JMenu("File");
@@ -157,6 +162,58 @@ public class frameQuanLy extends JFrame {
 		btnTabLog.setBounds(200, 25, 100, 80);
 		panel.add(btnTabLog);
 		
+		JButton btnTabSach = new JButton("Sách");
+		btnTabSach.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				changePanel(panel_Sach);
+			}
+		});
+		btnTabSach.setIcon(new ImageIcon(frameQuanLy.class.getResource("/icon/books_48px.png")));
+		btnTabSach.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnTabSach.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnTabSach.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnTabSach.setBounds(300, 25, 100, 80);
+		panel.add(btnTabSach);
+		
+		JButton btnTabDocGia = new JButton("Độc giả");
+		btnTabDocGia.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				changePanel(panel_DocGia);
+			}
+		});
+		btnTabDocGia.setIcon(new ImageIcon(frameQuanLy.class.getResource("/icon/identification_documents_48px.png")));
+		btnTabDocGia.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnTabDocGia.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnTabDocGia.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnTabDocGia.setBounds(400, 25, 100, 80);
+		panel.add(btnTabDocGia);
+		
+		JButton btnTabMuon = new JButton("Mượn/Trả");
+		btnTabMuon.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				changePanel(panel_Muon);
+			}
+		});
+		btnTabMuon.setIcon(new ImageIcon(frameQuanLy.class.getResource("/icon/paid_bill_48px.png")));
+		btnTabMuon.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnTabMuon.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnTabMuon.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnTabMuon.setBounds(500, 25, 100, 80);
+		panel.add(btnTabMuon);
+		
+		JButton btnTabTraCuu = new JButton("Tra Cứu");
+		btnTabTraCuu.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				changePanel(panel_TraCuu);
+			}
+		});
+		btnTabTraCuu.setIcon(new ImageIcon(frameQuanLy.class.getResource("/icon/study_48px.png")));
+		btnTabTraCuu.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnTabTraCuu.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnTabTraCuu.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnTabTraCuu.setBounds(599, 25, 100, 80);
+		panel.add(btnTabTraCuu);
+		
 		panelMain = new JPanel();
 		panelMain.setBackground(new Color(0, 255, 127));
 		panelMain.setBounds(10, 110, 1164, 530);
@@ -167,6 +224,10 @@ public class frameQuanLy extends JFrame {
 		panel_ThongKe=new panelThongKe();
 		panelMain.setLayout(new BorderLayout(0, 0));
 		
+		panel_Sach=new panelSach();
+		panel_DocGia=new panelDocGia();
+		panel_Muon=new panelMuon();
+		panel_TraCuu=new panelTraCuu();
 		
 		changePanel(panel_NhanVien);
 		
@@ -177,6 +238,11 @@ public class frameQuanLy extends JFrame {
 		panel_NhanVien.setVisible(false);
 		panel_Log.setVisible(false);
 		panel_ThongKe.setVisible(false);
+		
+		panel_DocGia.setVisible(false);
+		panel_Sach.setVisible(false);
+		panel_Muon.setVisible(false);
+		panel_TraCuu.setVisible(false);
 		panelMain.removeAll();
 		
 		pnl.setVisible(true);
