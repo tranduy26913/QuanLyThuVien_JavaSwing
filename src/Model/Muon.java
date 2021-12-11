@@ -3,21 +3,21 @@ package Model;
 import java.sql.Date;
 
 public class Muon {
-	private String maCuon;
-	private String maDG;
+	private int maCuon;
+	private int maDG;
 	private Date ngayMuon;
 	private Date ngayTra;
 	
-	public String getMaCuon() {
+	public int getMaCuon() {
 		return maCuon;
 	}
-	public void setMaCuon(String maCuon) {
+	public void setMaCuon(int maCuon) {
 		this.maCuon = maCuon;
 	}
-	public String getMaDG() {
+	public int getMaDG() {
 		return maDG;
 	}
-	public void setMaDG(String maDG) {
+	public void setMaDG(int maDG) {
 		this.maDG = maDG;
 	}
 	public Date getNgayMuon() {
@@ -32,12 +32,12 @@ public class Muon {
 	public void setNgayTra(Date ngayTra) {
 		this.ngayTra = ngayTra;
 	}
-	public Muon(String maCuon, String maDG,Date ngayMuon) {
+	public Muon(int maCuon, int maDG,Date ngayMuon) {
 		this.maCuon=maCuon;
 		this.maDG=maDG;
 		this.ngayMuon=ngayMuon;
 	}
-	public Muon(String maCuon, String maDG,Date ngayMuon,Date ngayTra) {
+	public Muon(int maCuon, int maDG,Date ngayMuon,Date ngayTra) {
 		this.maCuon=maCuon;
 		this.maDG=maDG;
 		this.ngayMuon=ngayMuon;

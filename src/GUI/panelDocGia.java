@@ -27,6 +27,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.border.EtchedBorder;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JFormattedTextField;
 
 public class panelDocGia extends JPanel {
 	private JTextField txtMaDG;

@@ -428,16 +428,28 @@ public class panelMuon extends JPanel {
 				return;
 			}
 			
+			int macuon = 0,madocgia=0;
+			try {
+				macuon = Integer.parseInt(txtMaCuonSach.getText());
+				madocgia = Integer.parseInt(txtMaDG.getText());
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+			if (macuon <= 0 || madocgia <=0) {
+				Alert.ShowMessageWarn("Vui lòng điền mã số cuốn sách, mã độc giả", "Mượn sách");
+				return;
+			}
+			
 			java.util.Date d=new java.util.Date();
 			Date date=new Date(d.getTime());
-			Muon muon=new Muon(txtMaCuonSach.getText(), txtMaDG.getText(), date);
+			Muon muon=new Muon(macuon,madocgia, date);
 			MuonDAO muonDAO=new MuonDAO();
 			if(muonDAO.CheckDaMuonDauSach(txtMaCuonSach.getText(), txtMaDG.getText())) {
 				Alert.ShowMessageInfo("Đầu sách này đã mượn. Vui lòng chọn sách khác", "Mượn sách");
 				return;
 			}
 			
-			if(muonDAO.CheckCuonSachDaMuon(txtMaCuonSach.getText())) {
+			if(muonDAO.CheckCuonSachDaMuon(macuon)) {
 				Alert.ShowMessageInfo("Cuốn sách này đã được mượn. Vui lòng chọn sách khác", "Mượn sách");
 				return;
 			}
@@ -462,8 +474,20 @@ public class panelMuon extends JPanel {
 				Alert.ShowMessageWarn("Vui lòng điền đầy đủ thông tin", "Trả sách");
 				return;
 			}
+			int macuon = 0,madocgia=0;
+			try {
+				macuon = Integer.parseInt(txtMaCuonSach.getText());
+				madocgia = Integer.parseInt(txtMaDG.getText());
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+			if (macuon <= 0 || madocgia <=0) {
+				Alert.ShowMessageWarn("Vui lòng điền mã số cuốn sách, mã độc giả", "Mượn sách");
+				return;
+			}
+			
 			MuonDAO muonDAO=new MuonDAO();
-			ResultSet rs=muonDAO.GetDangMuon(txtMaDG.getText(), txtMaCuonSach.getText());
+			ResultSet rs=muonDAO.GetDangMuon(madocgia, macuon);
 			if(rs.next()) {
 				Date ngayMuon=rs.getDate(3);
 				java.util.Date d=new java.util.Date();
@@ -473,8 +497,7 @@ public class panelMuon extends JPanel {
 				TimeUnit time = TimeUnit.DAYS; 
 		        long days = time.convert(diff, TimeUnit.MILLISECONDS);
 		        
-				
-				Muon muon=new Muon(txtMaCuonSach.getText(), txtMaDG.getText(), ngayMuon,ngayTra);
+				Muon muon=new Muon(macuon, madocgia, ngayMuon,ngayTra);
 				
 				if(muonDAO.TraSach(muon)){
 					if(days>30) //Hạn trả sách là 30 ngày
@@ -506,8 +529,21 @@ public class panelMuon extends JPanel {
 				Alert.ShowMessageWarn("Vui lòng điền đầy đủ thông tin", "Gia hạn sách");
 				return;
 			}
+			
+			int macuon = 0,madocgia=0;
+			try {
+				macuon = Integer.parseInt(txtMaCuonSach.getText());
+				madocgia = Integer.parseInt(txtMaDG.getText());
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+			if (macuon <= 0 || madocgia <=0) {
+				Alert.ShowMessageWarn("Vui lòng điền mã số cuốn sách, mã độc giả", "Mượn sách");
+				return;
+			}
+			
 			MuonDAO muonDAO=new MuonDAO();
-			ResultSet rs=muonDAO.GetDangMuon(txtMaDG.getText(), txtMaCuonSach.getText());
+			ResultSet rs=muonDAO.GetDangMuon(madocgia, macuon);
 			if(rs.next()) {
 				Date ngayMuon=rs.getDate(3);
 				java.util.Date d=new java.util.Date();
@@ -516,7 +552,7 @@ public class panelMuon extends JPanel {
 				long diff=ngayGiaHan.getTime()-ngayMuon.getTime();
 				TimeUnit time = TimeUnit.DAYS; 
 		        long days = time.convert(diff, TimeUnit.MILLISECONDS);
-				Muon muon=new Muon(txtMaCuonSach.getText(), txtMaDG.getText(), ngayGiaHan);
+				Muon muon=new Muon(macuon, madocgia, ngayGiaHan);
 				
 				if(muonDAO.GiaHanSach(muon)){
 					if(days>30) {

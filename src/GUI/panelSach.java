@@ -851,6 +851,10 @@ public class panelSach extends JPanel {
 			if(output==JOptionPane.NO_OPTION) {
 				return;
 			}
+			MuonDAO muonDAO=new MuonDAO();
+			if(muonDAO.CheckCuonSachDaMuon(sl)) {
+				Alert.ShowMessageWarn("Cuốn sách này đang được mượn. Không thể xoá","Xoá cuốn sách");
+			}
 			CuonSachDAO csDAO = new CuonSachDAO();
 			if(csDAO.Delete(sl)) {
 				Alert.ShowMessageInfo("Xoá cuốn sách thành công", "Xoá cuốn sách");

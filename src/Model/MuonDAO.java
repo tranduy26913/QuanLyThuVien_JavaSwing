@@ -17,14 +17,14 @@ public class MuonDAO {
 			String sql = "INSERT INTO Muon(macuon,madg,ngaymuon,ngaytra) VALUES(?, ?,?,?)";
 			con.setAutoCommit(false);
 			PreparedStatement pstm = con.prepareStatement(sql);
-			pstm.setString(1, muon.getMaCuon());
-			pstm.setString(2, muon.getMaDG());
+			pstm.setInt(1, muon.getMaCuon());
+			pstm.setInt(2, muon.getMaDG());
 			pstm.setDate(3, muon.getNgayMuon());
 			pstm.setDate(4, muon.getNgayTra());
 			if (pstm.executeUpdate() > 0) {
 				pstm = con.prepareStatement("update cuonsach set trangthai=? where macuon=?");
 				pstm.setString(1, "Đã mượn");
-				pstm.setString(2, muon.getMaCuon());
+				pstm.setInt(2, muon.getMaCuon());
 				int i = pstm.executeUpdate();
 				try {
 					pstm = con.prepareStatement("INSERT INTO Log(manv,description,date)"
@@ -87,12 +87,12 @@ public class MuonDAO {
 			String sql = "Update Muon set ngaytra=? where madg=? and macuon=?";
 			PreparedStatement pstm = con.prepareStatement(sql);
 			pstm.setDate(1, muon.getNgayTra());
-			pstm.setString(2, muon.getMaDG());
-			pstm.setString(3, muon.getMaCuon());
+			pstm.setInt(2, muon.getMaDG());
+			pstm.setInt(3, muon.getMaCuon());
 			if (pstm.executeUpdate() > 0) {
 				pstm = con.prepareStatement("Update CuonSach set TrangThai=? where macuon=?");
 				pstm.setString(1, "Chưa mượn");
-				pstm.setString(2, muon.getMaCuon());
+				pstm.setInt(2, muon.getMaCuon());
 				int i = pstm.executeUpdate();
 				if (i > 0) {
 					try {
@@ -133,8 +133,8 @@ public class MuonDAO {
 			String sql = "Update Muon set ngaymuon=? where madg=? and macuon=?";
 			PreparedStatement pstm = con.prepareStatement(sql);
 			pstm.setDate(1, muon.getNgayMuon());
-			pstm.setString(2, muon.getMaDG());
-			pstm.setString(3, muon.getMaCuon());
+			pstm.setInt(2, muon.getMaDG());
+			pstm.setInt(3, muon.getMaCuon());
 			if(pstm.executeUpdate() > 0) {
 				try {
 					pstm = con.prepareStatement("INSERT INTO Log(manv,description,date)"
@@ -176,7 +176,7 @@ public class MuonDAO {
 		}
 	}
 
-	public ResultSet GetDangMuon(String maDG, String maCuon) {
+	public ResultSet GetDangMuon(int maDG, int maCuon) {
 		try {
 			Connection con = DBConnection.getConnection();
 			String sql = "select m.macuon MaCuon, ds.tuasach TuaSach, m.ngaymuon,m.ngaytra from "
@@ -184,8 +184,8 @@ public class MuonDAO {
 					+ "inner join dausach ds on ds.masach=cs.masach "
 					+ "where m.madg=? and m.macuon=? and ngaytra is null";
 			PreparedStatement pstm = con.prepareStatement(sql);
-			pstm.setString(1, maDG);
-			pstm.setString(2, maCuon);
+			pstm.setInt(1, maDG);
+			pstm.setInt(2, maCuon);
 			return pstm.executeQuery();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -215,12 +215,12 @@ public class MuonDAO {
 		}
 	}
 	
-	public boolean CheckCuonSachDaMuon(String maCuon) {
+	public boolean CheckCuonSachDaMuon(int maCuon) {
 		try {
 			Connection con = DBConnection.getConnection();
 			String sql = "select count(*) from muon where macuon=? and ngaytra is null";
 			PreparedStatement pstm = con.prepareStatement(sql);
-			pstm.setString(1, maCuon);
+			pstm.setInt(1, maCuon);
 			ResultSet rs= pstm.executeQuery();
 			if(rs.next()) {
 				if(rs.getInt(1)>0)
