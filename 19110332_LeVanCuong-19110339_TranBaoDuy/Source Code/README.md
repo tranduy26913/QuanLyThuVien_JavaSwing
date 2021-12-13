@@ -23,8 +23,9 @@ Bước 5: Refresh lại SCHEMAS, lúc này schema "Thuvien" đã xuất hiện
 ## Cài đặt Project
 Bước 1: Mở phần mềm Eclipse
 Bước 2: Import project, chọn thư mục chứa project
-Bước 3: Import 2 file thư viện ngoài là jdatepicker-1.3.4.jar (hỗ trợ tạo component date time picker) và
-mysql-connector-java-8.0.27.jar (Hỗ trợ driver kết nối với mysql trên máy)
+Bước 3: Import 2 file thư viện ngoài là jdatepicker-1.3.4.jar tại https://sourceforge.net/projects/jdatepicker/files/Releases/1.3.x/jdatepicker-1.3.4.jar/download (hỗ trợ tạo component date time picker) và
+mysql-connector-java-8.0.27.jar tại: https://dev.mysql.com/downloads/file/?id=507327
+ (Hỗ trợ driver kết nối với mysql trên máy)
 	+ Chuột phải vào Project, chọn Build Path > Configure Build Path
 	+ Chọn tab Libraries
 	+ Chọn Add External JARs
